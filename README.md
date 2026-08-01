@@ -7,13 +7,13 @@ Based on Telethon — a pure Python 3 [MTProto](https://core.telegram.org/mtprot
 ## Installing
 
 ```sh
-pip3 install git+https://github.com/elisartix/aetherius-tl.git
+pip3 install git+https://github.com/elisartix/aetheris-tl.git
 ```
 
 ## Creating a client
 
 ```python
-from aetherius_tl import TelegramClient
+from aetheris_tl import TelegramClient
 
 api_id = 12345
 api_hash = '0123456789abcdef0123456789abcdef'
