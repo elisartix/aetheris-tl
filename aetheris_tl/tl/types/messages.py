@@ -835,7 +835,7 @@ class ChatInviteJoinResultOk(TLObject):
 
 
 class ChatInviteJoinResultWebView(TLObject):
-    CONSTRUCTOR_ID = 0x61ca29d3
+    CONSTRUCTOR_ID = 0x2f51c337
     SUBCLASS_OF_ID = 0x5d0ff992
 
     def __init__(self, bot_id: int, query_id: int, users: List['TypeUser']):
@@ -859,7 +859,7 @@ class ChatInviteJoinResultWebView(TLObject):
     def _bytes(self):
         self._assert_no_forbidden_constructors()
         return b''.join((
-            b'\xd3)\xcaa',
+            b'\x37\xc3Q/',
             struct.pack('<q', self.bot_id),
             struct.pack('<q', self.query_id),
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.users)),b''.join(x._bytes() for x in self.users),

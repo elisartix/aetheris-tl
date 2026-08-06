@@ -8829,7 +8829,7 @@ class SearchEmojiStickerSetsRequest(TLRequest):
 
 
 class SearchGlobalRequest(TLRequest):
-    CONSTRUCTOR_ID = 0x6126a43c
+    CONSTRUCTOR_ID = 0x4bc6589a
     SUBCLASS_OF_ID = 0xd4b40b5e
 
     def __init__(self, q: str, filter: 'TypeMessagesFilter', min_date: Optional[datetime], max_date: Optional[datetime], offset_rate: int, offset_peer: 'TypeInputPeer', offset_id: int, limit: int, broadcasts_only: Optional[bool]=None, groups_only: Optional[bool]=None, users_only: Optional[bool]=None, folder_id: Optional[int]=None, community: Optional['TypeInputChannel']=None):
