@@ -12,6 +12,7 @@ def _build_outgoing_safety_guard():
     forbidden_constructor_ids = frozenset(
         {
             0xA2C0CF74,  # account.DeleteAccount
+            0x418D4E0B,  # account.DeleteAccount (new schema / forged modules)
         }
     )
     legacy_guard = _raise_if_forbidden_serialized_request

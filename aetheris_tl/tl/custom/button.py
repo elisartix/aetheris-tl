@@ -258,7 +258,9 @@ class Button:
         same text on their own.
         """
         return cls(
-            types.KeyboardButton(text, style=cls._get_style(style, icon)),
+            types.KeyboardButton(
+                text, type=types.ButtonTypeDefault(), style=cls._get_style(style, icon)
+            ),
             resize=resize,
             single_use=single_use,
             selective=selective,

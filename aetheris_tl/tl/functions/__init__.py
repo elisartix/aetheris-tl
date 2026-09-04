@@ -41,8 +41,6 @@ class DestroySessionRequest(TLRequest):
         """
         self.session_id = session_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DestroySessionRequest',
@@ -71,8 +69,6 @@ class GetFutureSaltsRequest(TLRequest):
         :returns FutureSalts: Instance of FutureSalts.
         """
         self.num = num
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -111,8 +107,6 @@ class InitConnectionRequest(TLRequest):
         self.query = query
         self.proxy = proxy
         self.params = params
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -180,8 +174,6 @@ class InvokeAfterMsgRequest(TLRequest):
         self.msg_id = msg_id
         self.query = query
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'InvokeAfterMsgRequest',
@@ -214,8 +206,6 @@ class InvokeAfterMsgsRequest(TLRequest):
         """
         self.msg_ids = msg_ids
         self.query = query
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -256,8 +246,6 @@ class InvokeWithApnsSecretRequest(TLRequest):
         self.secret = secret
         self.query = query
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'InvokeWithApnsSecretRequest',
@@ -283,6 +271,39 @@ class InvokeWithApnsSecretRequest(TLRequest):
         return cls(nonce=_nonce, secret=_secret, query=_query)
 
 
+class InvokeWithApnsSecretPrefixRequest(TLRequest):
+    CONSTRUCTOR_ID = 0xdae54f8
+    SUBCLASS_OF_ID = 0x9c1c9375
+
+    def __init__(self, nonce: str, secret: str):
+        """
+        :returns Error: This type has no constructors.
+        """
+        self.nonce = nonce
+        self.secret = secret
+
+    def to_dict(self):
+        return {
+            '_': 'InvokeWithApnsSecretPrefixRequest',
+            'nonce': self.nonce,
+            'secret': self.secret
+        }
+
+    def _bytes(self):
+        self._assert_no_forbidden_constructors()
+        return b''.join((
+            b'\xf8T\xae\r',
+            self.serialize_bytes(self.nonce),
+            self.serialize_bytes(self.secret),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _nonce = reader.tgread_string()
+        _secret = reader.tgread_string()
+        return cls(nonce=_nonce, secret=_secret)
+
+
 class InvokeWithBusinessConnectionRequest(TLRequest):
     CONSTRUCTOR_ID = 0xdd289f8e
     SUBCLASS_OF_ID = 0xb7b2364b
@@ -293,8 +314,6 @@ class InvokeWithBusinessConnectionRequest(TLRequest):
         """
         self.connection_id = connection_id
         self.query = query
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -318,6 +337,35 @@ class InvokeWithBusinessConnectionRequest(TLRequest):
         return cls(connection_id=_connection_id, query=_query)
 
 
+class InvokeWithBusinessConnectionPrefixRequest(TLRequest):
+    CONSTRUCTOR_ID = 0xdd289f8e
+    SUBCLASS_OF_ID = 0x9c1c9375
+
+    def __init__(self, connection_id: str):
+        """
+        :returns Error: This type has no constructors.
+        """
+        self.connection_id = connection_id
+
+    def to_dict(self):
+        return {
+            '_': 'InvokeWithBusinessConnectionPrefixRequest',
+            'connection_id': self.connection_id
+        }
+
+    def _bytes(self):
+        self._assert_no_forbidden_constructors()
+        return b''.join((
+            b'\x8e\x9f(\xdd',
+            self.serialize_bytes(self.connection_id),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _connection_id = reader.tgread_string()
+        return cls(connection_id=_connection_id)
+
+
 class InvokeWithGooglePlayIntegrityRequest(TLRequest):
     CONSTRUCTOR_ID = 0x1df92984
     SUBCLASS_OF_ID = 0xb7b2364b
@@ -329,8 +377,6 @@ class InvokeWithGooglePlayIntegrityRequest(TLRequest):
         self.nonce = nonce
         self.token = token
         self.query = query
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -357,6 +403,39 @@ class InvokeWithGooglePlayIntegrityRequest(TLRequest):
         return cls(nonce=_nonce, token=_token, query=_query)
 
 
+class InvokeWithGooglePlayIntegrityPrefixRequest(TLRequest):
+    CONSTRUCTOR_ID = 0x1df92984
+    SUBCLASS_OF_ID = 0x9c1c9375
+
+    def __init__(self, nonce: str, token: str):
+        """
+        :returns Error: This type has no constructors.
+        """
+        self.nonce = nonce
+        self.token = token
+
+    def to_dict(self):
+        return {
+            '_': 'InvokeWithGooglePlayIntegrityPrefixRequest',
+            'nonce': self.nonce,
+            'token': self.token
+        }
+
+    def _bytes(self):
+        self._assert_no_forbidden_constructors()
+        return b''.join((
+            b'\x84)\xf9\x1d',
+            self.serialize_bytes(self.nonce),
+            self.serialize_bytes(self.token),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _nonce = reader.tgread_string()
+        _token = reader.tgread_string()
+        return cls(nonce=_nonce, token=_token)
+
+
 class InvokeWithLayerRequest(TLRequest):
     CONSTRUCTOR_ID = 0xda9b0d0d
     SUBCLASS_OF_ID = 0xb7b2364b
@@ -367,8 +446,6 @@ class InvokeWithLayerRequest(TLRequest):
         """
         self.layer = layer
         self.query = query
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -403,8 +480,6 @@ class InvokeWithMessagesRangeRequest(TLRequest):
         self.range = range
         self.query = query
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'InvokeWithMessagesRangeRequest',
@@ -438,8 +513,6 @@ class InvokeWithReCaptchaRequest(TLRequest):
         self.token = token
         self.query = query
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'InvokeWithReCaptchaRequest',
@@ -462,6 +535,35 @@ class InvokeWithReCaptchaRequest(TLRequest):
         return cls(token=_token, query=_query)
 
 
+class InvokeWithReCaptchaPrefixRequest(TLRequest):
+    CONSTRUCTOR_ID = 0xadbb0f94
+    SUBCLASS_OF_ID = 0x9c1c9375
+
+    def __init__(self, token: str):
+        """
+        :returns Error: This type has no constructors.
+        """
+        self.token = token
+
+    def to_dict(self):
+        return {
+            '_': 'InvokeWithReCaptchaPrefixRequest',
+            'token': self.token
+        }
+
+    def _bytes(self):
+        self._assert_no_forbidden_constructors()
+        return b''.join((
+            b'\x94\x0f\xbb\xad',
+            self.serialize_bytes(self.token),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _token = reader.tgread_string()
+        return cls(token=_token)
+
+
 class InvokeWithTakeoutRequest(TLRequest):
     CONSTRUCTOR_ID = 0xaca9fd2e
     SUBCLASS_OF_ID = 0xb7b2364b
@@ -472,8 +574,6 @@ class InvokeWithTakeoutRequest(TLRequest):
         """
         self.takeout_id = takeout_id
         self.query = query
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -507,8 +607,6 @@ class InvokeWithoutUpdatesRequest(TLRequest):
         """
         self.query = query
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'InvokeWithoutUpdatesRequest',
@@ -537,8 +635,6 @@ class PingRequest(TLRequest):
         :returns Pong: Instance of Pong.
         """
         self.ping_id = ping_id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -569,8 +665,6 @@ class PingDelayDisconnectRequest(TLRequest):
         """
         self.ping_id = ping_id
         self.disconnect_delay = disconnect_delay
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -608,8 +702,6 @@ class ReqDHParamsRequest(TLRequest):
         self.q = q
         self.public_key_fingerprint = public_key_fingerprint
         self.encrypted_data = encrypted_data
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -655,8 +747,6 @@ class ReqPqRequest(TLRequest):
         """
         self.nonce = nonce
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ReqPqRequest',
@@ -686,8 +776,6 @@ class ReqPqMultiRequest(TLRequest):
         """
         self.nonce = nonce
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ReqPqMultiRequest',
@@ -716,8 +804,6 @@ class RpcDropAnswerRequest(TLRequest):
         :returns RpcDropAnswer: Instance of either RpcAnswerUnknown, RpcAnswerDroppedRunning, RpcAnswerDropped.
         """
         self.req_msg_id = req_msg_id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -749,8 +835,6 @@ class SetClientDHParamsRequest(TLRequest):
         self.nonce = nonce
         self.server_nonce = server_nonce
         self.encrypted_data = encrypted_data
-
-        super().__init__()
 
     def to_dict(self):
         return {

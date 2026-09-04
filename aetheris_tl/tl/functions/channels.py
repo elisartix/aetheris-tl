@@ -20,8 +20,6 @@ class CheckSearchPostsFloodRequest(TLRequest):
         """
         self.query = query
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CheckSearchPostsFloodRequest',
@@ -58,11 +56,8 @@ class CheckUsernameRequest(TLRequest):
         self.channel = channel
         self.username = username
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -96,11 +91,8 @@ class ConvertToGigagroupRequest(TLRequest):
         """
         self.channel = channel
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -139,8 +131,6 @@ class CreateChannelRequest(TLRequest):
         self.address = address
         self.ttl_period = ttl_period
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CreateChannelRequest',
@@ -157,7 +147,7 @@ class CreateChannelRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.geo_point or self.geo_point is not None) and (self.address or self.address is not None)) or ((self.geo_point is None or self.geo_point is False) and (self.address is None or self.address is False)), 'geo_point, address parameters must all be False-y (like None) or all be True-y'
+        assert ((self.geo_point or self.geo_point is not None) and (self.address or self.address is not None)) or ((self.geo_point is None or self.geo_point is False) and (self.address is None or self.address is False)), 'geo_point, address parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\x07g\x00\x91',
             struct.pack('<I', (0 if self.broadcast is None or self.broadcast is False else 1) | (0 if self.megagroup is None or self.megagroup is False else 2) | (0 if self.for_import is None or self.for_import is False else 8) | (0 if self.forum is None or self.forum is False else 32) | (0 if self.geo_point is None or self.geo_point is False else 4) | (0 if self.address is None or self.address is False else 4) | (0 if self.ttl_period is None or self.ttl_period is False else 16)),
@@ -203,11 +193,8 @@ class DeactivateAllUsernamesRequest(TLRequest):
         """
         self.channel = channel
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -238,11 +225,8 @@ class DeleteChannelRequest(TLRequest):
         """
         self.channel = channel
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -275,11 +259,8 @@ class DeleteHistoryRequest(TLRequest):
         self.max_id = max_id
         self.for_everyone = for_everyone
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -319,11 +300,8 @@ class DeleteMessagesRequest(TLRequest):
         self.channel = channel
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -363,13 +341,9 @@ class DeleteParticipantHistoryRequest(TLRequest):
         self.channel = channel
         self.participant = participant
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -406,13 +380,9 @@ class EditAdminRequest(TLRequest):
         self.admin_rights = admin_rights
         self.rank = rank
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -460,13 +430,9 @@ class EditBannedRequest(TLRequest):
         self.participant = participant
         self.banned_rights = banned_rights
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -505,11 +471,8 @@ class EditLocationRequest(TLRequest):
         self.geo_point = geo_point
         self.address = address
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -547,13 +510,9 @@ class EditPhotoRequest(TLRequest):
         self.channel = channel
         self.photo = photo
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
         self.photo = utils.get_input_chat_photo(self.photo)
-        self._check_peer(self.photo)
 
     def to_dict(self):
         return {
@@ -588,11 +547,8 @@ class EditTitleRequest(TLRequest):
         self.channel = channel
         self.title = title
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -629,11 +585,8 @@ class ExportMessageLinkRequest(TLRequest):
         self.grouped = grouped
         self.thread = thread
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -680,11 +633,8 @@ class GetAdminLogRequest(TLRequest):
         self.events_filter = events_filter
         self.admins = admins
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
         if self.admins:
             _tmp = []
             for _x in self.admins:
@@ -756,8 +706,6 @@ class GetAdminedPublicChannelsRequest(TLRequest):
         self.for_personal = for_personal
         self.for_community_peer = for_community_peer
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetAdminedPublicChannelsRequest',
@@ -795,12 +743,9 @@ class GetChannelRecommendationsRequest(TLRequest):
         """
         self.channel = channel
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.channel:
             self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-            self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -836,8 +781,6 @@ class GetChannelsRequest(TLRequest):
         :returns messages.Chats: Instance of either Chats, ChatsSlice.
         """
         self.id = id
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         _tmp = []
@@ -880,11 +823,8 @@ class GetFullChannelRequest(TLRequest):
         """
         self.channel = channel
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -955,8 +895,6 @@ class GetLeftChannelsRequest(TLRequest):
         """
         self.offset = offset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetLeftChannelsRequest',
@@ -987,11 +925,8 @@ class GetMessageAuthorRequest(TLRequest):
         self.channel = channel
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1026,11 +961,8 @@ class GetMessagesRequest(TLRequest):
         self.channel = channel
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
         _tmp = []
         for _x in self.id:
             _tmp.append(utils.get_input_message(_x))
@@ -1075,13 +1007,9 @@ class GetParticipantRequest(TLRequest):
         self.channel = channel
         self.participant = participant
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -1119,11 +1047,8 @@ class GetParticipantsRequest(TLRequest):
         self.limit = limit
         self.hash = hash
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1168,11 +1093,8 @@ class GetSendAsRequest(TLRequest):
         self.for_paid_reactions = for_paid_reactions
         self.for_live_stories = for_live_stories
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1211,11 +1133,8 @@ class InviteToChannelRequest(TLRequest):
         self.channel = channel
         self.users = users
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
         _tmp = []
         for _x in self.users:
             _tmp.append(utils.get_input_user(await client.get_input_entity(_x)))
@@ -1259,11 +1178,8 @@ class JoinChannelRequest(TLRequest):
         """
         self.channel = channel
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1294,11 +1210,8 @@ class LeaveChannelRequest(TLRequest):
         """
         self.channel = channel
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1330,11 +1243,8 @@ class ReadHistoryRequest(TLRequest):
         self.channel = channel
         self.max_id = max_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1369,11 +1279,8 @@ class ReadMessageContentsRequest(TLRequest):
         self.channel = channel
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1413,11 +1320,8 @@ class ReorderUsernamesRequest(TLRequest):
         self.channel = channel
         self.order = order
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1457,11 +1361,8 @@ class ReportAntiSpamFalsePositiveRequest(TLRequest):
         self.channel = channel
         self.msg_id = msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1497,13 +1398,9 @@ class ReportSpamRequest(TLRequest):
         self.participant = participant
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -1546,11 +1443,8 @@ class RestrictSponsoredMessagesRequest(TLRequest):
         self.channel = channel
         self.restricted = restricted
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1590,11 +1484,8 @@ class SearchPostsRequest(TLRequest):
         self.query = query
         self.allow_paid_stars = allow_paid_stars
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.offset_peer = utils.get_input_peer(await client.get_input_entity(self.offset_peer))
-        self._check_peer(self.offset_peer)
 
     def to_dict(self):
         return {
@@ -1656,11 +1547,8 @@ class SetBoostsToUnblockRestrictionsRequest(TLRequest):
         self.channel = channel
         self.boosts = boosts
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1695,13 +1583,9 @@ class SetDiscussionGroupRequest(TLRequest):
         self.broadcast = broadcast
         self.group = group
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.broadcast = utils.get_input_channel(await client.get_input_entity(self.broadcast))
-        self._check_peer(self.broadcast)
         self.group = utils.get_input_channel(await client.get_input_entity(self.group))
-        self._check_peer(self.group)
 
     def to_dict(self):
         return {
@@ -1736,11 +1620,8 @@ class SetEmojiStickersRequest(TLRequest):
         self.channel = channel
         self.stickerset = stickerset
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1775,11 +1656,8 @@ class SetMainProfileTabRequest(TLRequest):
         self.channel = channel
         self.tab = tab
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1814,11 +1692,8 @@ class SetStickersRequest(TLRequest):
         self.channel = channel
         self.stickerset = stickerset
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1853,11 +1728,8 @@ class ToggleAntiSpamRequest(TLRequest):
         self.channel = channel
         self.enabled = enabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1892,11 +1764,8 @@ class ToggleAutotranslationRequest(TLRequest):
         self.channel = channel
         self.enabled = enabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1932,11 +1801,8 @@ class ToggleForumRequest(TLRequest):
         self.enabled = enabled
         self.tabs = tabs
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -1976,14 +1842,10 @@ class ToggleJoinRequestRequest(TLRequest):
         self.apply_to_invites = apply_to_invites
         self.guard_bot = guard_bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
         if self.guard_bot:
             self.guard_bot = utils.get_input_user(await client.get_input_entity(self.guard_bot))
-            self._check_peer(self.guard_bot)
 
     def to_dict(self):
         return {
@@ -2029,11 +1891,8 @@ class ToggleJoinToSendRequest(TLRequest):
         self.channel = channel
         self.enabled = enabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -2068,11 +1927,8 @@ class ToggleParticipantsHiddenRequest(TLRequest):
         self.channel = channel
         self.enabled = enabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -2107,11 +1963,8 @@ class TogglePreHistoryHiddenRequest(TLRequest):
         self.channel = channel
         self.enabled = enabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -2147,11 +2000,8 @@ class ToggleSignaturesRequest(TLRequest):
         self.signatures_enabled = signatures_enabled
         self.profiles_enabled = profiles_enabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -2190,11 +2040,8 @@ class ToggleSlowModeRequest(TLRequest):
         self.channel = channel
         self.seconds = seconds
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -2230,11 +2077,8 @@ class ToggleUsernameRequest(TLRequest):
         self.username = username
         self.active = active
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -2272,11 +2116,8 @@ class ToggleViewForumAsMessagesRequest(TLRequest):
         self.channel = channel
         self.enabled = enabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -2313,11 +2154,8 @@ class UpdateColorRequest(TLRequest):
         self.color = color
         self.background_emoji_id = background_emoji_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -2366,11 +2204,8 @@ class UpdateEmojiStatusRequest(TLRequest):
         self.channel = channel
         self.emoji_status = emoji_status
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -2406,11 +2241,8 @@ class UpdatePaidMessagesPriceRequest(TLRequest):
         self.send_paid_messages_stars = send_paid_messages_stars
         self.broadcast_messages_allowed = broadcast_messages_allowed
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -2450,11 +2282,8 @@ class UpdateUsernameRequest(TLRequest):
         self.channel = channel
         self.username = username
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {

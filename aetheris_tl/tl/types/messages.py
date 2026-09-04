@@ -23,8 +23,6 @@ class AffectedFoundMessages(TLObject):
         self.offset = offset
         self.messages = messages
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AffectedFoundMessages',
@@ -70,8 +68,6 @@ class AffectedHistory(TLObject):
         self.pts_count = pts_count
         self.offset = offset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AffectedHistory',
@@ -108,8 +104,6 @@ class AffectedMessages(TLObject):
         self.pts = pts
         self.pts_count = pts_count
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AffectedMessages',
@@ -142,8 +136,6 @@ class AllStickers(TLObject):
         """
         self.hash = hash
         self.sets = sets
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -203,8 +195,6 @@ class ArchivedStickers(TLObject):
         self.count = count
         self.sets = sets
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ArchivedStickers',
@@ -243,8 +233,6 @@ class AvailableEffects(TLObject):
         self.hash = hash
         self.effects = effects
         self.documents = documents
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -312,8 +300,6 @@ class AvailableReactions(TLObject):
         self.hash = hash
         self.reactions = reactions
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AvailableReactions',
@@ -374,8 +360,6 @@ class BotApp(TLObject):
         self.request_write_access = request_write_access
         self.has_settings = has_settings
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'BotApp',
@@ -418,8 +402,6 @@ class BotCallbackAnswer(TLObject):
         self.native_ui = native_ui
         self.message = message
         self.url = url
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -472,8 +454,6 @@ class BotPreparedInlineMessage(TLObject):
         self.id = id
         self.expire_date = expire_date
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'BotPreparedInlineMessage',
@@ -512,8 +492,6 @@ class BotResults(TLObject):
         self.next_offset = next_offset
         self.switch_pm = switch_pm
         self.switch_webview = switch_webview
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -593,8 +571,6 @@ class ChannelMessages(TLObject):
         self.inexact = inexact
         self.offset_id_offset = offset_id_offset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChannelMessages',
@@ -671,8 +647,6 @@ class ChatAdminsWithInvites(TLObject):
         self.admins = admins
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChatAdminsWithInvites',
@@ -716,8 +690,6 @@ class ChatFull(TLObject):
         self.full_chat = full_chat
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -766,8 +738,6 @@ class ChatInviteImporters(TLObject):
         self.importers = importers
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChatInviteImporters',
@@ -813,8 +783,6 @@ class ChatInviteJoinResultOk(TLObject):
         """
         self.updates = updates
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChatInviteJoinResultOk',
@@ -835,7 +803,7 @@ class ChatInviteJoinResultOk(TLObject):
 
 
 class ChatInviteJoinResultWebView(TLObject):
-    CONSTRUCTOR_ID = 0x2f51c337
+    CONSTRUCTOR_ID = 0x61ca29d3
     SUBCLASS_OF_ID = 0x5d0ff992
 
     def __init__(self, bot_id: int, query_id: int, users: List['TypeUser']):
@@ -845,8 +813,6 @@ class ChatInviteJoinResultWebView(TLObject):
         self.bot_id = bot_id
         self.query_id = query_id
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -859,7 +825,7 @@ class ChatInviteJoinResultWebView(TLObject):
     def _bytes(self):
         self._assert_no_forbidden_constructors()
         return b''.join((
-            b'\x37\xc3Q/',
+            b'\xd3)\xcaa',
             struct.pack('<q', self.bot_id),
             struct.pack('<q', self.query_id),
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.users)),b''.join(x._bytes() for x in self.users),
@@ -887,8 +853,6 @@ class Chats(TLObject):
         Constructor for messages.Chats: Instance of either Chats, ChatsSlice.
         """
         self.chats = chats
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -924,8 +888,6 @@ class ChatsSlice(TLObject):
         """
         self.count = count
         self.chats = chats
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -964,8 +926,6 @@ class CheckedHistoryImportPeer(TLObject):
         """
         self.confirm_text = confirm_text
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CheckedHistoryImportPeer',
@@ -995,8 +955,6 @@ class ComposedMessageWithAI(TLObject):
         """
         self.result_text = result_text
         self.diff_text = diff_text
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1036,8 +994,6 @@ class ComposedRichMessageWithAI(TLObject):
         """
         self.result = result
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ComposedRichMessageWithAI',
@@ -1069,8 +1025,6 @@ class DhConfig(TLObject):
         self.p = p
         self.version = version
         self.random = random
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1110,8 +1064,6 @@ class DhConfigNotModified(TLObject):
         """
         self.random = random
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DhConfigNotModified',
@@ -1141,8 +1093,6 @@ class DialogFilters(TLObject):
         """
         self.filters = filters
         self.tags_enabled = tags_enabled
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1185,8 +1135,6 @@ class Dialogs(TLObject):
         self.messages = messages
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1246,8 +1194,6 @@ class DialogsNotModified(TLObject):
         """
         self.count = count
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DialogsNotModified',
@@ -1280,8 +1226,6 @@ class DialogsSlice(TLObject):
         self.messages = messages
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1349,8 +1293,6 @@ class DiscussionMessage(TLObject):
         self.max_id = max_id
         self.read_inbox_max_id = read_inbox_max_id
         self.read_outbox_max_id = read_outbox_max_id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1430,8 +1372,6 @@ class EmojiGameDiceInfo(TLObject):
         self.params = params
         self.plays_left = plays_left
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'EmojiGameDiceInfo',
@@ -1485,8 +1425,6 @@ class EmojiGameOutcome(TLObject):
         self.seed = seed
         self.stake_ton_amount = stake_ton_amount
         self.ton_amount = ton_amount
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1543,8 +1481,6 @@ class EmojiGroups(TLObject):
         """
         self.hash = hash
         self.groups = groups
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1604,8 +1540,6 @@ class ExportedChatInvite(TLObject):
         self.invite = invite
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ExportedChatInvite',
@@ -1644,8 +1578,6 @@ class ExportedChatInviteReplaced(TLObject):
         self.invite = invite
         self.new_invite = new_invite
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1688,8 +1620,6 @@ class ExportedChatInvites(TLObject):
         self.count = count
         self.invites = invites
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1737,8 +1667,6 @@ class FavedStickers(TLObject):
         self.hash = hash
         self.packs = packs
         self.stickers = stickers
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1809,8 +1737,6 @@ class FeaturedStickers(TLObject):
         self.unread = unread
         self.premium = premium
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'FeaturedStickers',
@@ -1864,8 +1790,6 @@ class FeaturedStickersNotModified(TLObject):
         """
         self.count = count
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'FeaturedStickersNotModified',
@@ -1900,8 +1824,6 @@ class ForumTopics(TLObject):
         self.users = users
         self.pts = pts
         self.order_by_create_date = order_by_create_date
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1973,8 +1895,6 @@ class FoundStickerSets(TLObject):
         self.hash = hash
         self.sets = sets
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'FoundStickerSets',
@@ -2034,8 +1954,6 @@ class FoundStickers(TLObject):
         self.stickers = stickers
         self.next_offset = next_offset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'FoundStickers',
@@ -2082,8 +2000,6 @@ class FoundStickersNotModified(TLObject):
         """
         self.next_offset = next_offset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'FoundStickersNotModified',
@@ -2119,8 +2035,6 @@ class HighScores(TLObject):
         """
         self.scores = scores
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2164,8 +2078,6 @@ class HistoryImport(TLObject):
         """
         self.id = id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'HistoryImport',
@@ -2196,8 +2108,6 @@ class HistoryImportParsed(TLObject):
         self.pm = pm
         self.group = group
         self.title = title
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2239,8 +2149,6 @@ class InactiveChats(TLObject):
         self.dates = dates
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2293,8 +2201,6 @@ class InvitedUsers(TLObject):
         self.updates = updates
         self.missing_invitees = missing_invitees
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'InvitedUsers',
@@ -2332,8 +2238,6 @@ class MessageEditData(TLObject):
         """
         self.caption = caption
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'MessageEditData',
@@ -2368,8 +2272,6 @@ class MessageReactionsList(TLObject):
         self.chats = chats
         self.users = users
         self.next_offset = next_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2435,8 +2337,6 @@ class MessageViews(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'MessageViews',
@@ -2489,8 +2389,6 @@ class Messages(TLObject):
         self.topics = topics
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2550,8 +2448,6 @@ class MessagesNotModified(TLObject):
         """
         self.count = count
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'MessagesNotModified',
@@ -2588,8 +2484,6 @@ class MessagesSlice(TLObject):
         self.next_rate = next_rate
         self.offset_id_offset = offset_id_offset
         self.search_flood = search_flood
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2676,8 +2570,6 @@ class MyStickers(TLObject):
         self.count = count
         self.sets = sets
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'MyStickers',
@@ -2718,8 +2610,6 @@ class PeerDialogs(TLObject):
         self.chats = chats
         self.users = users
         self.state = state
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2784,8 +2674,6 @@ class PeerSettings(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PeerSettings',
@@ -2834,8 +2722,6 @@ class PreparedInlineMessage(TLObject):
         self.peer_types = peer_types
         self.cache_time = cache_time
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2890,8 +2776,6 @@ class QuickReplies(TLObject):
         self.messages = messages
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2972,8 +2856,6 @@ class Reactions(TLObject):
         self.hash = hash
         self.reactions = reactions
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Reactions',
@@ -3033,8 +2915,6 @@ class RecentStickers(TLObject):
         self.packs = packs
         self.stickers = stickers
         self.dates = dates
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3112,8 +2992,6 @@ class SavedDialogs(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SavedDialogs',
@@ -3172,8 +3050,6 @@ class SavedDialogsNotModified(TLObject):
         """
         self.count = count
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SavedDialogsNotModified',
@@ -3206,8 +3082,6 @@ class SavedDialogsSlice(TLObject):
         self.messages = messages
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3271,8 +3145,6 @@ class SavedGifs(TLObject):
         self.hash = hash
         self.gifs = gifs
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SavedGifs',
@@ -3330,8 +3202,6 @@ class SavedReactionTags(TLObject):
         """
         self.tags = tags
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3392,8 +3262,6 @@ class SearchCounter(TLObject):
         self.count = count
         self.inexact = inexact
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SearchCounter',
@@ -3438,8 +3306,6 @@ class SearchResultsCalendar(TLObject):
         self.users = users
         self.inexact = inexact
         self.offset_id_offset = offset_id_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3520,8 +3386,6 @@ class SearchResultsPositions(TLObject):
         self.count = count
         self.positions = positions
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SearchResultsPositions',
@@ -3560,8 +3424,6 @@ class SentEncryptedFile(TLObject):
         self.date = date
         self.file = file
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SentEncryptedFile',
@@ -3593,8 +3455,6 @@ class SentEncryptedMessage(TLObject):
         Constructor for messages.SentEncryptedMessage: Instance of either SentEncryptedMessage, SentEncryptedFile.
         """
         self.date = date
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3629,8 +3489,6 @@ class SponsoredMessages(TLObject):
         self.posts_between = posts_between
         self.start_delay = start_delay
         self.between_delay = between_delay
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3726,8 +3584,6 @@ class StickerSet(TLObject):
         self.keywords = keywords
         self.documents = documents
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'StickerSet',
@@ -3780,8 +3636,6 @@ class StickerSetInstallResultArchive(TLObject):
         Constructor for messages.StickerSetInstallResult: Instance of either StickerSetInstallResultSuccess, StickerSetInstallResultArchive.
         """
         self.sets = sets
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3858,8 +3712,6 @@ class Stickers(TLObject):
         self.hash = hash
         self.stickers = stickers
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Stickers',
@@ -3921,8 +3773,6 @@ class TranscribedAudio(TLObject):
         self.trial_remains_num = trial_remains_num
         self.trial_remains_until_date = trial_remains_until_date
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'TranscribedAudio',
@@ -3935,7 +3785,7 @@ class TranscribedAudio(TLObject):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.trial_remains_num or self.trial_remains_num is not None) and (self.trial_remains_until_date or self.trial_remains_until_date is not None)) or ((self.trial_remains_num is None or self.trial_remains_num is False) and (self.trial_remains_until_date is None or self.trial_remains_until_date is False)), 'trial_remains_num, trial_remains_until_date parameters must all be False-y (like None) or all be True-y'
+        assert ((self.trial_remains_num or self.trial_remains_num is not None) and (self.trial_remains_until_date or self.trial_remains_until_date is not None)) or ((self.trial_remains_num is None or self.trial_remains_num is False) and (self.trial_remains_until_date is None or self.trial_remains_until_date is False)), 'trial_remains_num, trial_remains_until_date parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'W\xd9\xb9\xcf',
             struct.pack('<I', (0 if self.pending is None or self.pending is False else 1) | (0 if self.trial_remains_num is None or self.trial_remains_num is False else 2) | (0 if self.trial_remains_until_date is None or self.trial_remains_until_date is False else 2)),
@@ -3973,8 +3823,6 @@ class TranslateResult(TLObject):
         """
         self.result = result
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'TranslateResult',
@@ -4008,8 +3856,6 @@ class TranslatedRichMessage(TLObject):
         Constructor for messages.TranslatedRichMessage: Instance of TranslatedRichMessage.
         """
         self.result = result
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -4048,8 +3894,6 @@ class VotesList(TLObject):
         self.chats = chats
         self.users = users
         self.next_offset = next_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -4115,8 +3959,6 @@ class WebPage(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'WebPage',
@@ -4163,8 +4005,6 @@ class WebPagePreview(TLObject):
         self.media = media
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {

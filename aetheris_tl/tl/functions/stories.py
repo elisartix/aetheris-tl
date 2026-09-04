@@ -21,8 +21,6 @@ class ActivateStealthModeRequest(TLRequest):
         self.past = past
         self.future = future
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ActivateStealthModeRequest',
@@ -56,11 +54,8 @@ class CanSendStoryRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -93,11 +88,8 @@ class CreateAlbumRequest(TLRequest):
         self.title = title
         self.stories = stories
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -140,11 +132,8 @@ class DeleteAlbumRequest(TLRequest):
         self.peer = peer
         self.album_id = album_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -179,11 +168,8 @@ class DeleteStoriesRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -234,18 +220,13 @@ class EditStoryRequest(TLRequest):
         self.privacy_rules = privacy_rules
         self.music = music
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.media:
             self.media = utils.get_input_media(self.media)
-            self._check_peer(self.media)
 
         if self.music:
             self.music = utils.get_input_document(self.music)
-            self._check_peer(self.music)
 
     def to_dict(self):
         return {
@@ -262,7 +243,7 @@ class EditStoryRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.caption or self.caption is not None) and (self.entities or self.entities is not None)) or ((self.caption is None or self.caption is False) and (self.entities is None or self.entities is False)), 'caption, entities parameters must all be False-y (like None) or all be True-y'
+        assert ((self.caption or self.caption is not None) and (self.entities or self.entities is not None)) or ((self.caption is None or self.caption is False) and (self.entities is None or self.entities is False)), 'caption, entities parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'+\xa7c,',
             struct.pack('<I', (0 if self.media is None or self.media is False else 1) | (0 if self.media_areas is None or self.media_areas is False else 8) | (0 if self.caption is None or self.caption is False else 2) | (0 if self.entities is None or self.entities is False else 2) | (0 if self.privacy_rules is None or self.privacy_rules is False else 4) | (0 if self.music is None or self.music is False else 16)),
@@ -335,11 +316,8 @@ class ExportStoryLinkRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -376,11 +354,8 @@ class GetAlbumStoriesRequest(TLRequest):
         self.offset = offset
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -421,11 +396,8 @@ class GetAlbumsRequest(TLRequest):
         self.peer = peer
         self.hash = hash
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -480,8 +452,6 @@ class GetAllStoriesRequest(TLRequest):
         self.next = next
         self.hidden = hidden
         self.state = state
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -542,8 +512,6 @@ class GetPeerMaxIDsRequest(TLRequest):
         """
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         _tmp = []
         for _x in self.id:
@@ -585,11 +553,8 @@ class GetPeerStoriesRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -622,11 +587,8 @@ class GetPinnedStoriesRequest(TLRequest):
         self.offset_id = offset_id
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -665,11 +627,8 @@ class GetStoriesArchiveRequest(TLRequest):
         self.offset_id = offset_id
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -707,11 +666,8 @@ class GetStoriesByIDRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -751,11 +707,8 @@ class GetStoriesViewsRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -799,11 +752,8 @@ class GetStoryReactionsListRequest(TLRequest):
         self.reaction = reaction
         self.offset = offset
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -864,11 +814,8 @@ class GetStoryViewsListRequest(TLRequest):
         self.forwards_first = forwards_first
         self.q = q
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -924,11 +871,8 @@ class IncrementStoryViewsRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -968,11 +912,8 @@ class ReadStoriesRequest(TLRequest):
         self.peer = peer
         self.max_id = max_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1012,11 +953,8 @@ class ReorderAlbumsRequest(TLRequest):
         self.peer = peer
         self.order = order
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1058,11 +996,8 @@ class ReportRequest(TLRequest):
         self.option = option
         self.message = message
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1111,12 +1046,9 @@ class SearchPostsRequest(TLRequest):
         self.area = area
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.peer:
             self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-            self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1174,11 +1106,8 @@ class SendReactionRequest(TLRequest):
         self.reaction = reaction
         self.add_to_recent = add_to_recent
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1234,20 +1163,14 @@ class SendStoryRequest(TLRequest):
         self.albums = albums
         self.music = music
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.media = utils.get_input_media(self.media)
-        self._check_peer(self.media)
         if self.fwd_from_id:
             self.fwd_from_id = utils.get_input_peer(await client.get_input_entity(self.fwd_from_id))
-            self._check_peer(self.fwd_from_id)
 
         if self.music:
             self.music = utils.get_input_document(self.music)
-            self._check_peer(self.music)
 
     def to_dict(self):
         return {
@@ -1271,7 +1194,7 @@ class SendStoryRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.fwd_from_id or self.fwd_from_id is not None) and (self.fwd_from_story or self.fwd_from_story is not None)) or ((self.fwd_from_id is None or self.fwd_from_id is False) and (self.fwd_from_story is None or self.fwd_from_story is False)), 'fwd_from_id, fwd_from_story parameters must all be False-y (like None) or all be True-y'
+        assert ((self.fwd_from_id or self.fwd_from_id is not None) and (self.fwd_from_story or self.fwd_from_story is not None)) or ((self.fwd_from_id is None or self.fwd_from_id is False) and (self.fwd_from_story is None or self.fwd_from_story is False)), 'fwd_from_id, fwd_from_story parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\x98h\x9e\x8f',
             struct.pack('<I', (0 if self.pinned is None or self.pinned is False else 4) | (0 if self.noforwards is None or self.noforwards is False else 16) | (0 if self.fwd_modified is None or self.fwd_modified is False else 128) | (0 if self.media_areas is None or self.media_areas is False else 32) | (0 if self.caption is None or self.caption is False else 1) | (0 if self.entities is None or self.entities is False else 2) | (0 if self.period is None or self.period is False else 8) | (0 if self.fwd_from_id is None or self.fwd_from_id is False else 64) | (0 if self.fwd_from_story is None or self.fwd_from_story is False else 64) | (0 if self.albums is None or self.albums is False else 256) | (0 if self.music is None or self.music is False else 512)),
@@ -1374,11 +1297,8 @@ class StartLiveRequest(TLRequest):
         self.messages_enabled = messages_enabled
         self.send_paid_messages_stars = send_paid_messages_stars
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1458,8 +1378,6 @@ class ToggleAllStoriesHiddenRequest(TLRequest):
         """
         self.hidden = hidden
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ToggleAllStoriesHiddenRequest',
@@ -1490,11 +1408,8 @@ class TogglePeerStoriesHiddenRequest(TLRequest):
         self.peer = peer
         self.hidden = hidden
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1530,11 +1445,8 @@ class TogglePinnedRequest(TLRequest):
         self.id = id
         self.pinned = pinned
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1582,11 +1494,8 @@ class TogglePinnedToTopRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1630,11 +1539,8 @@ class UpdateAlbumRequest(TLRequest):
         self.add_stories = add_stories
         self.order = order
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {

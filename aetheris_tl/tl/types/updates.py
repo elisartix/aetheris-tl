@@ -26,8 +26,6 @@ class ChannelDifference(TLObject):
         self.final = final
         self.timeout = timeout
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChannelDifference',
@@ -102,8 +100,6 @@ class ChannelDifferenceEmpty(TLObject):
         self.final = final
         self.timeout = timeout
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChannelDifferenceEmpty',
@@ -148,8 +144,6 @@ class ChannelDifferenceTooLong(TLObject):
         self.users = users
         self.final = final
         self.timeout = timeout
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -219,8 +213,6 @@ class Difference(TLObject):
         self.chats = chats
         self.users = users
         self.state = state
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -292,8 +284,6 @@ class DifferenceEmpty(TLObject):
         self.date = date
         self.seq = seq
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DifferenceEmpty',
@@ -330,8 +320,6 @@ class DifferenceSlice(TLObject):
         self.chats = chats
         self.users = users
         self.intermediate_state = intermediate_state
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -402,8 +390,6 @@ class DifferenceTooLong(TLObject):
         """
         self.pts = pts
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DifferenceTooLong',
@@ -436,8 +422,6 @@ class State(TLObject):
         self.date = date
         self.seq = seq
         self.unread_count = unread_count
-
-        super().__init__()
 
     def to_dict(self):
         return {

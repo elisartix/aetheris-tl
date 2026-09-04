@@ -22,13 +22,9 @@ class AddPreviewMediaRequest(TLRequest):
         self.lang_code = lang_code
         self.media = media
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
         self.media = utils.get_input_media(self.media)
-        self._check_peer(self.media)
 
     def to_dict(self):
         return {
@@ -65,11 +61,8 @@ class AllowSendMessageRequest(TLRequest):
         """
         self.bot = bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -100,8 +93,6 @@ class AnswerWebhookJSONQueryRequest(TLRequest):
         """
         self.query_id = query_id
         self.data = data
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -135,11 +126,8 @@ class CanSendMessageRequest(TLRequest):
         """
         self.bot = bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -172,11 +160,8 @@ class CheckDownloadFileParamsRequest(TLRequest):
         self.file_name = file_name
         self.url = url
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -213,8 +198,6 @@ class CheckUsernameRequest(TLRequest):
         """
         self.username = username
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CheckUsernameRequest',
@@ -247,11 +230,8 @@ class CreateBotRequest(TLRequest):
         self.manager_id = manager_id
         self.via_deeplink = via_deeplink
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.manager_id = utils.get_input_user(await client.get_input_entity(self.manager_id))
-        self._check_peer(self.manager_id)
 
     def to_dict(self):
         return {
@@ -295,11 +275,8 @@ class DeletePreviewMediaRequest(TLRequest):
         self.lang_code = lang_code
         self.media = media
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
         _tmp = []
         for _x in self.media:
             _tmp.append(utils.get_input_media(_x))
@@ -348,11 +325,8 @@ class EditAccessSettingsRequest(TLRequest):
         self.restricted = restricted
         self.add_users = add_users
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
         if self.add_users:
             _tmp = []
             for _x in self.add_users:
@@ -408,15 +382,10 @@ class EditPreviewMediaRequest(TLRequest):
         self.media = media
         self.new_media = new_media
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
         self.media = utils.get_input_media(self.media)
-        self._check_peer(self.media)
         self.new_media = utils.get_input_media(self.new_media)
-        self._check_peer(self.new_media)
 
     def to_dict(self):
         return {
@@ -457,11 +426,8 @@ class ExportBotTokenRequest(TLRequest):
         self.bot = bot
         self.revoke = revoke
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -495,11 +461,8 @@ class GetAccessSettingsRequest(TLRequest):
         """
         self.bot = bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -551,8 +514,6 @@ class GetBotCommandsRequest(TLRequest):
         self.scope = scope
         self.lang_code = lang_code
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetBotCommandsRequest',
@@ -586,12 +547,9 @@ class GetBotInfoRequest(TLRequest):
         self.lang_code = lang_code
         self.bot = bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.bot:
             self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-            self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -631,11 +589,8 @@ class GetBotMenuButtonRequest(TLRequest):
         """
         self.user_id = user_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -666,11 +621,8 @@ class GetBotRecommendationsRequest(TLRequest):
         """
         self.bot = bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -701,8 +653,6 @@ class GetPopularAppBotsRequest(TLRequest):
         """
         self.offset = offset
         self.limit = limit
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -737,11 +687,8 @@ class GetPreviewInfoRequest(TLRequest):
         self.bot = bot
         self.lang_code = lang_code
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -775,11 +722,8 @@ class GetPreviewMediasRequest(TLRequest):
         """
         self.bot = bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -806,16 +750,13 @@ class GetRequestedWebViewButtonRequest(TLRequest):
 
     def __init__(self, bot: 'TypeInputUser', webapp_req_id: str):
         """
-        :returns KeyboardButton: Instance of either KeyboardButton, KeyboardButtonUrl, KeyboardButtonCallback, KeyboardButtonRequestPhone, KeyboardButtonRequestGeoLocation, KeyboardButtonSwitchInline, KeyboardButtonGame, KeyboardButtonBuy, KeyboardButtonUrlAuth, InputKeyboardButtonUrlAuth, KeyboardButtonRequestPoll, InputKeyboardButtonUserProfile, KeyboardButtonUserProfile, KeyboardButtonWebView, KeyboardButtonSimpleWebView, KeyboardButtonRequestPeer, InputKeyboardButtonRequestPeer, KeyboardButtonCopy.
+        :returns KeyboardButton: Instance of KeyboardButton.
         """
         self.bot = bot
         self.webapp_req_id = webapp_req_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -851,11 +792,8 @@ class InvokeWebViewCustomMethodRequest(TLRequest):
         self.custom_method = custom_method
         self.params = params
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -894,11 +832,8 @@ class ReorderPreviewMediasRequest(TLRequest):
         self.lang_code = lang_code
         self.order = order
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
         _tmp = []
         for _x in self.order:
             _tmp.append(utils.get_input_media(_x))
@@ -946,11 +881,8 @@ class ReorderUsernamesRequest(TLRequest):
         self.bot = bot
         self.order = order
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -990,11 +922,8 @@ class RequestWebViewButtonRequest(TLRequest):
         self.user_id = user_id
         self.button = button
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -1029,8 +958,6 @@ class ResetBotCommandsRequest(TLRequest):
         self.scope = scope
         self.lang_code = lang_code
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResetBotCommandsRequest',
@@ -1064,8 +991,6 @@ class SendCustomRequestRequest(TLRequest):
         self.custom_method = custom_method
         self.params = params
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SendCustomRequestRequest',
@@ -1098,8 +1023,6 @@ class SetBotBroadcastDefaultAdminRightsRequest(TLRequest):
         """
         self.admin_rights = admin_rights
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SetBotBroadcastDefaultAdminRightsRequest',
@@ -1130,8 +1053,6 @@ class SetBotCommandsRequest(TLRequest):
         self.scope = scope
         self.lang_code = lang_code
         self.commands = commands
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1173,8 +1094,6 @@ class SetBotGroupDefaultAdminRightsRequest(TLRequest):
         """
         self.admin_rights = admin_rights
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SetBotGroupDefaultAdminRightsRequest',
@@ -1208,12 +1127,9 @@ class SetBotInfoRequest(TLRequest):
         self.about = about
         self.description = description
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.bot:
             self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-            self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -1272,11 +1188,8 @@ class SetBotMenuButtonRequest(TLRequest):
         self.user_id = user_id
         self.button = button
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -1313,14 +1226,10 @@ class SetCustomVerificationRequest(TLRequest):
         self.bot = bot
         self.custom_description = custom_description
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.bot:
             self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-            self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -1369,8 +1278,6 @@ class SetJoinChatResultsRequest(TLRequest):
         self.query_id = query_id
         self.result = result
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SetJoinChatResultsRequest',
@@ -1404,11 +1311,8 @@ class ToggleUserEmojiStatusPermissionRequest(TLRequest):
         self.bot = bot
         self.enabled = enabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -1444,11 +1348,8 @@ class ToggleUsernameRequest(TLRequest):
         self.username = username
         self.active = active
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -1487,11 +1388,8 @@ class UpdateStarRefProgramRequest(TLRequest):
         self.commission_permille = commission_permille
         self.duration_months = duration_months
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -1535,11 +1433,8 @@ class UpdateUserEmojiStatusRequest(TLRequest):
         self.user_id = user_id
         self.emoji_status = emoji_status
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {

@@ -20,8 +20,6 @@ class Albums(TLObject):
         self.hash = hash
         self.albums = albums
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Albums',
@@ -84,8 +82,6 @@ class AllStories(TLObject):
         self.users = users
         self.stealth_mode = stealth_mode
         self.has_more = has_more
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -152,8 +148,6 @@ class AllStoriesNotModified(TLObject):
         self.state = state
         self.stealth_mode = stealth_mode
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AllStoriesNotModified',
@@ -189,8 +183,6 @@ class CanSendStoryCount(TLObject):
         """
         self.count_remains = count_remains
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CanSendStoryCount',
@@ -223,8 +215,6 @@ class FoundStories(TLObject):
         self.chats = chats
         self.users = users
         self.next_offset = next_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -290,8 +280,6 @@ class PeerStories(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PeerStories',
@@ -340,8 +328,6 @@ class Stories(TLObject):
         self.chats = chats
         self.users = users
         self.pinned_to_top = pinned_to_top
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -414,8 +400,6 @@ class StoryReactionsList(TLObject):
         self.users = users
         self.next_offset = next_offset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'StoryReactionsList',
@@ -479,8 +463,6 @@ class StoryViews(TLObject):
         self.views = views
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'StoryViews',
@@ -529,8 +511,6 @@ class StoryViewsList(TLObject):
         self.chats = chats
         self.users = users
         self.next_offset = next_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {

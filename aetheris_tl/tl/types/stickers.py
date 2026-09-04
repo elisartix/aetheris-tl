@@ -16,8 +16,6 @@ class SuggestedShortName(TLObject):
         """
         self.short_name = short_name
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SuggestedShortName',

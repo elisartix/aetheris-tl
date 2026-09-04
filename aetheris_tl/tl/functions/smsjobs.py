@@ -18,8 +18,6 @@ class FinishJobRequest(TLRequest):
         self.job_id = job_id
         self.error = error
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'FinishJobRequest',
@@ -57,8 +55,6 @@ class GetSmsJobRequest(TLRequest):
         :returns SmsJob: Instance of SmsJob.
         """
         self.job_id = job_id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -168,8 +164,6 @@ class UpdateSettingsRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.allow_international = allow_international
-
-        super().__init__()
 
     def to_dict(self):
         return {

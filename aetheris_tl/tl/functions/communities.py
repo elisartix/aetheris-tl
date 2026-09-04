@@ -23,11 +23,8 @@ class CreateRequest(TLRequest):
         self.hidden = hidden
         self.about = about
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -93,13 +90,9 @@ class GetParticipantJoinedChatsRequest(TLRequest):
         self.community = community
         self.participant = participant
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.community = utils.get_input_channel(await client.get_input_entity(self.community))
-        self._check_peer(self.community)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -135,11 +128,8 @@ class GetPeerLinkRequestsRequest(TLRequest):
         self.offset = offset
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.community = utils.get_input_channel(await client.get_input_entity(self.community))
-        self._check_peer(self.community)
 
     def to_dict(self):
         return {
@@ -177,11 +167,8 @@ class ToggleAllPeerLinkRequestApprovalRequest(TLRequest):
         self.community = community
         self.reject = reject
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.community = utils.get_input_channel(await client.get_input_entity(self.community))
-        self._check_peer(self.community)
 
     def to_dict(self):
         return {
@@ -218,11 +205,8 @@ class ToggleCommunityCollapsedInDialogsRequest(TLRequest):
         self.community = community
         self.collapsed = collapsed
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.community = utils.get_input_channel(await client.get_input_entity(self.community))
-        self._check_peer(self.community)
 
     def to_dict(self):
         return {
@@ -260,13 +244,9 @@ class ToggleParticipantBannedRequest(TLRequest):
         self.participant = participant
         self.unban = unban
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.community = utils.get_input_channel(await client.get_input_entity(self.community))
-        self._check_peer(self.community)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -309,13 +289,9 @@ class TogglePeerLinkRequest(TLRequest):
         self.hidden = hidden
         self.deleted = deleted
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.community = utils.get_input_channel(await client.get_input_entity(self.community))
-        self._check_peer(self.community)
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -360,13 +336,9 @@ class TogglePeerLinkRequestApprovalRequest(TLRequest):
         self.peer = peer
         self.reject = reject
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.community = utils.get_input_channel(await client.get_input_entity(self.community))
-        self._check_peer(self.community)
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {

@@ -21,11 +21,8 @@ class GetBroadcastStatsRequest(TLRequest):
         self.channel = channel
         self.dark = dark
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -62,11 +59,8 @@ class GetMegagroupStatsRequest(TLRequest):
         self.channel = channel
         self.dark = dark
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -105,11 +99,8 @@ class GetMessagePublicForwardsRequest(TLRequest):
         self.offset = offset
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -151,11 +142,8 @@ class GetMessageStatsRequest(TLRequest):
         self.msg_id = msg_id
         self.dark = dark
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -196,11 +184,8 @@ class GetPollStatsRequest(TLRequest):
         self.msg_id = msg_id
         self.dark = dark
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -242,11 +227,8 @@ class GetStoryPublicForwardsRequest(TLRequest):
         self.offset = offset
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -288,11 +270,8 @@ class GetStoryStatsRequest(TLRequest):
         self.id = id
         self.dark = dark
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -331,8 +310,6 @@ class LoadAsyncGraphRequest(TLRequest):
         """
         self.token = token
         self.x = x
-
-        super().__init__()
 
     def to_dict(self):
         return {

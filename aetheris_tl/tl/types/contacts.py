@@ -21,8 +21,6 @@ class Blocked(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Blocked',
@@ -75,8 +73,6 @@ class BlockedSlice(TLObject):
         self.blocked = blocked
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -132,8 +128,6 @@ class ContactBirthdays(TLObject):
         self.contacts = contacts
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ContactBirthdays',
@@ -177,8 +171,6 @@ class Contacts(TLObject):
         self.contacts = contacts
         self.saved_count = saved_count
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -248,8 +240,6 @@ class Found(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Found',
@@ -311,8 +301,6 @@ class ImportedContacts(TLObject):
         self.retry_contacts = retry_contacts
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ImportedContacts',
@@ -373,8 +361,6 @@ class ResolvedPeer(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResolvedPeer',
@@ -421,8 +407,6 @@ class SponsoredPeers(TLObject):
         self.peers = peers
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -495,8 +479,6 @@ class TopPeers(TLObject):
         self.categories = categories
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {

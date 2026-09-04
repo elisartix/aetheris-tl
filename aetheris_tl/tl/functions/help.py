@@ -20,8 +20,6 @@ class AcceptTermsOfServiceRequest(TLRequest):
         """
         self.id = id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AcceptTermsOfServiceRequest',
@@ -52,11 +50,8 @@ class DismissSuggestionRequest(TLRequest):
         self.peer = peer
         self.suggestion = suggestion
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -92,11 +87,8 @@ class EditUserInfoRequest(TLRequest):
         self.message = message
         self.entities = entities
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -138,8 +130,6 @@ class GetAppConfigRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetAppConfigRequest',
@@ -168,8 +158,6 @@ class GetAppUpdateRequest(TLRequest):
         :returns help.AppUpdate: Instance of either AppUpdate, NoAppUpdate.
         """
         self.source = source
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -241,8 +229,6 @@ class GetCountriesListRequest(TLRequest):
         self.lang_code = lang_code
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetCountriesListRequest',
@@ -274,8 +260,6 @@ class GetDeepLinkInfoRequest(TLRequest):
         :returns help.DeepLinkInfo: Instance of either DeepLinkInfoEmpty, DeepLinkInfo.
         """
         self.path = path
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -346,8 +330,6 @@ class GetPassportConfigRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetPassportConfigRequest',
@@ -377,8 +359,6 @@ class GetPeerColorsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetPeerColorsRequest',
@@ -407,8 +387,6 @@ class GetPeerProfileColorsRequest(TLRequest):
         :returns help.PeerColors: Instance of either PeerColorsNotModified, PeerColors.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -478,8 +456,6 @@ class GetRecentMeUrlsRequest(TLRequest):
         :returns help.RecentMeUrls: Instance of RecentMeUrls.
         """
         self.referer = referer
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -570,8 +546,6 @@ class GetTimezonesListRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetTimezonesListRequest',
@@ -601,11 +575,8 @@ class GetUserInfoRequest(TLRequest):
         """
         self.user_id = user_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -636,11 +607,8 @@ class HidePromoDataRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -670,8 +638,6 @@ class SaveAppLogRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.events = events
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -707,8 +673,6 @@ class SetBotUpdatesStatusRequest(TLRequest):
         """
         self.pending_updates_count = pending_updates_count
         self.message = message
-
-        super().__init__()
 
     def to_dict(self):
         return {

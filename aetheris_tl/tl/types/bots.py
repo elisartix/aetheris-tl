@@ -20,8 +20,6 @@ class AccessSettings(TLObject):
         self.restricted = restricted
         self.add_users = add_users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AccessSettings',
@@ -66,8 +64,6 @@ class BotInfo(TLObject):
         self.about = about
         self.description = description
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'BotInfo',
@@ -103,8 +99,6 @@ class ExportedBotToken(TLObject):
         """
         self.token = token
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ExportedBotToken',
@@ -134,8 +128,6 @@ class PopularAppBots(TLObject):
         """
         self.users = users
         self.next_offset = next_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -181,8 +173,6 @@ class PreviewInfo(TLObject):
         self.media = media
         self.lang_codes = lang_codes
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PreviewInfo',
@@ -224,8 +214,6 @@ class RequestedButton(TLObject):
         Constructor for bots.RequestedButton: Instance of RequestedButton.
         """
         self.webapp_req_id = webapp_req_id
-
-        super().__init__()
 
     def to_dict(self):
         return {

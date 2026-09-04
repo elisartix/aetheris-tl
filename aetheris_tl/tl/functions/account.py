@@ -25,8 +25,6 @@ class AcceptAuthorizationRequest(TLRequest):
         self.value_hashes = value_hashes
         self.credentials = credentials
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AcceptAuthorizationRequest',
@@ -96,8 +94,6 @@ class ChangeAuthorizationSettingsRequest(TLRequest):
         self.encrypted_requests_disabled = encrypted_requests_disabled
         self.call_requests_disabled = call_requests_disabled
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChangeAuthorizationSettingsRequest',
@@ -146,8 +142,6 @@ class ChangePhoneRequest(TLRequest):
         self.phone_code_hash = phone_code_hash
         self.phone_code = phone_code
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChangePhoneRequest',
@@ -182,8 +176,6 @@ class CheckUsernameRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.username = username
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -234,11 +226,8 @@ class ConfirmBotConnectionRequest(TLRequest):
         """
         self.bot_id = bot_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot_id = utils.get_input_user(await client.get_input_entity(self.bot_id))
-        self._check_peer(self.bot_id)
 
     def to_dict(self):
         return {
@@ -269,8 +258,6 @@ class ConfirmPasswordEmailRequest(TLRequest):
         """
         self.code = code
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ConfirmPasswordEmailRequest',
@@ -300,8 +287,6 @@ class ConfirmPhoneRequest(TLRequest):
         """
         self.phone_code_hash = phone_code_hash
         self.phone_code = phone_code
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -335,8 +320,6 @@ class CreateBusinessChatLinkRequest(TLRequest):
         """
         self.link = link
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CreateBusinessChatLinkRequest',
@@ -369,12 +352,9 @@ class CreateThemeRequest(TLRequest):
         self.document = document
         self.settings = settings
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.document:
             self.document = utils.get_input_document(self.document)
-            self._check_peer(self.document)
 
     def to_dict(self):
         return {
@@ -449,8 +429,6 @@ class DeleteAccountRequest(TLRequest):
         self.reason = reason
         self.password = password
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DeleteAccountRequest',
@@ -509,8 +487,6 @@ class DeleteBusinessChatLinkRequest(TLRequest):
         """
         self.slug = slug
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DeleteBusinessChatLinkRequest',
@@ -540,8 +516,6 @@ class DeletePasskeyRequest(TLRequest):
         """
         self.id = id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DeletePasskeyRequest',
@@ -570,8 +544,6 @@ class DeleteSecureValueRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.types = types
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -627,11 +599,8 @@ class DisablePeerConnectedBotRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -662,8 +631,6 @@ class EditBusinessChatLinkRequest(TLRequest):
         """
         self.slug = slug
         self.link = link
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -696,8 +663,6 @@ class FinishTakeoutSessionRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.success = success
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -771,8 +736,6 @@ class GetAuthorizationFormRequest(TLRequest):
         self.bot_id = bot_id
         self.scope = scope
         self.public_key = public_key
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -869,8 +832,6 @@ class GetBotBusinessConnectionRequest(TLRequest):
         """
         self.connection_id = connection_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetBotBusinessConnectionRequest',
@@ -920,8 +881,6 @@ class GetChannelDefaultEmojiStatusesRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetChannelDefaultEmojiStatusesRequest',
@@ -950,8 +909,6 @@ class GetChannelRestrictedStatusEmojisRequest(TLRequest):
         :returns EmojiList: Instance of either EmojiListNotModified, EmojiList.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -982,8 +939,6 @@ class GetChatThemesRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetChatThemesRequest',
@@ -1012,8 +967,6 @@ class GetCollectibleEmojiStatusesRequest(TLRequest):
         :returns account.EmojiStatuses: Instance of either EmojiStatusesNotModified, EmojiStatuses.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1104,8 +1057,6 @@ class GetDefaultBackgroundEmojisRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetDefaultBackgroundEmojisRequest',
@@ -1134,8 +1085,6 @@ class GetDefaultEmojiStatusesRequest(TLRequest):
         :returns account.EmojiStatuses: Instance of either EmojiStatusesNotModified, EmojiStatuses.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1166,8 +1115,6 @@ class GetDefaultGroupPhotoEmojisRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetDefaultGroupPhotoEmojisRequest',
@@ -1196,8 +1143,6 @@ class GetDefaultProfilePhotoEmojisRequest(TLRequest):
         :returns EmojiList: Instance of either EmojiListNotModified, EmojiList.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1248,8 +1193,6 @@ class GetMultiWallPapersRequest(TLRequest):
         """
         self.wallpapers = wallpapers
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetMultiWallPapersRequest',
@@ -1286,12 +1229,9 @@ class GetNotifyExceptionsRequest(TLRequest):
         self.compare_stories = compare_stories
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.peer:
             self.peer = await client._get_input_notify(self.peer)
-            self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1332,11 +1272,8 @@ class GetNotifySettingsRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = await client._get_input_notify(self.peer)
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1368,14 +1305,10 @@ class GetPaidMessagesRevenueRequest(TLRequest):
         self.user_id = user_id
         self.parent_peer = parent_peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
         if self.parent_peer:
             self.parent_peer = utils.get_input_peer(await client.get_input_entity(self.parent_peer))
-            self._check_peer(self.parent_peer)
 
     def to_dict(self):
         return {
@@ -1455,8 +1388,6 @@ class GetPasswordSettingsRequest(TLRequest):
         """
         self.password = password
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetPasswordSettingsRequest',
@@ -1485,8 +1416,6 @@ class GetPrivacyRequest(TLRequest):
         :returns account.PrivacyRules: Instance of PrivacyRules.
         """
         self.key = key
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1537,8 +1466,6 @@ class GetRecentEmojiStatusesRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetRecentEmojiStatusesRequest',
@@ -1567,8 +1494,6 @@ class GetSavedMusicIdsRequest(TLRequest):
         :returns account.SavedMusicIds: Instance of either SavedMusicIdsNotModified, SavedMusicIds.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1599,8 +1524,6 @@ class GetSavedRingtonesRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetSavedRingtonesRequest',
@@ -1629,8 +1552,6 @@ class GetSecureValueRequest(TLRequest):
         :returns Vector<SecureValue>: This type has no constructors.
         """
         self.types = types
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1667,8 +1588,6 @@ class GetThemeRequest(TLRequest):
         self.format = format
         self.theme = theme
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetThemeRequest',
@@ -1701,8 +1620,6 @@ class GetThemesRequest(TLRequest):
         """
         self.format = format
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1737,8 +1654,6 @@ class GetTmpPasswordRequest(TLRequest):
         self.password = password
         self.period = period
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetTmpPasswordRequest',
@@ -1772,8 +1687,6 @@ class GetUniqueGiftChatThemesRequest(TLRequest):
         self.offset = offset
         self.limit = limit
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1810,8 +1723,6 @@ class GetWallPaperRequest(TLRequest):
         """
         self.wallpaper = wallpaper
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetWallPaperRequest',
@@ -1840,8 +1751,6 @@ class GetWallPapersRequest(TLRequest):
         :returns account.WallPapers: Instance of either WallPapersNotModified, WallPapers.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1891,8 +1800,6 @@ class GetWebBrowserSettingsRequest(TLRequest):
         :returns account.WebBrowserSettings: Instance of either WebBrowserSettingsNotModified, WebBrowserSettings.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1949,8 +1856,6 @@ class InitTakeoutSessionRequest(TLRequest):
         self.files = files
         self.file_max_size = file_max_size
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'InitTakeoutSessionRequest',
@@ -1965,7 +1870,7 @@ class InitTakeoutSessionRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.files or self.files is not None) and (self.file_max_size or self.file_max_size is not None)) or ((self.files is None or self.files is False) and (self.file_max_size is None or self.file_max_size is False)), 'files, file_max_size parameters must all be False-y (like None) or all be True-y'
+        assert ((self.files or self.files is not None) and (self.file_max_size or self.file_max_size is not None)) or ((self.files is None or self.files is False) and (self.file_max_size is None or self.file_max_size is False)), 'files, file_max_size parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xb0\xea\xf3\x8e',
             struct.pack('<I', (0 if self.contacts is None or self.contacts is False else 1) | (0 if self.message_users is None or self.message_users is False else 2) | (0 if self.message_chats is None or self.message_chats is False else 4) | (0 if self.message_megagroups is None or self.message_megagroups is False else 8) | (0 if self.message_channels is None or self.message_channels is False else 16) | (0 if self.files is None or self.files is False else 32) | (0 if self.file_max_size is None or self.file_max_size is False else 32)),
@@ -2001,8 +1906,6 @@ class InstallThemeRequest(TLRequest):
         self.theme = theme
         self.format = format
         self.base_theme = base_theme
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2054,8 +1957,6 @@ class InstallWallPaperRequest(TLRequest):
         self.wallpaper = wallpaper
         self.settings = settings
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'InstallWallPaperRequest',
@@ -2087,8 +1988,6 @@ class InvalidateSignInCodesRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.codes = codes
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2128,8 +2027,6 @@ class RegisterDeviceRequest(TLRequest):
         self.secret = secret
         self.other_uids = other_uids
         self.no_muted = no_muted
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2182,8 +2079,6 @@ class RegisterPasskeyRequest(TLRequest):
         """
         self.credential = credential
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'RegisterPasskeyRequest',
@@ -2212,8 +2107,6 @@ class ReorderUsernamesRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.order = order
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2251,11 +2144,8 @@ class ReportPeerRequest(TLRequest):
         self.reason = reason
         self.message = message
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2295,13 +2185,9 @@ class ReportProfilePhotoRequest(TLRequest):
         self.reason = reason
         self.message = message
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.photo_id = utils.get_input_photo(self.photo_id)
-        self._check_peer(self.photo_id)
 
     def to_dict(self):
         return {
@@ -2360,8 +2246,6 @@ class ResetAuthorizationRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2452,8 +2336,6 @@ class ResetWebAuthorizationRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResetWebAuthorizationRequest',
@@ -2503,8 +2385,6 @@ class ResolveBusinessChatLinkRequest(TLRequest):
         """
         self.slug = slug
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResolveBusinessChatLinkRequest',
@@ -2535,8 +2415,6 @@ class SaveAutoDownloadSettingsRequest(TLRequest):
         self.settings = settings
         self.low = low
         self.high = high
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2578,12 +2456,9 @@ class SaveAutoSaveSettingsRequest(TLRequest):
         self.broadcasts = broadcasts
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.peer:
             self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-            self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2631,14 +2506,10 @@ class SaveMusicRequest(TLRequest):
         self.unsave = unsave
         self.after_id = after_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_document(self.id)
-        self._check_peer(self.id)
         if self.after_id:
             self.after_id = utils.get_input_document(self.after_id)
-            self._check_peer(self.after_id)
 
     def to_dict(self):
         return {
@@ -2681,11 +2552,8 @@ class SaveRingtoneRequest(TLRequest):
         self.id = id
         self.unsave = unsave
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_document(self.id)
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -2720,8 +2588,6 @@ class SaveSecureValueRequest(TLRequest):
         self.value = value
         self.secure_secret_id = secure_secret_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SaveSecureValueRequest',
@@ -2754,8 +2620,6 @@ class SaveThemeRequest(TLRequest):
         """
         self.theme = theme
         self.unsave = unsave
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2790,8 +2654,6 @@ class SaveWallPaperRequest(TLRequest):
         self.wallpaper = wallpaper
         self.unsave = unsave
         self.settings = settings
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2829,8 +2691,6 @@ class SendChangePhoneCodeRequest(TLRequest):
         self.phone_number = phone_number
         self.settings = settings
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SendChangePhoneCodeRequest',
@@ -2863,8 +2723,6 @@ class SendConfirmPhoneCodeRequest(TLRequest):
         """
         self.hash = hash
         self.settings = settings
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2899,8 +2757,6 @@ class SendVerifyEmailCodeRequest(TLRequest):
         self.purpose = purpose
         self.email = email
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SendVerifyEmailCodeRequest',
@@ -2934,8 +2790,6 @@ class SendVerifyPhoneCodeRequest(TLRequest):
         self.phone_number = phone_number
         self.settings = settings
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SendVerifyPhoneCodeRequest',
@@ -2968,8 +2822,6 @@ class SetAccountTTLRequest(TLRequest):
         """
         self.ttl = ttl
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SetAccountTTLRequest',
@@ -2998,8 +2850,6 @@ class SetAuthorizationTTLRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.authorization_ttl_days = authorization_ttl_days
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3030,8 +2880,6 @@ class SetContactSignUpNotificationRequest(TLRequest):
         """
         self.silent = silent
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SetContactSignUpNotificationRequest',
@@ -3060,8 +2908,6 @@ class SetContentSettingsRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.sensitive_enabled = sensitive_enabled
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3094,8 +2940,6 @@ class SetGlobalPrivacySettingsRequest(TLRequest):
         """
         self.settings = settings
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SetGlobalPrivacySettingsRequest',
@@ -3124,8 +2968,6 @@ class SetMainProfileTabRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.tab = tab
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3156,8 +2998,6 @@ class SetPrivacyRequest(TLRequest):
         """
         self.key = key
         self.rules = rules
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3196,8 +3036,6 @@ class SetReactionsNotifySettingsRequest(TLRequest):
         """
         self.settings = settings
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SetReactionsNotifySettingsRequest',
@@ -3228,11 +3066,8 @@ class ToggleConnectedBotPausedRequest(TLRequest):
         self.peer = peer
         self.paused = paused
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -3269,14 +3104,10 @@ class ToggleNoPaidMessagesExceptionRequest(TLRequest):
         self.require_payment = require_payment
         self.parent_peer = parent_peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
         if self.parent_peer:
             self.parent_peer = utils.get_input_peer(await client.get_input_entity(self.parent_peer))
-            self._check_peer(self.parent_peer)
 
     def to_dict(self):
         return {
@@ -3320,8 +3151,6 @@ class ToggleSponsoredMessagesRequest(TLRequest):
         """
         self.enabled = enabled
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ToggleSponsoredMessagesRequest',
@@ -3351,8 +3180,6 @@ class ToggleUsernameRequest(TLRequest):
         """
         self.username = username
         self.active = active
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3387,8 +3214,6 @@ class ToggleWebBrowserSettingsExceptionRequest(TLRequest):
         self.url = url
         self.delete = delete
         self.open_external_browser = open_external_browser
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3432,8 +3257,6 @@ class UnregisterDeviceRequest(TLRequest):
         self.token = token
         self.other_uids = other_uids
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UnregisterDeviceRequest',
@@ -3474,8 +3297,6 @@ class UpdateBirthdayRequest(TLRequest):
         """
         self.birthday = birthday
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdateBirthdayRequest',
@@ -3510,8 +3331,6 @@ class UpdateBusinessAwayMessageRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.message = message
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3548,8 +3367,6 @@ class UpdateBusinessGreetingMessageRequest(TLRequest):
         """
         self.message = message
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdateBusinessGreetingMessageRequest',
@@ -3584,8 +3401,6 @@ class UpdateBusinessIntroRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.intro = intro
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3622,8 +3437,6 @@ class UpdateBusinessLocationRequest(TLRequest):
         """
         self.geo_point = geo_point
         self.address = address
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3666,8 +3479,6 @@ class UpdateBusinessWorkHoursRequest(TLRequest):
         """
         self.business_work_hours = business_work_hours
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdateBusinessWorkHoursRequest',
@@ -3703,8 +3514,6 @@ class UpdateColorRequest(TLRequest):
         """
         self.for_profile = for_profile
         self.color = color
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3746,11 +3555,8 @@ class UpdateConnectedBotRequest(TLRequest):
         self.deleted = deleted
         self.rights = rights
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -3795,8 +3601,6 @@ class UpdateDeviceLockedRequest(TLRequest):
         """
         self.period = period
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdateDeviceLockedRequest',
@@ -3825,8 +3629,6 @@ class UpdateEmojiStatusRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.emoji_status = emoji_status
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3858,11 +3660,8 @@ class UpdateNotifySettingsRequest(TLRequest):
         self.peer = peer
         self.settings = settings
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = await client._get_input_notify(self.peer)
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -3897,8 +3696,6 @@ class UpdatePasswordSettingsRequest(TLRequest):
         self.password = password
         self.new_settings = new_settings
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdatePasswordSettingsRequest',
@@ -3931,11 +3728,8 @@ class UpdatePersonalChannelRequest(TLRequest):
         """
         self.channel = channel
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -3967,8 +3761,6 @@ class UpdateProfileRequest(TLRequest):
         self.first_name = first_name
         self.last_name = last_name
         self.about = about
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -4017,8 +3809,6 @@ class UpdateStatusRequest(TLRequest):
         """
         self.offline = offline
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdateStatusRequest',
@@ -4053,12 +3843,9 @@ class UpdateThemeRequest(TLRequest):
         self.document = document
         self.settings = settings
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.document:
             self.document = utils.get_input_document(self.document)
-            self._check_peer(self.document)
 
     def to_dict(self):
         return {
@@ -4124,8 +3911,6 @@ class UpdateUsernameRequest(TLRequest):
         """
         self.username = username
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdateUsernameRequest',
@@ -4155,8 +3940,6 @@ class UpdateWebBrowserSettingsRequest(TLRequest):
         """
         self.open_external_browser = open_external_browser
         self.display_close_button = display_close_button
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -4192,8 +3975,6 @@ class UploadRingtoneRequest(TLRequest):
         self.file = file
         self.file_name = file_name
         self.mime_type = mime_type
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -4232,8 +4013,6 @@ class UploadThemeRequest(TLRequest):
         self.file_name = file_name
         self.mime_type = mime_type
         self.thumb = thumb
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -4282,8 +4061,6 @@ class UploadWallPaperRequest(TLRequest):
         self.settings = settings
         self.for_chat = for_chat
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UploadWallPaperRequest',
@@ -4325,8 +4102,6 @@ class VerifyEmailRequest(TLRequest):
         self.purpose = purpose
         self.verification = verification
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'VerifyEmailRequest',
@@ -4360,8 +4135,6 @@ class VerifyPhoneRequest(TLRequest):
         self.phone_number = phone_number
         self.phone_code_hash = phone_code_hash
         self.phone_code = phone_code
-
-        super().__init__()
 
     def to_dict(self):
         return {

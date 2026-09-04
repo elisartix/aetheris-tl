@@ -24,11 +24,8 @@ class GetChannelDifferenceRequest(TLRequest):
         self.limit = limit
         self.force = force
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.channel = utils.get_input_channel(await client.get_input_entity(self.channel))
-        self._check_peer(self.channel)
 
     def to_dict(self):
         return {
@@ -77,8 +74,6 @@ class GetDifferenceRequest(TLRequest):
         self.pts_limit = pts_limit
         self.pts_total_limit = pts_total_limit
         self.qts_limit = qts_limit
-
-        super().__init__()
 
     def to_dict(self):
         return {

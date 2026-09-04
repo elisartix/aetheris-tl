@@ -20,11 +20,8 @@ class GetFullUserRequest(TLRequest):
         """
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_user(await client.get_input_entity(self.id))
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -54,8 +51,6 @@ class GetRequirementsToContactRequest(TLRequest):
         :returns Vector<RequirementToContact>: This type has no constructors.
         """
         self.id = id
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         _tmp = []
@@ -101,11 +96,8 @@ class GetSavedMusicRequest(TLRequest):
         self.limit = limit
         self.hash = hash
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_user(await client.get_input_entity(self.id))
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -146,11 +138,8 @@ class GetSavedMusicByIDRequest(TLRequest):
         self.id = id
         self.documents = documents
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_user(await client.get_input_entity(self.id))
-        self._check_peer(self.id)
         _tmp = []
         for _x in self.documents:
             _tmp.append(utils.get_input_document(_x))
@@ -194,8 +183,6 @@ class GetUsersRequest(TLRequest):
         """
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         _tmp = []
         for _x in self.id:
@@ -238,11 +225,8 @@ class SetSecureValueErrorsRequest(TLRequest):
         self.id = id
         self.errors = errors
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_user(await client.get_input_entity(self.id))
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -282,11 +266,8 @@ class SuggestBirthdayRequest(TLRequest):
         self.id = id
         self.birthday = birthday
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_user(await client.get_input_entity(self.id))
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {

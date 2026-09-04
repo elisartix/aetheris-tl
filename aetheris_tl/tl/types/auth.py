@@ -25,8 +25,6 @@ class Authorization(TLObject):
         self.tmp_sessions = tmp_sessions
         self.future_auth_token = future_auth_token
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Authorization',
@@ -39,7 +37,7 @@ class Authorization(TLObject):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.setup_password_required or self.setup_password_required is not None) and (self.otherwise_relogin_days or self.otherwise_relogin_days is not None)) or ((self.setup_password_required is None or self.setup_password_required is False) and (self.otherwise_relogin_days is None or self.otherwise_relogin_days is False)), 'setup_password_required, otherwise_relogin_days parameters must all be False-y (like None) or all be True-y'
+        assert ((self.setup_password_required or self.setup_password_required is not None) and (self.otherwise_relogin_days or self.otherwise_relogin_days is not None)) or ((self.setup_password_required is None or self.setup_password_required is False) and (self.otherwise_relogin_days is None or self.otherwise_relogin_days is False)), 'setup_password_required, otherwise_relogin_days parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xd4\xc0\xa2.',
             struct.pack('<I', (0 if self.setup_password_required is None or self.setup_password_required is False else 2) | (0 if self.otherwise_relogin_days is None or self.otherwise_relogin_days is False else 2) | (0 if self.tmp_sessions is None or self.tmp_sessions is False else 1) | (0 if self.future_auth_token is None or self.future_auth_token is False else 4)),
@@ -79,8 +77,6 @@ class AuthorizationSignUpRequired(TLObject):
         Constructor for auth.Authorization: Instance of either Authorization, AuthorizationSignUpRequired.
         """
         self.terms_of_service = terms_of_service
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -218,8 +214,6 @@ class ExportedAuthorization(TLObject):
         self.id = id
         self.bytes = bytes
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ExportedAuthorization',
@@ -242,6 +236,39 @@ class ExportedAuthorization(TLObject):
         return cls(id=_id, bytes=_bytes)
 
 
+class FirebasePnvIntent(TLObject):
+    CONSTRUCTOR_ID = 0xdf5ac00c
+    SUBCLASS_OF_ID = 0xfa6422a7
+
+    def __init__(self, nonce: str, digital_credential_payload: str):
+        """
+        Constructor for auth.FirebasePnvIntent: Instance of FirebasePnvIntent.
+        """
+        self.nonce = nonce
+        self.digital_credential_payload = digital_credential_payload
+
+    def to_dict(self):
+        return {
+            '_': 'FirebasePnvIntent',
+            'nonce': self.nonce,
+            'digital_credential_payload': self.digital_credential_payload
+        }
+
+    def _bytes(self):
+        self._assert_no_forbidden_constructors()
+        return b''.join((
+            b'\x0c\xc0Z\xdf',
+            self.serialize_bytes(self.nonce),
+            self.serialize_bytes(self.digital_credential_payload),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _nonce = reader.tgread_string()
+        _digital_credential_payload = reader.tgread_string()
+        return cls(nonce=_nonce, digital_credential_payload=_digital_credential_payload)
+
+
 class LoggedOut(TLObject):
     CONSTRUCTOR_ID = 0xc3a2835f
     SUBCLASS_OF_ID = 0xa804315
@@ -251,8 +278,6 @@ class LoggedOut(TLObject):
         Constructor for auth.LoggedOut: Instance of LoggedOut.
         """
         self.future_auth_token = future_auth_token
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -290,8 +315,6 @@ class LoginToken(TLObject):
         self.expires = expires
         self.token = token
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'LoginToken',
@@ -325,8 +348,6 @@ class LoginTokenMigrateTo(TLObject):
         self.dc_id = dc_id
         self.token = token
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'LoginTokenMigrateTo',
@@ -359,8 +380,6 @@ class LoginTokenSuccess(TLObject):
         """
         self.authorization = authorization
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'LoginTokenSuccess',
@@ -390,8 +409,6 @@ class PasskeyLoginOptions(TLObject):
         """
         self.options = options
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PasskeyLoginOptions',
@@ -420,8 +437,6 @@ class PasswordRecovery(TLObject):
         Constructor for auth.PasswordRecovery: Instance of PasswordRecovery.
         """
         self.email_pattern = email_pattern
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -454,8 +469,6 @@ class SentCode(TLObject):
         self.phone_code_hash = phone_code_hash
         self.next_type = next_type
         self.timeout = timeout
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -510,8 +523,6 @@ class SentCodePaymentRequired(TLObject):
         self.currency = currency
         self.amount = amount
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SentCodePaymentRequired',
@@ -559,8 +570,6 @@ class SentCodeSuccess(TLObject):
         """
         self.authorization = authorization
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SentCodeSuccess',
@@ -590,8 +599,6 @@ class SentCodeTypeApp(TLObject):
         """
         self.length = length
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SentCodeTypeApp',
@@ -620,8 +627,6 @@ class SentCodeTypeCall(TLObject):
         Constructor for auth.SentCodeType: Instance of either SentCodeTypeApp, SentCodeTypeSms, SentCodeTypeCall, SentCodeTypeFlashCall, SentCodeTypeMissedCall, SentCodeTypeEmailCode, SentCodeTypeSetUpEmailRequired, SentCodeTypeFragmentSms, SentCodeTypeFirebaseSms, SentCodeTypeSmsWord, SentCodeTypeSmsPhrase.
         """
         self.length = length
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -656,8 +661,6 @@ class SentCodeTypeEmailCode(TLObject):
         self.google_signin_allowed = google_signin_allowed
         self.reset_available_period = reset_available_period
         self.reset_pending_date = reset_pending_date
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -715,8 +718,6 @@ class SentCodeTypeFirebaseSms(TLObject):
         self.receipt = receipt
         self.push_timeout = push_timeout
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SentCodeTypeFirebaseSms',
@@ -730,8 +731,8 @@ class SentCodeTypeFirebaseSms(TLObject):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.play_integrity_project_id or self.play_integrity_project_id is not None) and (self.play_integrity_nonce or self.play_integrity_nonce is not None)) or ((self.play_integrity_project_id is None or self.play_integrity_project_id is False) and (self.play_integrity_nonce is None or self.play_integrity_nonce is False)), 'play_integrity_project_id, play_integrity_nonce parameters must all be False-y (like None) or all be True-y'
-        assert ((self.receipt or self.receipt is not None) and (self.push_timeout or self.push_timeout is not None)) or ((self.receipt is None or self.receipt is False) and (self.push_timeout is None or self.push_timeout is False)), 'receipt, push_timeout parameters must all be False-y (like None) or all be True-y'
+        assert ((self.play_integrity_project_id or self.play_integrity_project_id is not None) and (self.play_integrity_nonce or self.play_integrity_nonce is not None)) or ((self.play_integrity_project_id is None or self.play_integrity_project_id is False) and (self.play_integrity_nonce is None or self.play_integrity_nonce is False)), 'play_integrity_project_id, play_integrity_nonce parameters must all be False-y (like None) or all me True-y'
+        assert ((self.receipt or self.receipt is not None) and (self.push_timeout or self.push_timeout is not None)) or ((self.receipt is None or self.receipt is False) and (self.push_timeout is None or self.push_timeout is False)), 'receipt, push_timeout parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'6\xd7\x9f\x00',
             struct.pack('<I', (0 if self.nonce is None or self.nonce is False else 1) | (0 if self.play_integrity_project_id is None or self.play_integrity_project_id is False else 4) | (0 if self.play_integrity_nonce is None or self.play_integrity_nonce is False else 4) | (0 if self.receipt is None or self.receipt is False else 2) | (0 if self.push_timeout is None or self.push_timeout is False else 2)),
@@ -781,8 +782,6 @@ class SentCodeTypeFlashCall(TLObject):
         """
         self.pattern = pattern
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SentCodeTypeFlashCall',
@@ -812,8 +811,6 @@ class SentCodeTypeFragmentSms(TLObject):
         """
         self.url = url
         self.length = length
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -848,8 +845,6 @@ class SentCodeTypeMissedCall(TLObject):
         self.prefix = prefix
         self.length = length
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SentCodeTypeMissedCall',
@@ -882,8 +877,6 @@ class SentCodeTypeSetUpEmailRequired(TLObject):
         """
         self.apple_signin_allowed = apple_signin_allowed
         self.google_signin_allowed = google_signin_allowed
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -918,8 +911,6 @@ class SentCodeTypeSms(TLObject):
         """
         self.length = length
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SentCodeTypeSms',
@@ -948,8 +939,6 @@ class SentCodeTypeSmsPhrase(TLObject):
         Constructor for auth.SentCodeType: Instance of either SentCodeTypeApp, SentCodeTypeSms, SentCodeTypeCall, SentCodeTypeFlashCall, SentCodeTypeMissedCall, SentCodeTypeEmailCode, SentCodeTypeSetUpEmailRequired, SentCodeTypeFragmentSms, SentCodeTypeFirebaseSms, SentCodeTypeSmsWord, SentCodeTypeSmsPhrase.
         """
         self.beginning = beginning
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -985,8 +974,6 @@ class SentCodeTypeSmsWord(TLObject):
         Constructor for auth.SentCodeType: Instance of either SentCodeTypeApp, SentCodeTypeSms, SentCodeTypeCall, SentCodeTypeFlashCall, SentCodeTypeMissedCall, SentCodeTypeEmailCode, SentCodeTypeSetUpEmailRequired, SentCodeTypeFragmentSms, SentCodeTypeFirebaseSms, SentCodeTypeSmsWord, SentCodeTypeSmsPhrase.
         """
         self.beginning = beginning
-
-        super().__init__()
 
     def to_dict(self):
         return {

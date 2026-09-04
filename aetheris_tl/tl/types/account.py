@@ -25,8 +25,6 @@ class AuthorizationForm(TLObject):
         self.users = users
         self.privacy_policy_url = privacy_policy_url
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AuthorizationForm',
@@ -95,8 +93,6 @@ class Authorizations(TLObject):
         self.authorization_ttl_days = authorization_ttl_days
         self.authorizations = authorizations
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Authorizations',
@@ -135,8 +131,6 @@ class AutoDownloadSettings(TLObject):
         self.low = low
         self.medium = medium
         self.high = high
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -177,8 +171,6 @@ class AutoSaveSettings(TLObject):
         self.exceptions = exceptions
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -241,8 +233,6 @@ class BusinessChatLinks(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'BusinessChatLinks',
@@ -296,8 +286,6 @@ class ChatThemes(TLObject):
         self.chats = chats
         self.users = users
         self.next_offset = next_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -382,8 +370,6 @@ class ConnectedBots(TLObject):
         self.connected_bots = connected_bots
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ConnectedBots',
@@ -427,8 +413,6 @@ class ContentSettings(TLObject):
         self.sensitive_enabled = sensitive_enabled
         self.sensitive_can_change = sensitive_can_change
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ContentSettings',
@@ -462,8 +446,6 @@ class EmailVerified(TLObject):
         """
         self.email = email
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'EmailVerified',
@@ -493,8 +475,6 @@ class EmailVerifiedLogin(TLObject):
         """
         self.email = email
         self.sent_code = sent_code
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -528,8 +508,6 @@ class EmojiStatuses(TLObject):
         """
         self.hash = hash
         self.statuses = statuses
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -588,8 +566,6 @@ class PaidMessagesRevenue(TLObject):
         """
         self.stars_amount = stars_amount
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PaidMessagesRevenue',
@@ -619,8 +595,6 @@ class PasskeyRegistrationOptions(TLObject):
         """
         self.options = options
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PasskeyRegistrationOptions',
@@ -649,8 +623,6 @@ class Passkeys(TLObject):
         Constructor for account.Passkeys: Instance of Passkeys.
         """
         self.passkeys = passkeys
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -698,8 +670,6 @@ class Password(TLObject):
         self.pending_reset_date = pending_reset_date
         self.login_email_pattern = login_email_pattern
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Password',
@@ -720,7 +690,7 @@ class Password(TLObject):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.has_password or self.has_password is not None) and (self.current_algo or self.current_algo is not None) and (self.srp_B or self.srp_B is not None) and (self.srp_id or self.srp_id is not None)) or ((self.has_password is None or self.has_password is False) and (self.current_algo is None or self.current_algo is False) and (self.srp_B is None or self.srp_B is False) and (self.srp_id is None or self.srp_id is False)), 'has_password, current_algo, srp_B, srp_id parameters must all be False-y (like None) or all be True-y'
+        assert ((self.has_password or self.has_password is not None) and (self.current_algo or self.current_algo is not None) and (self.srp_B or self.srp_B is not None) and (self.srp_id or self.srp_id is not None)) or ((self.has_password is None or self.has_password is False) and (self.current_algo is None or self.current_algo is False) and (self.srp_B is None or self.srp_B is False) and (self.srp_id is None or self.srp_id is False)), 'has_password, current_algo, srp_B, srp_id parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xfbP{\x95',
             struct.pack('<I', (0 if self.has_recovery is None or self.has_recovery is False else 1) | (0 if self.has_secure_values is None or self.has_secure_values is False else 2) | (0 if self.has_password is None or self.has_password is False else 4) | (0 if self.current_algo is None or self.current_algo is False else 4) | (0 if self.srp_B is None or self.srp_B is False else 4) | (0 if self.srp_id is None or self.srp_id is False else 4) | (0 if self.hint is None or self.hint is False else 8) | (0 if self.email_unconfirmed_pattern is None or self.email_unconfirmed_pattern is False else 16) | (0 if self.pending_reset_date is None or self.pending_reset_date is False else 32) | (0 if self.login_email_pattern is None or self.login_email_pattern is False else 64)),
@@ -791,8 +761,6 @@ class PasswordInputSettings(TLObject):
         self.email = email
         self.new_secure_settings = new_secure_settings
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PasswordInputSettings',
@@ -805,7 +773,7 @@ class PasswordInputSettings(TLObject):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.new_algo or self.new_algo is not None) and (self.new_password_hash or self.new_password_hash is not None) and (self.hint or self.hint is not None)) or ((self.new_algo is None or self.new_algo is False) and (self.new_password_hash is None or self.new_password_hash is False) and (self.hint is None or self.hint is False)), 'new_algo, new_password_hash, hint parameters must all be False-y (like None) or all be True-y'
+        assert ((self.new_algo or self.new_algo is not None) and (self.new_password_hash or self.new_password_hash is not None) and (self.hint or self.hint is not None)) or ((self.new_algo is None or self.new_algo is False) and (self.new_password_hash is None or self.new_password_hash is False) and (self.hint is None or self.hint is False)), 'new_algo, new_password_hash, hint parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b"\xc9'7\xc2",
             struct.pack('<I', (0 if self.new_algo is None or self.new_algo is False else 1) | (0 if self.new_password_hash is None or self.new_password_hash is False else 1) | (0 if self.hint is None or self.hint is False else 1) | (0 if self.email is None or self.email is False else 2) | (0 if self.new_secure_settings is None or self.new_secure_settings is False else 4)),
@@ -854,8 +822,6 @@ class PasswordSettings(TLObject):
         self.email = email
         self.secure_settings = secure_settings
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PasswordSettings',
@@ -898,8 +864,6 @@ class PrivacyRules(TLObject):
         self.rules = rules
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -951,8 +915,6 @@ class ResetPasswordFailedWait(TLObject):
         """
         self.retry_date = retry_date
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResetPasswordFailedWait',
@@ -1002,8 +964,6 @@ class ResetPasswordRequestedWait(TLObject):
         """
         self.until_date = until_date
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResetPasswordRequestedWait',
@@ -1036,8 +996,6 @@ class ResolvedBusinessChatLinks(TLObject):
         self.chats = chats
         self.users = users
         self.entities = entities
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1100,8 +1058,6 @@ class SavedMusicIds(TLObject):
         Constructor for account.SavedMusicIds: Instance of either SavedMusicIdsNotModified, SavedMusicIds.
         """
         self.ids = ids
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1177,8 +1133,6 @@ class SavedRingtoneConverted(TLObject):
         """
         self.document = document
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SavedRingtoneConverted',
@@ -1208,8 +1162,6 @@ class SavedRingtones(TLObject):
         """
         self.hash = hash
         self.ringtones = ringtones
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1269,8 +1221,6 @@ class SentEmailCode(TLObject):
         self.email_pattern = email_pattern
         self.length = length
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SentEmailCode',
@@ -1303,8 +1253,6 @@ class Takeout(TLObject):
         """
         self.id = id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Takeout',
@@ -1334,8 +1282,6 @@ class Themes(TLObject):
         """
         self.hash = hash
         self.themes = themes
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1395,8 +1341,6 @@ class TmpPassword(TLObject):
         self.tmp_password = tmp_password
         self.valid_until = valid_until
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'TmpPassword',
@@ -1429,8 +1373,6 @@ class WallPapers(TLObject):
         """
         self.hash = hash
         self.wallpapers = wallpapers
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1490,8 +1432,6 @@ class WebAuthorizations(TLObject):
         self.authorizations = authorizations
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'WebAuthorizations',
@@ -1537,8 +1477,6 @@ class WebBrowserSettings(TLObject):
         self.hash = hash
         self.open_external_browser = open_external_browser
         self.display_close_button = display_close_button
-
-        super().__init__()
 
     def to_dict(self):
         return {

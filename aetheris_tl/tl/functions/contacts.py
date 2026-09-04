@@ -20,11 +20,8 @@ class AcceptContactRequest(TLRequest):
         """
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_user(await client.get_input_entity(self.id))
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -60,11 +57,8 @@ class AddContactRequest(TLRequest):
         self.add_phone_privacy_exception = add_phone_privacy_exception
         self.note = note
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_user(await client.get_input_entity(self.id))
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -116,11 +110,8 @@ class BlockRequest(TLRequest):
         self.id = id
         self.my_stories_from = my_stories_from
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_peer(await client.get_input_entity(self.id))
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -158,8 +149,6 @@ class BlockFromRepliesRequest(TLRequest):
         self.delete_message = delete_message
         self.delete_history = delete_history
         self.report_spam = report_spam
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -199,8 +188,6 @@ class DeleteByPhonesRequest(TLRequest):
         """
         self.phones = phones
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DeleteByPhonesRequest',
@@ -234,8 +221,6 @@ class DeleteContactsRequest(TLRequest):
         :returns Updates: Instance of either UpdatesTooLong, UpdateShortMessage, UpdateShortChatMessage, UpdateShort, UpdatesCombined, Updates, UpdateShortSentMessage.
         """
         self.id = id
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         _tmp = []
@@ -277,8 +262,6 @@ class EditCloseFriendsRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.id = id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -356,8 +339,6 @@ class GetBlockedRequest(TLRequest):
         self.limit = limit
         self.my_stories_from = my_stories_from
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetBlockedRequest',
@@ -395,8 +376,6 @@ class GetContactIDsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetContactIDsRequest',
@@ -431,8 +410,6 @@ class GetContactsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetContactsRequest',
@@ -463,8 +440,6 @@ class GetLocatedRequest(TLRequest):
         self.geo_point = geo_point
         self.background = background
         self.self_expires = self_expires
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -525,8 +500,6 @@ class GetSponsoredPeersRequest(TLRequest):
         :returns contacts.SponsoredPeers: Instance of either SponsoredPeersEmpty, SponsoredPeers.
         """
         self.q = q
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -589,8 +562,6 @@ class GetTopPeersRequest(TLRequest):
         self.bots_app = bots_app
         self.bots_guestchat = bots_guestchat
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetTopPeersRequest',
@@ -649,8 +620,6 @@ class ImportContactTokenRequest(TLRequest):
         """
         self.token = token
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ImportContactTokenRequest',
@@ -679,8 +648,6 @@ class ImportContactsRequest(TLRequest):
         :returns contacts.ImportedContacts: Instance of ImportedContacts.
         """
         self.contacts = contacts
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -737,11 +704,8 @@ class ResetTopPeerRatingRequest(TLRequest):
         self.category = category
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -775,8 +739,6 @@ class ResolvePhoneRequest(TLRequest):
         """
         self.phone = phone
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResolvePhoneRequest',
@@ -806,8 +768,6 @@ class ResolveUsernameRequest(TLRequest):
         """
         self.username = username
         self.referer = referer
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -850,8 +810,6 @@ class SearchRequest(TLRequest):
         self.broadcasts = broadcasts
         self.bots = bots
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SearchRequest',
@@ -892,8 +850,6 @@ class SetBlockedRequest(TLRequest):
         self.id = id
         self.limit = limit
         self.my_stories_from = my_stories_from
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         _tmp = []
@@ -944,8 +900,6 @@ class ToggleTopPeersRequest(TLRequest):
         """
         self.enabled = enabled
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ToggleTopPeersRequest',
@@ -976,11 +930,8 @@ class UnblockRequest(TLRequest):
         self.id = id
         self.my_stories_from = my_stories_from
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_peer(await client.get_input_entity(self.id))
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -1017,11 +968,8 @@ class UpdateContactNoteRequest(TLRequest):
         self.id = id
         self.note = note
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_user(await client.get_input_entity(self.id))
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {

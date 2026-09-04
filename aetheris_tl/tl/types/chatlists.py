@@ -24,8 +24,6 @@ class ChatlistInvite(TLObject):
         self.title_noanimate = title_noanimate
         self.emoticon = emoticon
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChatlistInvite',
@@ -94,8 +92,6 @@ class ChatlistInviteAlready(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChatlistInviteAlready',
@@ -159,8 +155,6 @@ class ChatlistUpdates(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChatlistUpdates',
@@ -212,8 +206,6 @@ class ExportedChatlistInvite(TLObject):
         self.filter = filter
         self.invite = invite
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ExportedChatlistInvite',
@@ -247,8 +239,6 @@ class ExportedInvites(TLObject):
         self.invites = invites
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {

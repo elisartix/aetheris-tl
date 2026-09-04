@@ -23,8 +23,6 @@ class CreateToneRequest(TLRequest):
         self.prompt = prompt
         self.display_author = display_author
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CreateToneRequest',
@@ -65,8 +63,6 @@ class DeleteToneRequest(TLRequest):
         """
         self.tone = tone
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DeleteToneRequest',
@@ -95,8 +91,6 @@ class GetToneRequest(TLRequest):
         :returns aicompose.Tones: Instance of either TonesNotModified, Tones.
         """
         self.tone = tone
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -127,8 +121,6 @@ class GetToneExampleRequest(TLRequest):
         """
         self.tone = tone
         self.num = num
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -162,8 +154,6 @@ class GetTonesRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetTonesRequest',
@@ -193,8 +183,6 @@ class SaveToneRequest(TLRequest):
         """
         self.tone = tone
         self.unsave = unsave
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -231,8 +219,6 @@ class UpdateToneRequest(TLRequest):
         self.emoji_id = emoji_id
         self.title = title
         self.prompt = prompt
-
-        super().__init__()
 
     def to_dict(self):
         return {

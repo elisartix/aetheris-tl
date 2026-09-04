@@ -21,11 +21,8 @@ class ApplyBoostRequest(TLRequest):
         self.peer = peer
         self.slots = slots
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -73,11 +70,8 @@ class GetBoostsListRequest(TLRequest):
         self.limit = limit
         self.gifts = gifts
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -119,11 +113,8 @@ class GetBoostsStatusRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -175,13 +166,9 @@ class GetUserBoostsRequest(TLRequest):
         self.peer = peer
         self.user_id = user_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {

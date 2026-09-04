@@ -20,8 +20,6 @@ class ApplyGiftCodeRequest(TLRequest):
         """
         self.slug = slug
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ApplyGiftCodeRequest',
@@ -51,8 +49,6 @@ class AssignAppStoreTransactionRequest(TLRequest):
         """
         self.receipt = receipt
         self.purpose = purpose
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -86,8 +82,6 @@ class AssignPlayMarketTransactionRequest(TLRequest):
         """
         self.receipt = receipt
         self.purpose = purpose
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -123,11 +117,8 @@ class BotCancelStarsSubscriptionRequest(TLRequest):
         self.charge_id = charge_id
         self.restore = restore
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -166,8 +157,6 @@ class CanPurchaseStoreRequest(TLRequest):
         """
         self.purpose = purpose
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CanPurchaseStoreRequest',
@@ -199,11 +188,8 @@ class ChangeStarsSubscriptionRequest(TLRequest):
         self.subscription_id = subscription_id
         self.canceled = canceled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -246,8 +232,6 @@ class CheckCanSendGiftRequest(TLRequest):
         """
         self.gift_id = gift_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CheckCanSendGiftRequest',
@@ -276,8 +260,6 @@ class CheckGiftCodeRequest(TLRequest):
         :returns payments.CheckedGiftCode: Instance of CheckedGiftCode.
         """
         self.slug = slug
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -308,8 +290,6 @@ class ClearSavedInfoRequest(TLRequest):
         """
         self.credentials = credentials
         self.info = info
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -345,13 +325,9 @@ class ConnectStarRefBotRequest(TLRequest):
         self.peer = peer
         self.bot = bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -385,8 +361,6 @@ class ConvertStarGiftRequest(TLRequest):
         """
         self.stargift = stargift
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ConvertStarGiftRequest',
@@ -415,8 +389,6 @@ class CraftStarGiftRequest(TLRequest):
         :returns Updates: Instance of either UpdatesTooLong, UpdateShortMessage, UpdateShortChatMessage, UpdateShort, UpdatesCombined, Updates, UpdateShortSentMessage.
         """
         self.stargift = stargift
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -454,11 +426,8 @@ class CreateStarGiftCollectionRequest(TLRequest):
         self.title = title
         self.stargift = stargift
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -501,11 +470,8 @@ class DeleteStarGiftCollectionRequest(TLRequest):
         self.peer = peer
         self.collection_id = collection_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -541,11 +507,8 @@ class EditConnectedStarRefBotRequest(TLRequest):
         self.link = link
         self.revoked = revoked
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -584,11 +547,8 @@ class ExportInvoiceRequest(TLRequest):
         """
         self.invoice_media = invoice_media
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.invoice_media = utils.get_input_media(self.invoice_media)
-        self._check_peer(self.invoice_media)
 
     def to_dict(self):
         return {
@@ -620,11 +580,8 @@ class FulfillStarsSubscriptionRequest(TLRequest):
         self.peer = peer
         self.subscription_id = subscription_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -658,8 +615,6 @@ class GetBankCardDataRequest(TLRequest):
         """
         self.number = number
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetBankCardDataRequest',
@@ -690,13 +645,9 @@ class GetConnectedStarRefBotRequest(TLRequest):
         self.peer = peer
         self.bot = bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -733,11 +684,8 @@ class GetConnectedStarRefBotsRequest(TLRequest):
         self.offset_date = offset_date
         self.offset_link = offset_link
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -750,7 +698,7 @@ class GetConnectedStarRefBotsRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.offset_date or self.offset_date is not None) and (self.offset_link or self.offset_link is not None)) or ((self.offset_date is None or self.offset_date is False) and (self.offset_link is None or self.offset_link is False)), 'offset_date, offset_link parameters must all be False-y (like None) or all be True-y'
+        assert ((self.offset_date or self.offset_date is not None) and (self.offset_link or self.offset_link is not None)) or ((self.offset_date is None or self.offset_date is False) and (self.offset_link is None or self.offset_link is False)), 'offset_date, offset_link parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'S\xa5iX',
             struct.pack('<I', (0 if self.offset_date is None or self.offset_date is False else 4) | (0 if self.offset_link is None or self.offset_link is False else 4)),
@@ -789,8 +737,6 @@ class GetCraftStarGiftsRequest(TLRequest):
         self.offset = offset
         self.limit = limit
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetCraftStarGiftsRequest',
@@ -827,11 +773,8 @@ class GetGiveawayInfoRequest(TLRequest):
         self.peer = peer
         self.msg_id = msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -865,8 +808,6 @@ class GetPaymentFormRequest(TLRequest):
         """
         self.invoice = invoice
         self.theme_params = theme_params
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -907,11 +848,8 @@ class GetPaymentReceiptRequest(TLRequest):
         self.peer = peer
         self.msg_id = msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -945,12 +883,9 @@ class GetPremiumGiftCodeOptionsRequest(TLRequest):
         """
         self.boost_peer = boost_peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.boost_peer:
             self.boost_peer = utils.get_input_peer(await client.get_input_entity(self.boost_peer))
-            self._check_peer(self.boost_peer)
 
     def to_dict(self):
         return {
@@ -994,8 +929,6 @@ class GetResaleStarGiftsRequest(TLRequest):
         self.stars_only = stars_only
         self.attributes_hash = attributes_hash
         self.attributes = attributes
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1080,8 +1013,6 @@ class GetSavedStarGiftRequest(TLRequest):
         """
         self.stargift = stargift
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetSavedStarGiftRequest',
@@ -1128,11 +1059,8 @@ class GetSavedStarGiftsRequest(TLRequest):
         self.exclude_hosted = exclude_hosted
         self.collection_id = collection_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1196,8 +1124,6 @@ class GetStarGiftActiveAuctionsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetStarGiftActiveAuctionsRequest',
@@ -1226,8 +1152,6 @@ class GetStarGiftAuctionAcquiredGiftsRequest(TLRequest):
         :returns payments.StarGiftAuctionAcquiredGifts: Instance of StarGiftAuctionAcquiredGifts.
         """
         self.gift_id = gift_id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1258,8 +1182,6 @@ class GetStarGiftAuctionStateRequest(TLRequest):
         """
         self.auction = auction
         self.version = version
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1294,11 +1216,8 @@ class GetStarGiftCollectionsRequest(TLRequest):
         self.peer = peer
         self.hash = hash
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1332,8 +1251,6 @@ class GetStarGiftUpgradeAttributesRequest(TLRequest):
         """
         self.gift_id = gift_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetStarGiftUpgradeAttributesRequest',
@@ -1362,8 +1279,6 @@ class GetStarGiftUpgradePreviewRequest(TLRequest):
         :returns payments.StarGiftUpgradePreview: Instance of StarGiftUpgradePreview.
         """
         self.gift_id = gift_id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1394,8 +1309,6 @@ class GetStarGiftWithdrawalUrlRequest(TLRequest):
         """
         self.stargift = stargift
         self.password = password
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1429,8 +1342,6 @@ class GetStarGiftsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetStarGiftsRequest',
@@ -1460,12 +1371,9 @@ class GetStarsGiftOptionsRequest(TLRequest):
         """
         self.user_id = user_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.user_id:
             self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-            self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -1522,11 +1430,8 @@ class GetStarsRevenueAdsAccountUrlRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1559,11 +1464,8 @@ class GetStarsRevenueStatsRequest(TLRequest):
         self.dark = dark
         self.ton = ton
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1604,11 +1506,8 @@ class GetStarsRevenueWithdrawalUrlRequest(TLRequest):
         self.ton = ton
         self.amount = amount
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1654,11 +1553,8 @@ class GetStarsStatusRequest(TLRequest):
         self.peer = peer
         self.ton = ton
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1696,11 +1592,8 @@ class GetStarsSubscriptionsRequest(TLRequest):
         self.offset = offset
         self.missing_balance = missing_balance
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1766,11 +1659,8 @@ class GetStarsTransactionsRequest(TLRequest):
         self.ton = ton
         self.subscription_id = subscription_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1826,11 +1716,8 @@ class GetStarsTransactionsByIDRequest(TLRequest):
         self.id = id
         self.ton = ton
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1878,11 +1765,8 @@ class GetSuggestedStarRefBotsRequest(TLRequest):
         self.order_by_revenue = order_by_revenue
         self.order_by_date = order_by_date
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1926,8 +1810,6 @@ class GetUniqueStarGiftRequest(TLRequest):
         """
         self.slug = slug
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetUniqueStarGiftRequest',
@@ -1956,8 +1838,6 @@ class GetUniqueStarGiftValueInfoRequest(TLRequest):
         :returns payments.UniqueStarGiftValueInfo: Instance of UniqueStarGiftValueInfo.
         """
         self.slug = slug
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1990,11 +1870,8 @@ class LaunchPrepaidGiveawayRequest(TLRequest):
         self.giveaway_id = giveaway_id
         self.purpose = purpose
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2032,11 +1909,8 @@ class RefundStarsChargeRequest(TLRequest):
         self.user_id = user_id
         self.charge_id = charge_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -2071,11 +1945,8 @@ class ReorderStarGiftCollectionsRequest(TLRequest):
         self.peer = peer
         self.order = order
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2115,8 +1986,6 @@ class ResolveStarGiftOfferRequest(TLRequest):
         self.offer_msg_id = offer_msg_id
         self.decline = decline
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResolveStarGiftOfferRequest',
@@ -2151,8 +2020,6 @@ class SaveStarGiftRequest(TLRequest):
         """
         self.stargift = stargift
         self.unsave = unsave
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2192,8 +2059,6 @@ class SendPaymentFormRequest(TLRequest):
         self.requested_info_id = requested_info_id
         self.shipping_option_id = shipping_option_id
         self.tip_amount = tip_amount
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2256,11 +2121,8 @@ class SendStarGiftOfferRequest(TLRequest):
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(8), 'big', signed=True)
         self.allow_paid_stars = allow_paid_stars
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2313,8 +2175,6 @@ class SendStarsFormRequest(TLRequest):
         self.form_id = form_id
         self.invoice = invoice
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SendStarsFormRequest',
@@ -2348,11 +2208,8 @@ class ToggleChatStarGiftNotificationsRequest(TLRequest):
         self.peer = peer
         self.enabled = enabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2389,11 +2246,8 @@ class ToggleStarGiftsPinnedToTopRequest(TLRequest):
         self.peer = peer
         self.stargift = stargift
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2433,11 +2287,8 @@ class TransferStarGiftRequest(TLRequest):
         self.stargift = stargift
         self.to_id = to_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.to_id = utils.get_input_peer(await client.get_input_entity(self.to_id))
-        self._check_peer(self.to_id)
 
     def to_dict(self):
         return {
@@ -2476,11 +2327,8 @@ class UpdateStarGiftCollectionRequest(TLRequest):
         self.add_stargift = add_stargift
         self.order = order
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2557,8 +2405,6 @@ class UpdateStarGiftPriceRequest(TLRequest):
         self.stargift = stargift
         self.resell_amount = resell_amount
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdateStarGiftPriceRequest',
@@ -2591,8 +2437,6 @@ class UpgradeStarGiftRequest(TLRequest):
         """
         self.stargift = stargift
         self.keep_original_details = keep_original_details
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2629,8 +2473,6 @@ class ValidateRequestedInfoRequest(TLRequest):
         self.invoice = invoice
         self.info = info
         self.save = save
-
-        super().__init__()
 
     def to_dict(self):
         return {

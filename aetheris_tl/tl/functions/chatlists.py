@@ -20,8 +20,6 @@ class CheckChatlistInviteRequest(TLRequest):
         """
         self.slug = slug
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CheckChatlistInviteRequest',
@@ -51,8 +49,6 @@ class DeleteExportedInviteRequest(TLRequest):
         """
         self.chatlist = chatlist
         self.slug = slug
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -88,8 +84,6 @@ class EditExportedInviteRequest(TLRequest):
         self.slug = slug
         self.title = title
         self.peers = peers
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         if self.peers:
@@ -153,8 +147,6 @@ class ExportChatlistInviteRequest(TLRequest):
         self.title = title
         self.peers = peers
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         _tmp = []
         for _x in self.peers:
@@ -202,8 +194,6 @@ class GetChatlistUpdatesRequest(TLRequest):
         """
         self.chatlist = chatlist
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetChatlistUpdatesRequest',
@@ -232,8 +222,6 @@ class GetExportedInvitesRequest(TLRequest):
         :returns chatlists.ExportedInvites: Instance of ExportedInvites.
         """
         self.chatlist = chatlist
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -264,8 +252,6 @@ class GetLeaveChatlistSuggestionsRequest(TLRequest):
         """
         self.chatlist = chatlist
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetLeaveChatlistSuggestionsRequest',
@@ -294,8 +280,6 @@ class HideChatlistUpdatesRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.chatlist = chatlist
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -326,8 +310,6 @@ class JoinChatlistInviteRequest(TLRequest):
         """
         self.slug = slug
         self.peers = peers
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         _tmp = []
@@ -374,8 +356,6 @@ class JoinChatlistUpdatesRequest(TLRequest):
         self.chatlist = chatlist
         self.peers = peers
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         _tmp = []
         for _x in self.peers:
@@ -420,8 +400,6 @@ class LeaveChatlistRequest(TLRequest):
         """
         self.chatlist = chatlist
         self.peers = peers
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         _tmp = []

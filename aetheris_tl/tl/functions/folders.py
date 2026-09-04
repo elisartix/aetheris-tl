@@ -20,8 +20,6 @@ class EditPeerFoldersRequest(TLRequest):
         """
         self.folder_peers = folder_peers
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'EditPeerFoldersRequest',

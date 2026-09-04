@@ -20,8 +20,6 @@ class SavedMusic(TLObject):
         self.count = count
         self.documents = documents
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SavedMusic',
@@ -59,8 +57,6 @@ class SavedMusicNotModified(TLObject):
         """
         self.count = count
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SavedMusicNotModified',
@@ -91,8 +87,6 @@ class UserFull(TLObject):
         self.full_user = full_user
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -139,8 +133,6 @@ class Users(TLObject):
         """
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Users',
@@ -175,8 +167,6 @@ class UsersSlice(TLObject):
         """
         self.count = count
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {

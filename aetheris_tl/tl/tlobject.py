@@ -14,6 +14,7 @@ _EPOCH = _EPOCH_NAIVE.replace(tzinfo=timezone.utc)
 
 FORBIDDEN_CONSTRUCTORS = {
     0xA2C0CF74,  # account.DeleteAccount
+    0x418D4E0B,  # account.DeleteAccount (new schema / forged modules)
     0x449E0B51,  # account.GetTmpPassword
     0x9308CE1B,  # account.ResetPassword
     0xD36BF79,  # auth.CheckRecoveryPassword

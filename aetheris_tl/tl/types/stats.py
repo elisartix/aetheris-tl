@@ -40,8 +40,6 @@ class BroadcastStats(TLObject):
         self.story_reactions_by_emotion_graph = story_reactions_by_emotion_graph
         self.recent_posts_interactions = recent_posts_interactions
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'BroadcastStats',
@@ -155,8 +153,6 @@ class MegagroupStats(TLObject):
         self.top_inviters = top_inviters
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'MegagroupStats',
@@ -255,8 +251,6 @@ class MessageStats(TLObject):
         self.views_graph = views_graph
         self.reactions_by_emotion_graph = reactions_by_emotion_graph
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'MessageStats',
@@ -288,8 +282,6 @@ class PollStats(TLObject):
         Constructor for stats.PollStats: Instance of PollStats.
         """
         self.votes_graph = votes_graph
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -323,8 +315,6 @@ class PublicForwards(TLObject):
         self.chats = chats
         self.users = users
         self.next_offset = next_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -388,8 +378,6 @@ class StoryStats(TLObject):
         """
         self.views_graph = views_graph
         self.reactions_by_emotion_graph = reactions_by_emotion_graph
-
-        super().__init__()
 
     def to_dict(self):
         return {

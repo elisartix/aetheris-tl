@@ -21,8 +21,6 @@ class Tones(TLObject):
         self.tones = tones
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Tones',

@@ -20,8 +20,6 @@ class BankCardData(TLObject):
         self.title = title
         self.open_urls = open_urls
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'BankCardData',
@@ -58,8 +56,6 @@ class CheckCanSendGiftResultFail(TLObject):
         Constructor for payments.CheckCanSendGiftResult: Instance of either CheckCanSendGiftResultOk, CheckCanSendGiftResultFail.
         """
         self.reason = reason
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -117,8 +113,6 @@ class CheckedGiftCode(TLObject):
         self.giveaway_msg_id = giveaway_msg_id
         self.to_id = to_id
         self.used_date = used_date
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -199,8 +193,6 @@ class ConnectedStarRefBots(TLObject):
         self.connected_bots = connected_bots
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ConnectedStarRefBots',
@@ -246,8 +238,6 @@ class ExportedInvoice(TLObject):
         """
         self.url = url
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ExportedInvoice',
@@ -281,8 +271,6 @@ class GiveawayInfo(TLObject):
         self.joined_too_early_date = joined_too_early_date
         self.admin_disallowed_chat_id = admin_disallowed_chat_id
         self.disallowed_country = disallowed_country
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -344,8 +332,6 @@ class GiveawayInfoResults(TLObject):
         self.gift_code_slug = gift_code_slug
         self.stars_prize = stars_prize
         self.activated_count = activated_count
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -422,8 +408,6 @@ class PaymentForm(TLObject):
         self.saved_info = saved_info
         self.saved_credentials = saved_credentials
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PaymentForm',
@@ -447,7 +431,7 @@ class PaymentForm(TLObject):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.native_provider or self.native_provider is not None) and (self.native_params or self.native_params is not None)) or ((self.native_provider is None or self.native_provider is False) and (self.native_params is None or self.native_params is False)), 'native_provider, native_params parameters must all be False-y (like None) or all be True-y'
+        assert ((self.native_provider or self.native_provider is not None) and (self.native_params or self.native_params is not None)) or ((self.native_provider is None or self.native_provider is False) and (self.native_params is None or self.native_params is False)), 'native_provider, native_params parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'Q\x87\x05\xa0',
             struct.pack('<I', (0 if self.can_save_credentials is None or self.can_save_credentials is False else 4) | (0 if self.password_missing is None or self.password_missing is False else 8) | (0 if self.photo is None or self.photo is False else 32) | (0 if self.native_provider is None or self.native_provider is False else 16) | (0 if self.native_params is None or self.native_params is False else 16) | (0 if self.additional_methods is None or self.additional_methods is False else 64) | (0 if self.saved_info is None or self.saved_info is False else 1) | (0 if self.saved_credentials is None or self.saved_credentials is False else 2)),
@@ -534,8 +518,6 @@ class PaymentFormStarGift(TLObject):
         self.form_id = form_id
         self.invoice = invoice
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PaymentFormStarGift',
@@ -573,8 +555,6 @@ class PaymentFormStars(TLObject):
         self.invoice = invoice
         self.users = users
         self.photo = photo
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -646,8 +626,6 @@ class PaymentReceipt(TLObject):
         self.info = info
         self.shipping = shipping
         self.tip_amount = tip_amount
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -746,8 +724,6 @@ class PaymentReceiptStars(TLObject):
         self.users = users
         self.photo = photo
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PaymentReceiptStars',
@@ -815,8 +791,6 @@ class PaymentResult(TLObject):
         """
         self.updates = updates
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PaymentResult',
@@ -845,8 +819,6 @@ class PaymentVerificationNeeded(TLObject):
         Constructor for payments.PaymentResult: Instance of either PaymentResult, PaymentVerificationNeeded.
         """
         self.url = url
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -884,8 +856,6 @@ class ResaleStarGifts(TLObject):
         self.attributes_hash = attributes_hash
         self.counters = counters
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResaleStarGifts',
@@ -901,7 +871,7 @@ class ResaleStarGifts(TLObject):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.attributes or self.attributes is not None) and (self.attributes_hash or self.attributes_hash is not None)) or ((self.attributes is None or self.attributes is False) and (self.attributes_hash is None or self.attributes_hash is False)), 'attributes, attributes_hash parameters must all be False-y (like None) or all be True-y'
+        assert ((self.attributes or self.attributes is not None) and (self.attributes_hash or self.attributes_hash is not None)) or ((self.attributes is None or self.attributes is False) and (self.attributes_hash is None or self.attributes_hash is False)), 'attributes, attributes_hash parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xdf\x12z\x94',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1) | (0 if self.attributes is None or self.attributes is False else 2) | (0 if self.attributes_hash is None or self.attributes_hash is False else 2) | (0 if self.counters is None or self.counters is False else 4)),
@@ -978,8 +948,6 @@ class SavedInfo(TLObject):
         self.has_saved_credentials = has_saved_credentials
         self.saved_info = saved_info
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SavedInfo',
@@ -1021,8 +989,6 @@ class SavedStarGifts(TLObject):
         self.users = users
         self.chat_notifications_enabled = chat_notifications_enabled
         self.next_offset = next_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1093,8 +1059,6 @@ class StarGiftActiveAuctions(TLObject):
         self.auctions = auctions
         self.users = users
         self.chats = chats
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1168,8 +1132,6 @@ class StarGiftAuctionAcquiredGifts(TLObject):
         self.users = users
         self.chats = chats
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'StarGiftAuctionAcquiredGifts',
@@ -1225,8 +1187,6 @@ class StarGiftAuctionState(TLObject):
         self.users = users
         self.chats = chats
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'StarGiftAuctionState',
@@ -1280,8 +1240,6 @@ class StarGiftCollections(TLObject):
         Constructor for payments.StarGiftCollections: Instance of either StarGiftCollectionsNotModified, StarGiftCollections.
         """
         self.collections = collections
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1337,8 +1295,6 @@ class StarGiftUpgradeAttributes(TLObject):
         """
         self.attributes = attributes
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'StarGiftUpgradeAttributes',
@@ -1374,8 +1330,6 @@ class StarGiftUpgradePreview(TLObject):
         self.sample_attributes = sample_attributes
         self.prices = prices
         self.next_prices = next_prices
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1427,8 +1381,6 @@ class StarGiftWithdrawalUrl(TLObject):
         """
         self.url = url
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'StarGiftWithdrawalUrl',
@@ -1460,8 +1412,6 @@ class StarGifts(TLObject):
         self.gifts = gifts
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1536,8 +1486,6 @@ class StarsRevenueAdsAccountUrl(TLObject):
         """
         self.url = url
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'StarsRevenueAdsAccountUrl',
@@ -1569,8 +1517,6 @@ class StarsRevenueStats(TLObject):
         self.status = status
         self.usd_rate = usd_rate
         self.top_hours_graph = top_hours_graph
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1616,8 +1562,6 @@ class StarsRevenueWithdrawalUrl(TLObject):
         """
         self.url = url
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'StarsRevenueWithdrawalUrl',
@@ -1653,8 +1597,6 @@ class StarsStatus(TLObject):
         self.subscriptions_missing_balance = subscriptions_missing_balance
         self.history = history
         self.next_offset = next_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1747,8 +1689,6 @@ class SuggestedStarRefBots(TLObject):
         self.users = users
         self.next_offset = next_offset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SuggestedStarRefBots',
@@ -1804,8 +1744,6 @@ class UniqueStarGift(TLObject):
         self.gift = gift
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1865,8 +1803,6 @@ class UniqueStarGiftValueInfo(TLObject):
         self.fragment_listed_count = fragment_listed_count
         self.fragment_listed_url = fragment_listed_url
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UniqueStarGiftValueInfo',
@@ -1888,8 +1824,8 @@ class UniqueStarGiftValueInfo(TLObject):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.last_sale_date or self.last_sale_date is not None) and (self.last_sale_price or self.last_sale_price is not None)) or ((self.last_sale_date is None or self.last_sale_date is False) and (self.last_sale_price is None or self.last_sale_price is False)), 'last_sale_date, last_sale_price parameters must all be False-y (like None) or all be True-y'
-        assert ((self.fragment_listed_count or self.fragment_listed_count is not None) and (self.fragment_listed_url or self.fragment_listed_url is not None)) or ((self.fragment_listed_count is None or self.fragment_listed_count is False) and (self.fragment_listed_url is None or self.fragment_listed_url is False)), 'fragment_listed_count, fragment_listed_url parameters must all be False-y (like None) or all be True-y'
+        assert ((self.last_sale_date or self.last_sale_date is not None) and (self.last_sale_price or self.last_sale_price is not None)) or ((self.last_sale_date is None or self.last_sale_date is False) and (self.last_sale_price is None or self.last_sale_price is False)), 'last_sale_date, last_sale_price parameters must all be False-y (like None) or all me True-y'
+        assert ((self.fragment_listed_count or self.fragment_listed_count is not None) and (self.fragment_listed_url or self.fragment_listed_url is not None)) or ((self.fragment_listed_count is None or self.fragment_listed_count is False) and (self.fragment_listed_url is None or self.fragment_listed_url is False)), 'fragment_listed_count, fragment_listed_url parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'F\xe4/Q',
             struct.pack('<I', (0 if self.last_sale_on_fragment is None or self.last_sale_on_fragment is False else 2) | (0 if self.value_is_average is None or self.value_is_average is False else 64) | (0 if self.last_sale_date is None or self.last_sale_date is False else 1) | (0 if self.last_sale_price is None or self.last_sale_price is False else 1) | (0 if self.floor_price is None or self.floor_price is False else 4) | (0 if self.average_price is None or self.average_price is False else 8) | (0 if self.listed_count is None or self.listed_count is False else 16) | (0 if self.fragment_listed_count is None or self.fragment_listed_count is False else 32) | (0 if self.fragment_listed_url is None or self.fragment_listed_url is False else 32)),
@@ -1959,8 +1895,6 @@ class ValidatedRequestedInfo(TLObject):
         """
         self.id = id
         self.shipping_options = shipping_options
-
-        super().__init__()
 
     def to_dict(self):
         return {

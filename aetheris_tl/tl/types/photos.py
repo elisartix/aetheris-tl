@@ -20,8 +20,6 @@ class Photo(TLObject):
         self.photo = photo
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Photo',
@@ -59,8 +57,6 @@ class Photos(TLObject):
         """
         self.photos = photos
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -105,8 +101,6 @@ class PhotosSlice(TLObject):
         self.count = count
         self.photos = photos
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {

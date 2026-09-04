@@ -17,8 +17,6 @@ class EligibleToJoin(TLObject):
         self.terms_url = terms_url
         self.monthly_sent_sms = monthly_sent_sms
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'EligibleToJoin',
@@ -57,8 +55,6 @@ class Status(TLObject):
         self.terms_url = terms_url
         self.allow_international = allow_international
         self.last_gift_slug = last_gift_slug
-
-        super().__init__()
 
     def to_dict(self):
         return {

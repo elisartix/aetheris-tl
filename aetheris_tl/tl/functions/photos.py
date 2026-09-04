@@ -20,8 +20,6 @@ class DeletePhotosRequest(TLRequest):
         """
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         _tmp = []
         for _x in self.id:
@@ -71,11 +69,8 @@ class GetUserPhotosRequest(TLRequest):
         self.max_id = max_id
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -117,14 +112,10 @@ class UpdateProfilePhotoRequest(TLRequest):
         self.fallback = fallback
         self.bot = bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_photo(self.id)
-        self._check_peer(self.id)
         if self.bot:
             self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-            self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -172,11 +163,8 @@ class UploadContactProfilePhotoRequest(TLRequest):
         self.video_start_ts = video_start_ts
         self.video_emoji_markup = video_emoji_markup
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -243,12 +231,9 @@ class UploadProfilePhotoRequest(TLRequest):
         self.video_start_ts = video_start_ts
         self.video_emoji_markup = video_emoji_markup
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.bot:
             self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-            self._check_peer(self.bot)
 
     def to_dict(self):
         return {

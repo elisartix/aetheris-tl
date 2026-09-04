@@ -22,8 +22,6 @@ class ParticipantJoinedChats(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ParticipantJoinedChats',
@@ -85,8 +83,6 @@ class PeerLinkRequests(TLObject):
         self.chats = chats
         self.users = users
         self.next_offset = next_offset
-
-        super().__init__()
 
     def to_dict(self):
         return {

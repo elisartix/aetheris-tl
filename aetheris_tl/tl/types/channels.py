@@ -21,8 +21,6 @@ class AdminLogResults(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AdminLogResults',
@@ -75,8 +73,6 @@ class ChannelParticipant(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ChannelParticipant',
@@ -124,8 +120,6 @@ class ChannelParticipants(TLObject):
         self.participants = participants
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -202,8 +196,6 @@ class SendAsPeers(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SendAsPeers',
@@ -274,8 +266,6 @@ class SponsoredMessageReportResultChooseOption(TLObject):
         """
         self.title = title
         self.options = options
-
-        super().__init__()
 
     def to_dict(self):
         return {

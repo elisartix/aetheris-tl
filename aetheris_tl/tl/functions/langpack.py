@@ -19,8 +19,6 @@ class GetDifferenceRequest(TLRequest):
         self.lang_code = lang_code
         self.from_version = from_version
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetDifferenceRequest',
@@ -57,8 +55,6 @@ class GetLangPackRequest(TLRequest):
         self.lang_pack = lang_pack
         self.lang_code = lang_code
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetLangPackRequest',
@@ -92,8 +88,6 @@ class GetLanguageRequest(TLRequest):
         self.lang_pack = lang_pack
         self.lang_code = lang_code
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetLanguageRequest',
@@ -126,8 +120,6 @@ class GetLanguagesRequest(TLRequest):
         """
         self.lang_pack = lang_pack
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetLanguagesRequest',
@@ -159,8 +151,6 @@ class GetStringsRequest(TLRequest):
         self.lang_pack = lang_pack
         self.lang_code = lang_code
         self.keys = keys
-
-        super().__init__()
 
     def to_dict(self):
         return {

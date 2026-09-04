@@ -22,8 +22,6 @@ class GetCdnFileRequest(TLRequest):
         self.offset = offset
         self.limit = limit
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetCdnFileRequest',
@@ -60,8 +58,6 @@ class GetCdnFileHashesRequest(TLRequest):
         self.file_token = file_token
         self.offset = offset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetCdnFileHashesRequest',
@@ -97,8 +93,6 @@ class GetFileRequest(TLRequest):
         self.limit = limit
         self.precise = precise
         self.cdn_supported = cdn_supported
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -143,8 +137,6 @@ class GetFileHashesRequest(TLRequest):
         self.location = location
         self.offset = offset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetFileHashesRequest',
@@ -178,8 +170,6 @@ class GetWebFileRequest(TLRequest):
         self.location = location
         self.offset = offset
         self.limit = limit
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -217,8 +207,6 @@ class ReuploadCdnFileRequest(TLRequest):
         self.file_token = file_token
         self.request_token = request_token
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ReuploadCdnFileRequest',
@@ -253,8 +241,6 @@ class SaveBigFilePartRequest(TLRequest):
         self.file_part = file_part
         self.file_total_parts = file_total_parts
         self.bytes = bytes
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -295,8 +281,6 @@ class SaveFilePartRequest(TLRequest):
         self.file_id = file_id
         self.file_part = file_part
         self.bytes = bytes
-
-        super().__init__()
 
     def to_dict(self):
         return {

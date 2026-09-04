@@ -20,8 +20,6 @@ class CdnFile(TLObject):
         """
         self.bytes = bytes
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CdnFile',
@@ -50,8 +48,6 @@ class CdnFileReuploadNeeded(TLObject):
         Constructor for upload.CdnFile: Instance of either CdnFileReuploadNeeded, CdnFile.
         """
         self.request_token = request_token
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -83,8 +79,6 @@ class File(TLObject):
         self.type = type
         self.mtime = mtime
         self.bytes = bytes
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -124,8 +118,6 @@ class FileCdnRedirect(TLObject):
         self.encryption_key = encryption_key
         self.encryption_iv = encryption_iv
         self.file_hashes = file_hashes
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -176,8 +168,6 @@ class WebFile(TLObject):
         self.file_type = file_type
         self.mtime = mtime
         self.bytes = bytes
-
-        super().__init__()
 
     def to_dict(self):
         return {

@@ -19,8 +19,6 @@ class ExportedGroupCallInvite(TLObject):
         """
         self.link = link
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ExportedGroupCallInvite',
@@ -53,8 +51,6 @@ class GroupCall(TLObject):
         self.participants_next_offset = participants_next_offset
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -115,8 +111,6 @@ class GroupCallStars(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GroupCallStars',
@@ -170,8 +164,6 @@ class GroupCallStreamChannels(TLObject):
         """
         self.channels = channels
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GroupCallStreamChannels',
@@ -206,8 +198,6 @@ class GroupCallStreamRtmpUrl(TLObject):
         """
         self.url = url
         self.key = key
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -245,8 +235,6 @@ class GroupParticipants(TLObject):
         self.chats = chats
         self.users = users
         self.version = version
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -309,8 +297,6 @@ class JoinAsPeers(TLObject):
         self.chats = chats
         self.users = users
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'JoinAsPeers',
@@ -361,8 +347,6 @@ class PhoneCall(TLObject):
         """
         self.phone_call = phone_call
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {

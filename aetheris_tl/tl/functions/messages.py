@@ -22,8 +22,6 @@ class AcceptEncryptionRequest(TLRequest):
         self.g_b = g_b
         self.key_fingerprint = key_fingerprint
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AcceptEncryptionRequest',
@@ -65,12 +63,9 @@ class AcceptUrlAuthRequest(TLRequest):
         self.url = url
         self.match_code = match_code
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.peer:
             self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-            self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -86,7 +81,7 @@ class AcceptUrlAuthRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.peer or self.peer is not None) and (self.msg_id or self.msg_id is not None) and (self.button_id or self.button_id is not None)) or ((self.peer is None or self.peer is False) and (self.msg_id is None or self.msg_id is False) and (self.button_id is None or self.button_id is False)), 'peer, msg_id, button_id parameters must all be False-y (like None) or all be True-y'
+        assert ((self.peer or self.peer is not None) and (self.msg_id or self.msg_id is not None) and (self.button_id or self.button_id is not None)) or ((self.peer is None or self.peer is False) and (self.msg_id is None or self.msg_id is False) and (self.button_id is None or self.button_id is False)), 'peer, msg_id, button_id parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xde\xf0\xa3g',
             struct.pack('<I', (0 if self.write_allowed is None or self.write_allowed is False else 1) | (0 if self.share_phone_number is None or self.share_phone_number is False else 8) | (0 if self.peer is None or self.peer is False else 2) | (0 if self.msg_id is None or self.msg_id is False else 2) | (0 if self.button_id is None or self.button_id is False else 2) | (0 if self.url is None or self.url is False else 4) | (0 if self.match_code is None or self.match_code is False else 16)),
@@ -138,11 +133,8 @@ class AddChatUserRequest(TLRequest):
         self.user_id = user_id
         self.fwd_limit = fwd_limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -181,11 +173,8 @@ class AddPollAnswerRequest(TLRequest):
         self.msg_id = msg_id
         self.answer = answer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -224,11 +213,8 @@ class AppendTodoListRequest(TLRequest):
         self.msg_id = msg_id
         self.list = list
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -270,8 +256,6 @@ class CheckChatInviteRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CheckChatInviteRequest',
@@ -300,8 +284,6 @@ class CheckHistoryImportRequest(TLRequest):
         :returns messages.HistoryImportParsed: Instance of HistoryImportParsed.
         """
         self.import_head = import_head
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -332,11 +314,8 @@ class CheckHistoryImportPeerRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -367,8 +346,6 @@ class CheckQuickReplyShortcutRequest(TLRequest):
         """
         self.shortcut = shortcut
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CheckQuickReplyShortcutRequest',
@@ -398,8 +375,6 @@ class CheckUrlAuthMatchCodeRequest(TLRequest):
         """
         self.url = url
         self.match_code = match_code
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -473,8 +448,6 @@ class ClearRecentStickersRequest(TLRequest):
         """
         self.attached = attached
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ClearRecentStickersRequest',
@@ -507,8 +480,6 @@ class ClickSponsoredMessageRequest(TLRequest):
         self.media = media
         self.fullscreen = fullscreen
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(4), 'big', signed=True)
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -549,8 +520,6 @@ class ComposeMessageWithAIRequest(TLRequest):
         self.emojify = emojify
         self.translate_to_lang = translate_to_lang
         self.tone = tone
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -604,8 +573,6 @@ class ComposeRichMessageWithAIRequest(TLRequest):
         self.translate_to_lang = translate_to_lang
         self.tone = tone
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ComposeRichMessageWithAIRequest',
@@ -658,8 +625,6 @@ class CreateChatRequest(TLRequest):
         self.users = users
         self.title = title
         self.ttl_period = ttl_period
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         _tmp = []
@@ -720,14 +685,10 @@ class CreateForumTopicRequest(TLRequest):
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(8), 'big', signed=True)
         self.send_as = send_as
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.send_as:
             self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-            self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -787,8 +748,6 @@ class DeclineUrlAuthRequest(TLRequest):
         """
         self.url = url
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DeclineUrlAuthRequest',
@@ -817,8 +776,6 @@ class DeleteChatRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.chat_id = chat_id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -851,11 +808,8 @@ class DeleteChatUserRequest(TLRequest):
         self.user_id = user_id
         self.revoke_history = revoke_history
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -895,11 +849,8 @@ class DeleteExportedChatInviteRequest(TLRequest):
         self.peer = peer
         self.link = link
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -934,11 +885,8 @@ class DeleteFactCheckRequest(TLRequest):
         self.peer = peer
         self.msg_id = msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -977,11 +925,8 @@ class DeleteHistoryRequest(TLRequest):
         self.min_date = min_date
         self.max_date = max_date
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1035,8 +980,6 @@ class DeleteMessagesRequest(TLRequest):
         self.id = id
         self.revoke = revoke
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DeleteMessagesRequest',
@@ -1078,13 +1021,9 @@ class DeleteParticipantReactionRequest(TLRequest):
         self.msg_id = msg_id
         self.participant = participant
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -1122,13 +1061,9 @@ class DeleteParticipantReactionsRequest(TLRequest):
         self.peer = peer
         self.participant = participant
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -1161,8 +1096,6 @@ class DeletePhoneCallHistoryRequest(TLRequest):
         :returns messages.AffectedFoundMessages: Instance of AffectedFoundMessages.
         """
         self.revoke = revoke
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1197,11 +1130,8 @@ class DeletePollAnswerRequest(TLRequest):
         self.msg_id = msg_id
         self.option = option
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1238,8 +1168,6 @@ class DeleteQuickReplyMessagesRequest(TLRequest):
         """
         self.shortcut_id = shortcut_id
         self.id = id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1278,8 +1206,6 @@ class DeleteQuickReplyShortcutRequest(TLRequest):
         """
         self.shortcut_id = shortcut_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DeleteQuickReplyShortcutRequest',
@@ -1310,13 +1236,9 @@ class DeleteRevokedExportedChatInvitesRequest(TLRequest):
         self.peer = peer
         self.admin_id = admin_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.admin_id = utils.get_input_user(await client.get_input_entity(self.admin_id))
-        self._check_peer(self.admin_id)
 
     def to_dict(self):
         return {
@@ -1354,14 +1276,10 @@ class DeleteSavedHistoryRequest(TLRequest):
         self.min_date = min_date
         self.max_date = max_date
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.parent_peer:
             self.parent_peer = utils.get_input_peer(await client.get_input_entity(self.parent_peer))
-            self._check_peer(self.parent_peer)
 
     def to_dict(self):
         return {
@@ -1417,11 +1335,8 @@ class DeleteScheduledMessagesRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1461,11 +1376,8 @@ class DeleteTopicHistoryRequest(TLRequest):
         self.peer = peer
         self.top_msg_id = top_msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1499,8 +1411,6 @@ class DiscardEncryptionRequest(TLRequest):
         """
         self.chat_id = chat_id
         self.delete_history = delete_history
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1537,11 +1447,8 @@ class EditChatAboutRequest(TLRequest):
         self.peer = peer
         self.about = about
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1577,11 +1484,8 @@ class EditChatAdminRequest(TLRequest):
         self.user_id = user_id
         self.is_admin = is_admin
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -1620,13 +1524,9 @@ class EditChatCreatorRequest(TLRequest):
         self.user_id = user_id
         self.password = password
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -1664,11 +1564,8 @@ class EditChatDefaultBannedRightsRequest(TLRequest):
         self.peer = peer
         self.banned_rights = banned_rights
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1704,13 +1601,9 @@ class EditChatParticipantRankRequest(TLRequest):
         self.participant = participant
         self.rank = rank
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -1748,11 +1641,8 @@ class EditChatPhotoRequest(TLRequest):
         self.chat_id = chat_id
         self.photo = photo
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.photo = utils.get_input_chat_photo(self.photo)
-        self._check_peer(self.photo)
 
     def to_dict(self):
         return {
@@ -1786,8 +1676,6 @@ class EditChatTitleRequest(TLRequest):
         """
         self.chat_id = chat_id
         self.title = title
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1827,11 +1715,8 @@ class EditExportedChatInviteRequest(TLRequest):
         self.request_needed = request_needed
         self.title = title
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1896,11 +1781,8 @@ class EditFactCheckRequest(TLRequest):
         self.msg_id = msg_id
         self.text = text
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -1942,11 +1824,8 @@ class EditForumTopicRequest(TLRequest):
         self.closed = closed
         self.hidden = hidden
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2014,12 +1893,9 @@ class EditInlineBotMessageRequest(TLRequest):
         self.entities = entities
         self.rich_message = rich_message
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.media:
             self.media = utils.get_input_media(self.media)
-            self._check_peer(self.media)
 
     def to_dict(self):
         return {
@@ -2103,14 +1979,10 @@ class EditMessageRequest(TLRequest):
         self.quick_reply_shortcut_id = quick_reply_shortcut_id
         self.rich_message = rich_message
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.media:
             self.media = utils.get_input_media(self.media)
-            self._check_peer(self.media)
 
     def to_dict(self):
         return {
@@ -2205,8 +2077,6 @@ class EditQuickReplyShortcutRequest(TLRequest):
         self.shortcut_id = shortcut_id
         self.shortcut = shortcut
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'EditQuickReplyShortcutRequest',
@@ -2245,11 +2115,8 @@ class ExportChatInviteRequest(TLRequest):
         self.title = title
         self.subscription_pricing = subscription_pricing
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2312,11 +2179,8 @@ class FaveStickerRequest(TLRequest):
         self.id = id
         self.unfave = unfave
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_document(self.id)
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -2344,7 +2208,7 @@ class ForwardMessagesRequest(TLRequest):
     CONSTRUCTOR_ID = 0x13704a7c
     SUBCLASS_OF_ID = 0x8af52aac
 
-    def __init__(self, from_peer: 'TypeInputPeer', id: List[int], to_peer: 'TypeInputPeer', silent: Optional[bool]=None, background: Optional[bool]=None, with_my_score: Optional[bool]=None, drop_author: Optional[bool]=None, drop_media_captions: Optional[bool]=None, noforwards: Optional[bool]=None, allow_paid_floodskip: Optional[bool]=None, random_id: List[int]=None, top_msg_id: Optional[int]=None, reply_to: Optional['TypeInputReplyTo']=None, schedule_date: Optional[datetime]=None, schedule_repeat_period: Optional[int]=None, send_as: Optional['TypeInputPeer']=None, quick_reply_shortcut: Optional['TypeInputQuickReplyShortcut']=None, effect: Optional[int]=None, video_timestamp: Optional[int]=None, allow_paid_stars: Optional[int]=None, suggested_post: Optional['TypeSuggestedPost']=None):
+    def __init__(self, from_peer: 'TypeInputPeer', id: List[int], to_peer: 'TypeInputPeer', silent: Optional[bool]=None, background: Optional[bool]=None, with_my_score: Optional[bool]=None, drop_author: Optional[bool]=None, drop_media_captions: Optional[bool]=None, noforwards: Optional[bool]=None, allow_paid_floodskip: Optional[bool]=None, from_ephemeral: Optional[bool]=None, random_id: List[int]=None, top_msg_id: Optional[int]=None, reply_to: Optional['TypeInputReplyTo']=None, schedule_date: Optional[datetime]=None, schedule_repeat_period: Optional[int]=None, send_as: Optional['TypeInputPeer']=None, quick_reply_shortcut: Optional['TypeInputQuickReplyShortcut']=None, effect: Optional[int]=None, video_timestamp: Optional[int]=None, allow_paid_stars: Optional[int]=None, suggested_post: Optional['TypeSuggestedPost']=None):
         """
         :returns Updates: Instance of either UpdatesTooLong, UpdateShortMessage, UpdateShortChatMessage, UpdateShort, UpdatesCombined, Updates, UpdateShortSentMessage.
         """
@@ -2358,6 +2222,7 @@ class ForwardMessagesRequest(TLRequest):
         self.drop_media_captions = drop_media_captions
         self.noforwards = noforwards
         self.allow_paid_floodskip = allow_paid_floodskip
+        self.from_ephemeral = from_ephemeral
         self.random_id = random_id if random_id is not None else [int.from_bytes(os.urandom(8), 'big', signed=True) for _ in range(len(id))]
         self.top_msg_id = top_msg_id
         self.reply_to = reply_to
@@ -2370,16 +2235,11 @@ class ForwardMessagesRequest(TLRequest):
         self.allow_paid_stars = allow_paid_stars
         self.suggested_post = suggested_post
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.from_peer = utils.get_input_peer(await client.get_input_entity(self.from_peer))
-        self._check_peer(self.from_peer)
         self.to_peer = utils.get_input_peer(await client.get_input_entity(self.to_peer))
-        self._check_peer(self.to_peer)
         if self.send_as:
             self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-            self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -2394,6 +2254,7 @@ class ForwardMessagesRequest(TLRequest):
             'drop_media_captions': self.drop_media_captions,
             'noforwards': self.noforwards,
             'allow_paid_floodskip': self.allow_paid_floodskip,
+            'from_ephemeral': self.from_ephemeral,
             'random_id': [] if self.random_id is None else self.random_id[:],
             'top_msg_id': self.top_msg_id,
             'reply_to': self.reply_to.to_dict() if isinstance(self.reply_to, TLObject) else self.reply_to,
@@ -2411,7 +2272,7 @@ class ForwardMessagesRequest(TLRequest):
         self._assert_no_forbidden_constructors()
         return b''.join((
             b'|Jp\x13',
-            struct.pack('<I', (0 if self.silent is None or self.silent is False else 32) | (0 if self.background is None or self.background is False else 64) | (0 if self.with_my_score is None or self.with_my_score is False else 256) | (0 if self.drop_author is None or self.drop_author is False else 2048) | (0 if self.drop_media_captions is None or self.drop_media_captions is False else 4096) | (0 if self.noforwards is None or self.noforwards is False else 16384) | (0 if self.allow_paid_floodskip is None or self.allow_paid_floodskip is False else 524288) | (0 if self.top_msg_id is None or self.top_msg_id is False else 512) | (0 if self.reply_to is None or self.reply_to is False else 4194304) | (0 if self.schedule_date is None or self.schedule_date is False else 1024) | (0 if self.schedule_repeat_period is None or self.schedule_repeat_period is False else 16777216) | (0 if self.send_as is None or self.send_as is False else 8192) | (0 if self.quick_reply_shortcut is None or self.quick_reply_shortcut is False else 131072) | (0 if self.effect is None or self.effect is False else 262144) | (0 if self.video_timestamp is None or self.video_timestamp is False else 1048576) | (0 if self.allow_paid_stars is None or self.allow_paid_stars is False else 2097152) | (0 if self.suggested_post is None or self.suggested_post is False else 8388608)),
+            struct.pack('<I', (0 if self.silent is None or self.silent is False else 32) | (0 if self.background is None or self.background is False else 64) | (0 if self.with_my_score is None or self.with_my_score is False else 256) | (0 if self.drop_author is None or self.drop_author is False else 2048) | (0 if self.drop_media_captions is None or self.drop_media_captions is False else 4096) | (0 if self.noforwards is None or self.noforwards is False else 16384) | (0 if self.allow_paid_floodskip is None or self.allow_paid_floodskip is False else 524288) | (0 if self.from_ephemeral is None or self.from_ephemeral is False else 33554432) | (0 if self.top_msg_id is None or self.top_msg_id is False else 512) | (0 if self.reply_to is None or self.reply_to is False else 4194304) | (0 if self.schedule_date is None or self.schedule_date is False else 1024) | (0 if self.schedule_repeat_period is None or self.schedule_repeat_period is False else 16777216) | (0 if self.send_as is None or self.send_as is False else 8192) | (0 if self.quick_reply_shortcut is None or self.quick_reply_shortcut is False else 131072) | (0 if self.effect is None or self.effect is False else 262144) | (0 if self.video_timestamp is None or self.video_timestamp is False else 1048576) | (0 if self.allow_paid_stars is None or self.allow_paid_stars is False else 2097152) | (0 if self.suggested_post is None or self.suggested_post is False else 8388608)),
             self.from_peer._bytes(),
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.id)),b''.join(struct.pack('<i', x) for x in self.id),
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.random_id)),b''.join(struct.pack('<q', x) for x in self.random_id),
@@ -2439,6 +2300,7 @@ class ForwardMessagesRequest(TLRequest):
         _drop_media_captions = bool(flags & 4096)
         _noforwards = bool(flags & 16384)
         _allow_paid_floodskip = bool(flags & 524288)
+        _from_ephemeral = bool(flags & 33554432)
         _from_peer = reader.tgread_object()
         reader.read_int()
         _id = []
@@ -2493,7 +2355,7 @@ class ForwardMessagesRequest(TLRequest):
             _suggested_post = reader.tgread_object()
         else:
             _suggested_post = None
-        return cls(from_peer=_from_peer, id=_id, to_peer=_to_peer, silent=_silent, background=_background, with_my_score=_with_my_score, drop_author=_drop_author, drop_media_captions=_drop_media_captions, noforwards=_noforwards, allow_paid_floodskip=_allow_paid_floodskip, random_id=_random_id, top_msg_id=_top_msg_id, reply_to=_reply_to, schedule_date=_schedule_date, schedule_repeat_period=_schedule_repeat_period, send_as=_send_as, quick_reply_shortcut=_quick_reply_shortcut, effect=_effect, video_timestamp=_video_timestamp, allow_paid_stars=_allow_paid_stars, suggested_post=_suggested_post)
+        return cls(from_peer=_from_peer, id=_id, to_peer=_to_peer, silent=_silent, background=_background, with_my_score=_with_my_score, drop_author=_drop_author, drop_media_captions=_drop_media_captions, noforwards=_noforwards, allow_paid_floodskip=_allow_paid_floodskip, from_ephemeral=_from_ephemeral, random_id=_random_id, top_msg_id=_top_msg_id, reply_to=_reply_to, schedule_date=_schedule_date, schedule_repeat_period=_schedule_repeat_period, send_as=_send_as, quick_reply_shortcut=_quick_reply_shortcut, effect=_effect, video_timestamp=_video_timestamp, allow_paid_stars=_allow_paid_stars, suggested_post=_suggested_post)
 
 
 class GetAdminsWithInvitesRequest(TLRequest):
@@ -2506,11 +2368,8 @@ class GetAdminsWithInvitesRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2561,8 +2420,6 @@ class GetAllStickersRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetAllStickersRequest',
@@ -2594,8 +2451,6 @@ class GetArchivedStickersRequest(TLRequest):
         self.limit = limit
         self.masks = masks
         self.emojis = emojis
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2636,11 +2491,8 @@ class GetAttachMenuBotRequest(TLRequest):
         """
         self.bot = bot
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -2671,8 +2523,6 @@ class GetAttachMenuBotsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetAttachMenuBotsRequest',
@@ -2701,8 +2551,6 @@ class GetAttachedStickersRequest(TLRequest):
         :returns Vector<StickerSetCovered>: This type has no constructors.
         """
         self.media = media
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2733,8 +2581,6 @@ class GetAvailableEffectsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetAvailableEffectsRequest',
@@ -2763,8 +2609,6 @@ class GetAvailableReactionsRequest(TLRequest):
         :returns messages.AvailableReactions: Instance of either AvailableReactionsNotModified, AvailableReactions.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2795,8 +2639,6 @@ class GetBotAppRequest(TLRequest):
         """
         self.app = app
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -2834,11 +2676,8 @@ class GetBotCallbackAnswerRequest(TLRequest):
         self.data = data
         self.password = password
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -2896,13 +2735,9 @@ class GetChatInviteImportersRequest(TLRequest):
         self.link = link
         self.q = q
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.offset_user = utils.get_input_user(await client.get_input_entity(self.offset_user))
-        self._check_peer(self.offset_user)
 
     def to_dict(self):
         return {
@@ -2961,8 +2796,6 @@ class GetChatsRequest(TLRequest):
         """
         self.id = id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetChatsRequest',
@@ -2999,11 +2832,8 @@ class GetCommonChatsRequest(TLRequest):
         self.max_id = max_id
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -3039,8 +2869,6 @@ class GetCustomEmojiDocumentsRequest(TLRequest):
         :returns Vector<Document>: This type has no constructors.
         """
         self.document_id = document_id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3096,8 +2924,6 @@ class GetDefaultTagReactionsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetDefaultTagReactionsRequest',
@@ -3127,8 +2953,6 @@ class GetDhConfigRequest(TLRequest):
         """
         self.version = version
         self.random_length = random_length
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3182,12 +3006,9 @@ class GetDialogUnreadMarksRequest(TLRequest):
         """
         self.parent_peer = parent_peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.parent_peer:
             self.parent_peer = utils.get_input_peer(await client.get_input_entity(self.parent_peer))
-            self._check_peer(self.parent_peer)
 
     def to_dict(self):
         return {
@@ -3230,11 +3051,8 @@ class GetDialogsRequest(TLRequest):
         self.exclude_pinned = exclude_pinned
         self.folder_id = folder_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.offset_peer = utils.get_input_peer(await client.get_input_entity(self.offset_peer))
-        self._check_peer(self.offset_peer)
 
     def to_dict(self):
         return {
@@ -3289,11 +3107,8 @@ class GetDiscussionMessageRequest(TLRequest):
         self.peer = peer
         self.msg_id = msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -3328,8 +3143,6 @@ class GetDocumentByHashRequest(TLRequest):
         self.sha256 = sha256
         self.size = size
         self.mime_type = mime_type
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3386,8 +3199,6 @@ class GetEmojiGroupsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetEmojiGroupsRequest',
@@ -3416,8 +3227,6 @@ class GetEmojiKeywordsRequest(TLRequest):
         :returns EmojiKeywordsDifference: Instance of EmojiKeywordsDifference.
         """
         self.lang_code = lang_code
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3448,8 +3257,6 @@ class GetEmojiKeywordsDifferenceRequest(TLRequest):
         """
         self.lang_code = lang_code
         self.from_version = from_version
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3482,8 +3289,6 @@ class GetEmojiKeywordsLanguagesRequest(TLRequest):
         :returns Vector<EmojiLanguage>: This type has no constructors.
         """
         self.lang_codes = lang_codes
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3519,8 +3324,6 @@ class GetEmojiProfilePhotoGroupsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetEmojiProfilePhotoGroupsRequest',
@@ -3549,8 +3352,6 @@ class GetEmojiStatusGroupsRequest(TLRequest):
         :returns messages.EmojiGroups: Instance of either EmojiGroupsNotModified, EmojiGroups.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3581,8 +3382,6 @@ class GetEmojiStickerGroupsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetEmojiStickerGroupsRequest',
@@ -3612,8 +3411,6 @@ class GetEmojiStickersRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetEmojiStickersRequest',
@@ -3642,8 +3439,6 @@ class GetEmojiURLRequest(TLRequest):
         :returns EmojiURL: Instance of EmojiURL.
         """
         self.lang_code = lang_code
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3675,11 +3470,8 @@ class GetExportedChatInviteRequest(TLRequest):
         self.peer = peer
         self.link = link
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -3718,13 +3510,9 @@ class GetExportedChatInvitesRequest(TLRequest):
         self.offset_date = offset_date
         self.offset_link = offset_link
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.admin_id = utils.get_input_user(await client.get_input_entity(self.admin_id))
-        self._check_peer(self.admin_id)
 
     def to_dict(self):
         return {
@@ -3739,7 +3527,7 @@ class GetExportedChatInvitesRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.offset_date or self.offset_date is not None) and (self.offset_link or self.offset_link is not None)) or ((self.offset_date is None or self.offset_date is False) and (self.offset_link is None or self.offset_link is False)), 'offset_date, offset_link parameters must all be False-y (like None) or all be True-y'
+        assert ((self.offset_date or self.offset_date is not None) and (self.offset_link or self.offset_link is not None)) or ((self.offset_date is None or self.offset_date is False) and (self.offset_link is None or self.offset_link is False)), 'offset_date, offset_link parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xf6\xa3\xb5\xa2',
             struct.pack('<I', (0 if self.revoked is None or self.revoked is False else 8) | (0 if self.offset_date is None or self.offset_date is False else 4) | (0 if self.offset_link is None or self.offset_link is False else 4)),
@@ -3780,11 +3568,8 @@ class GetExtendedMediaRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -3824,11 +3609,8 @@ class GetFactCheckRequest(TLRequest):
         self.peer = peer
         self.msg_id = msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -3867,8 +3649,6 @@ class GetFavedStickersRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetFavedStickersRequest',
@@ -3898,8 +3678,6 @@ class GetFeaturedEmojiStickersRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetFeaturedEmojiStickersRequest',
@@ -3928,8 +3706,6 @@ class GetFeaturedStickersRequest(TLRequest):
         :returns messages.FeaturedStickers: Instance of either FeaturedStickersNotModified, FeaturedStickers.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -3965,11 +3741,8 @@ class GetForumTopicsRequest(TLRequest):
         self.limit = limit
         self.q = q
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4022,11 +3795,8 @@ class GetForumTopicsByIDRequest(TLRequest):
         self.peer = peer
         self.topics = topics
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4065,8 +3835,6 @@ class GetFullChatRequest(TLRequest):
         """
         self.chat_id = chat_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetFullChatRequest',
@@ -4096,11 +3864,8 @@ class GetFutureChatCreatorAfterLeaveRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4133,13 +3898,9 @@ class GetGameHighScoresRequest(TLRequest):
         self.id = id
         self.user_id = user_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -4183,11 +3944,8 @@ class GetHistoryRequest(TLRequest):
         self.min_id = min_id
         self.hash = hash
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4243,13 +4001,9 @@ class GetInlineBotResultsRequest(TLRequest):
         self.offset = offset
         self.geo_point = geo_point
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4299,11 +4053,8 @@ class GetInlineGameHighScoresRequest(TLRequest):
         self.id = id
         self.user_id = user_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -4337,8 +4088,6 @@ class GetMaskStickersRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetMaskStickersRequest',
@@ -4369,11 +4118,8 @@ class GetMessageEditDataRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4411,11 +4157,8 @@ class GetMessageReactionsListRequest(TLRequest):
         self.reaction = reaction
         self.offset = offset
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4468,11 +4211,8 @@ class GetMessageReadParticipantsRequest(TLRequest):
         self.peer = peer
         self.msg_id = msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4505,8 +4245,6 @@ class GetMessagesRequest(TLRequest):
         :returns messages.Messages: Instance of either Messages, MessagesSlice, ChannelMessages, MessagesNotModified.
         """
         self.id = id
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         _tmp = []
@@ -4550,11 +4288,8 @@ class GetMessagesReactionsRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4595,11 +4330,8 @@ class GetMessagesViewsRequest(TLRequest):
         self.id = id
         self.increment = increment
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4642,8 +4374,6 @@ class GetMyStickersRequest(TLRequest):
         self.offset_id = offset_id
         self.limit = limit
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetMyStickersRequest',
@@ -4677,8 +4407,6 @@ class GetOldFeaturedStickersRequest(TLRequest):
         self.offset = offset
         self.limit = limit
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -4715,11 +4443,8 @@ class GetOnlinesRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4751,11 +4476,8 @@ class GetOutboxReadDateRequest(TLRequest):
         self.peer = peer
         self.msg_id = msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4809,8 +4531,6 @@ class GetPeerDialogsRequest(TLRequest):
         """
         self.peers = peers
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         _tmp = []
         for _x in self.peers:
@@ -4852,11 +4572,8 @@ class GetPeerSettingsRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -4891,11 +4608,8 @@ class GetPersonalChannelHistoryRequest(TLRequest):
         self.min_id = min_id
         self.hash = hash
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -4937,8 +4651,6 @@ class GetPinnedDialogsRequest(TLRequest):
         :returns messages.PeerDialogs: Instance of PeerDialogs.
         """
         self.folder_id = folder_id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -4991,11 +4703,8 @@ class GetPollResultsRequest(TLRequest):
         self.msg_id = msg_id
         self.poll_hash = poll_hash
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -5036,11 +4745,8 @@ class GetPollVotesRequest(TLRequest):
         self.option = option
         self.offset = offset
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -5093,11 +4799,8 @@ class GetPreparedInlineMessageRequest(TLRequest):
         self.bot = bot
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -5131,8 +4834,6 @@ class GetQuickRepliesRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetQuickRepliesRequest',
@@ -5163,8 +4864,6 @@ class GetQuickReplyMessagesRequest(TLRequest):
         self.shortcut_id = shortcut_id
         self.hash = hash
         self.id = id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -5214,11 +4913,8 @@ class GetRecentLocationsRequest(TLRequest):
         self.limit = limit
         self.hash = hash
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -5256,8 +4952,6 @@ class GetRecentReactionsRequest(TLRequest):
         self.limit = limit
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetRecentReactionsRequest',
@@ -5290,8 +4984,6 @@ class GetRecentStickersRequest(TLRequest):
         """
         self.hash = hash
         self.attached = attached
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -5335,11 +5027,8 @@ class GetRepliesRequest(TLRequest):
         self.min_id = min_id
         self.hash = hash
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -5395,11 +5084,8 @@ class GetRichMessageRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -5439,14 +5125,10 @@ class GetSavedDialogsRequest(TLRequest):
         self.exclude_pinned = exclude_pinned
         self.parent_peer = parent_peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.offset_peer = utils.get_input_peer(await client.get_input_entity(self.offset_peer))
-        self._check_peer(self.offset_peer)
         if self.parent_peer:
             self.parent_peer = utils.get_input_peer(await client.get_input_entity(self.parent_peer))
-            self._check_peer(self.parent_peer)
 
     def to_dict(self):
         return {
@@ -5501,8 +5183,6 @@ class GetSavedDialogsByIDRequest(TLRequest):
         self.ids = ids
         self.parent_peer = parent_peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         _tmp = []
         for _x in self.ids:
@@ -5511,7 +5191,6 @@ class GetSavedDialogsByIDRequest(TLRequest):
         self.ids = _tmp
         if self.parent_peer:
             self.parent_peer = utils.get_input_peer(await client.get_input_entity(self.parent_peer))
-            self._check_peer(self.parent_peer)
 
     def to_dict(self):
         return {
@@ -5556,8 +5235,6 @@ class GetSavedGifsRequest(TLRequest):
         """
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetSavedGifsRequest',
@@ -5595,14 +5272,10 @@ class GetSavedHistoryRequest(TLRequest):
         self.hash = hash
         self.parent_peer = parent_peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.parent_peer:
             self.parent_peer = utils.get_input_peer(await client.get_input_entity(self.parent_peer))
-            self._check_peer(self.parent_peer)
 
     def to_dict(self):
         return {
@@ -5664,12 +5337,9 @@ class GetSavedReactionTagsRequest(TLRequest):
         self.hash = hash
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.peer:
             self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-            self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -5710,11 +5380,8 @@ class GetScheduledHistoryRequest(TLRequest):
         self.peer = peer
         self.hash = hash
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -5749,11 +5416,8 @@ class GetScheduledMessagesRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -5795,14 +5459,10 @@ class GetSearchCountersRequest(TLRequest):
         self.saved_peer_id = saved_peer_id
         self.top_msg_id = top_msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.saved_peer_id:
             self.saved_peer_id = utils.get_input_peer(await client.get_input_entity(self.saved_peer_id))
-            self._check_peer(self.saved_peer_id)
 
     def to_dict(self):
         return {
@@ -5860,14 +5520,10 @@ class GetSearchResultsCalendarRequest(TLRequest):
         self.offset_date = offset_date
         self.saved_peer_id = saved_peer_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.saved_peer_id:
             self.saved_peer_id = utils.get_input_peer(await client.get_input_entity(self.saved_peer_id))
-            self._check_peer(self.saved_peer_id)
 
     def to_dict(self):
         return {
@@ -5920,14 +5576,10 @@ class GetSearchResultsPositionsRequest(TLRequest):
         self.limit = limit
         self.saved_peer_id = saved_peer_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.saved_peer_id:
             self.saved_peer_id = utils.get_input_peer(await client.get_input_entity(self.saved_peer_id))
-            self._check_peer(self.saved_peer_id)
 
     def to_dict(self):
         return {
@@ -5997,11 +5649,8 @@ class GetSponsoredMessagesRequest(TLRequest):
         self.peer = peer
         self.msg_id = msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -6042,8 +5691,6 @@ class GetStickerSetRequest(TLRequest):
         self.stickerset = stickerset
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetStickerSetRequest',
@@ -6076,8 +5723,6 @@ class GetStickersRequest(TLRequest):
         """
         self.emoticon = emoticon
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -6132,8 +5777,6 @@ class GetTopReactionsRequest(TLRequest):
         self.limit = limit
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetTopReactionsRequest',
@@ -6172,11 +5815,8 @@ class GetUnreadMentionsRequest(TLRequest):
         self.min_id = min_id
         self.top_msg_id = top_msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -6237,11 +5877,8 @@ class GetUnreadPollVotesRequest(TLRequest):
         self.min_id = min_id
         self.top_msg_id = top_msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -6303,14 +5940,10 @@ class GetUnreadReactionsRequest(TLRequest):
         self.top_msg_id = top_msg_id
         self.saved_peer_id = saved_peer_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.saved_peer_id:
             self.saved_peer_id = utils.get_input_peer(await client.get_input_entity(self.saved_peer_id))
-            self._check_peer(self.saved_peer_id)
 
     def to_dict(self):
         return {
@@ -6372,8 +6005,6 @@ class GetWebPageRequest(TLRequest):
         self.url = url
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetWebPageRequest',
@@ -6406,8 +6037,6 @@ class GetWebPagePreviewRequest(TLRequest):
         """
         self.message = message
         self.entities = entities
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -6454,11 +6083,8 @@ class HideAllChatJoinRequestsRequest(TLRequest):
         self.approved = approved
         self.link = link
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -6502,13 +6128,9 @@ class HideChatJoinRequestRequest(TLRequest):
         self.user_id = user_id
         self.approved = approved
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -6547,11 +6169,8 @@ class HidePeerSettingsBarRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -6581,8 +6200,6 @@ class ImportChatInviteRequest(TLRequest):
         :returns messages.ChatInviteJoinResult: Instance of either ChatInviteJoinResultOk, ChatInviteJoinResultWebView.
         """
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -6615,11 +6232,8 @@ class InitHistoryImportRequest(TLRequest):
         self.file = file
         self.media_count = media_count
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -6657,8 +6271,6 @@ class InstallStickerSetRequest(TLRequest):
         self.stickerset = stickerset
         self.archived = archived
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'InstallStickerSetRequest',
@@ -6693,14 +6305,10 @@ class MarkDialogUnreadRequest(TLRequest):
         self.unread = unread
         self.parent_peer = parent_peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = await client._get_input_dialog(self.peer)
-        self._check_peer(self.peer)
         if self.parent_peer:
             self.parent_peer = utils.get_input_peer(await client.get_input_entity(self.parent_peer))
-            self._check_peer(self.parent_peer)
 
     def to_dict(self):
         return {
@@ -6742,8 +6350,6 @@ class MigrateChatRequest(TLRequest):
         """
         self.chat_id = chat_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'MigrateChatRequest',
@@ -6778,16 +6384,11 @@ class ProlongWebViewRequest(TLRequest):
         self.reply_to = reply_to
         self.send_as = send_as
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
         if self.send_as:
             self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-            self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -6844,11 +6445,8 @@ class RateTranscribedAudioRequest(TLRequest):
         self.transcription_id = transcription_id
         self.good = good
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -6890,11 +6488,8 @@ class ReadDiscussionRequest(TLRequest):
         self.msg_id = msg_id
         self.read_max_id = read_max_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -6932,8 +6527,6 @@ class ReadEncryptedHistoryRequest(TLRequest):
         self.peer = peer
         self.max_date = max_date
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ReadEncryptedHistoryRequest',
@@ -6965,8 +6558,6 @@ class ReadFeaturedStickersRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.id = id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -7003,11 +6594,8 @@ class ReadHistoryRequest(TLRequest):
         self.peer = peer
         self.max_id = max_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -7042,11 +6630,8 @@ class ReadMentionsRequest(TLRequest):
         self.peer = peer
         self.top_msg_id = top_msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -7086,8 +6671,6 @@ class ReadMessageContentsRequest(TLRequest):
         """
         self.id = id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ReadMessageContentsRequest',
@@ -7123,11 +6706,8 @@ class ReadPollVotesRequest(TLRequest):
         self.peer = peer
         self.top_msg_id = top_msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -7169,14 +6749,10 @@ class ReadReactionsRequest(TLRequest):
         self.top_msg_id = top_msg_id
         self.saved_peer_id = saved_peer_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.saved_peer_id:
             self.saved_peer_id = utils.get_input_peer(await client.get_input_entity(self.saved_peer_id))
-            self._check_peer(self.saved_peer_id)
 
     def to_dict(self):
         return {
@@ -7224,13 +6800,9 @@ class ReadSavedHistoryRequest(TLRequest):
         self.peer = peer
         self.max_id = max_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.parent_peer = utils.get_input_peer(await client.get_input_entity(self.parent_peer))
-        self._check_peer(self.parent_peer)
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -7267,8 +6839,6 @@ class ReceivedMessagesRequest(TLRequest):
         """
         self.max_id = max_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ReceivedMessagesRequest',
@@ -7297,8 +6867,6 @@ class ReceivedQueueRequest(TLRequest):
         :returns Vector<long>: This type has no constructors.
         """
         self.max_qts = max_qts
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -7335,8 +6903,6 @@ class ReorderPinnedDialogsRequest(TLRequest):
         self.folder_id = folder_id
         self.order = order
         self.force = force
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         _tmp = []
@@ -7389,11 +6955,8 @@ class ReorderPinnedForumTopicsRequest(TLRequest):
         self.order = order
         self.force = force
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -7437,8 +7000,6 @@ class ReorderPinnedSavedDialogsRequest(TLRequest):
         """
         self.order = order
         self.force = force
-
-        super().__init__()
 
     async def resolve(self, client, utils):
         _tmp = []
@@ -7486,8 +7047,6 @@ class ReorderQuickRepliesRequest(TLRequest):
         """
         self.order = order
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ReorderQuickRepliesRequest',
@@ -7523,8 +7082,6 @@ class ReorderStickerSetsRequest(TLRequest):
         self.order = order
         self.masks = masks
         self.emojis = emojis
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -7570,11 +7127,8 @@ class ReportRequest(TLRequest):
         self.option = option
         self.message = message
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -7619,8 +7173,6 @@ class ReportEncryptedSpamRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ReportEncryptedSpamRequest',
@@ -7652,11 +7204,8 @@ class ReportMessagesDeliveryRequest(TLRequest):
         self.id = id
         self.push = push
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -7701,11 +7250,8 @@ class ReportMusicListenRequest(TLRequest):
         self.id = id
         self.listened_duration = listened_duration
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_document(self.id)
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -7741,13 +7287,9 @@ class ReportReactionRequest(TLRequest):
         self.id = id
         self.reaction_peer = reaction_peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.reaction_peer = utils.get_input_peer(await client.get_input_entity(self.reaction_peer))
-        self._check_peer(self.reaction_peer)
 
     def to_dict(self):
         return {
@@ -7785,11 +7327,8 @@ class ReportReadMetricsRequest(TLRequest):
         self.peer = peer
         self.metrics = metrics
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -7828,11 +7367,8 @@ class ReportSpamRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -7863,8 +7399,6 @@ class ReportSponsoredMessageRequest(TLRequest):
         """
         self.option = option
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(4), 'big', signed=True)
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -7905,11 +7439,8 @@ class RequestAppWebViewRequest(TLRequest):
         self.start_param = start_param
         self.theme_params = theme_params
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -7969,8 +7500,6 @@ class RequestChatJoinWebViewRequest(TLRequest):
         self.platform = platform
         self.theme_params = theme_params
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'RequestChatJoinWebViewRequest',
@@ -8014,11 +7543,8 @@ class RequestEncryptionRequest(TLRequest):
         self.g_a = g_a
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(4), 'big', signed=True)
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -8061,13 +7587,9 @@ class RequestMainWebViewRequest(TLRequest):
         self.start_param = start_param
         self.theme_params = theme_params
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -8131,11 +7653,8 @@ class RequestSimpleWebViewRequest(TLRequest):
         self.start_param = start_param
         self.theme_params = theme_params
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -8202,12 +7721,9 @@ class RequestUrlAuthRequest(TLRequest):
         self.url = url
         self.in_app_origin = in_app_origin
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.peer:
             self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-            self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -8221,7 +7737,7 @@ class RequestUrlAuthRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.peer or self.peer is not None) and (self.msg_id or self.msg_id is not None) and (self.button_id or self.button_id is not None)) or ((self.peer is None or self.peer is False) and (self.msg_id is None or self.msg_id is False) and (self.button_id is None or self.button_id is False)), 'peer, msg_id, button_id parameters must all be False-y (like None) or all be True-y'
+        assert ((self.peer or self.peer is not None) and (self.msg_id or self.msg_id is not None) and (self.button_id or self.button_id is not None)) or ((self.peer is None or self.peer is False) and (self.msg_id is None or self.msg_id is False) and (self.button_id is None or self.button_id is False)), 'peer, msg_id, button_id parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\x9c\xc9L\x89',
             struct.pack('<I', (0 if self.peer is None or self.peer is False else 2) | (0 if self.msg_id is None or self.msg_id is False else 2) | (0 if self.button_id is None or self.button_id is False else 2) | (0 if self.url is None or self.url is False else 4) | (0 if self.in_app_origin is None or self.in_app_origin is False else 8)),
@@ -8280,16 +7796,11 @@ class RequestWebViewRequest(TLRequest):
         self.reply_to = reply_to
         self.send_as = send_as
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
         if self.send_as:
             self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-            self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -8368,13 +7879,9 @@ class SaveDefaultSendAsRequest(TLRequest):
         self.peer = peer
         self.send_as = send_as
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-        self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -8417,14 +7924,10 @@ class SaveDraftRequest(TLRequest):
         self.suggested_post = suggested_post
         self.rich_message = rich_message
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.media:
             self.media = utils.get_input_media(self.media)
-            self._check_peer(self.media)
 
     def to_dict(self):
         return {
@@ -8507,11 +8010,8 @@ class SaveGifRequest(TLRequest):
         self.id = id
         self.unsave = unsave
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_document(self.id)
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -8547,11 +8047,8 @@ class SavePreparedInlineMessageRequest(TLRequest):
         self.user_id = user_id
         self.peer_types = peer_types
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -8601,11 +8098,8 @@ class SaveRecentStickerRequest(TLRequest):
         self.unsave = unsave
         self.attached = attached
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.id = utils.get_input_document(self.id)
-        self._check_peer(self.id)
 
     def to_dict(self):
         return {
@@ -8658,18 +8152,13 @@ class SearchRequest(TLRequest):
         self.saved_reaction = saved_reaction
         self.top_msg_id = top_msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.from_id:
             self.from_id = utils.get_input_peer(await client.get_input_entity(self.from_id))
-            self._check_peer(self.from_id)
 
         if self.saved_peer_id:
             self.saved_peer_id = utils.get_input_peer(await client.get_input_entity(self.saved_peer_id))
-            self._check_peer(self.saved_peer_id)
 
     def to_dict(self):
         return {
@@ -8763,8 +8252,6 @@ class SearchCustomEmojiRequest(TLRequest):
         self.emoticon = emoticon
         self.hash = hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SearchCustomEmojiRequest',
@@ -8799,8 +8286,6 @@ class SearchEmojiStickerSetsRequest(TLRequest):
         self.hash = hash
         self.exclude_featured = exclude_featured
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SearchEmojiStickerSetsRequest',
@@ -8829,7 +8314,7 @@ class SearchEmojiStickerSetsRequest(TLRequest):
 
 
 class SearchGlobalRequest(TLRequest):
-    CONSTRUCTOR_ID = 0x4bc6589a
+    CONSTRUCTOR_ID = 0x6126a43c
     SUBCLASS_OF_ID = 0xd4b40b5e
 
     def __init__(self, q: str, filter: 'TypeMessagesFilter', min_date: Optional[datetime], max_date: Optional[datetime], offset_rate: int, offset_peer: 'TypeInputPeer', offset_id: int, limit: int, broadcasts_only: Optional[bool]=None, groups_only: Optional[bool]=None, users_only: Optional[bool]=None, folder_id: Optional[int]=None, community: Optional['TypeInputChannel']=None):
@@ -8850,14 +8335,10 @@ class SearchGlobalRequest(TLRequest):
         self.folder_id = folder_id
         self.community = community
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.offset_peer = utils.get_input_peer(await client.get_input_entity(self.offset_peer))
-        self._check_peer(self.offset_peer)
         if self.community:
             self.community = utils.get_input_channel(await client.get_input_entity(self.community))
-            self._check_peer(self.community)
 
     def to_dict(self):
         return {
@@ -8932,8 +8413,6 @@ class SearchSentMediaRequest(TLRequest):
         self.filter = filter
         self.limit = limit
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SearchSentMediaRequest',
@@ -8970,8 +8449,6 @@ class SearchStickerSetsRequest(TLRequest):
         self.q = q
         self.hash = hash
         self.exclude_featured = exclude_featured
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -9015,8 +8492,6 @@ class SearchStickersRequest(TLRequest):
         self.limit = limit
         self.hash = hash
         self.emojis = emojis
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -9076,11 +8551,8 @@ class SendBotRequestedPeerRequest(TLRequest):
         self.msg_id = msg_id
         self.webapp_req_id = webapp_req_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         _tmp = []
         for _x in self.requested_peers:
             _tmp.append(utils.get_input_peer(await client.get_input_entity(_x)))
@@ -9145,8 +8617,6 @@ class SendEncryptedRequest(TLRequest):
         self.silent = silent
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(8), 'big', signed=True)
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SendEncryptedRequest',
@@ -9190,8 +8660,6 @@ class SendEncryptedFileRequest(TLRequest):
         self.file = file
         self.silent = silent
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(8), 'big', signed=True)
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -9237,8 +8705,6 @@ class SendEncryptedServiceRequest(TLRequest):
         self.peer = peer
         self.data = data
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(8), 'big', signed=True)
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -9287,14 +8753,10 @@ class SendInlineBotResultRequest(TLRequest):
         self.quick_reply_shortcut = quick_reply_shortcut
         self.allow_paid_stars = allow_paid_stars
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.send_as:
             self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-            self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -9395,16 +8857,11 @@ class SendMediaRequest(TLRequest):
         self.allow_paid_stars = allow_paid_stars
         self.suggested_post = suggested_post
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.media = utils.get_input_media(self.media)
-        self._check_peer(self.media)
         if self.send_as:
             self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-            self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -9547,14 +9004,10 @@ class SendMessageRequest(TLRequest):
         self.suggested_post = suggested_post
         self.rich_message = rich_message
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.send_as:
             self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-            self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -9695,14 +9148,10 @@ class SendMultiMediaRequest(TLRequest):
         self.effect = effect
         self.allow_paid_stars = allow_paid_stars
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.send_as:
             self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-            self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -9798,11 +9247,8 @@ class SendPaidReactionRequest(TLRequest):
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(8), 'big', signed=True)
         self.private = private
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -9854,11 +9300,8 @@ class SendQuickReplyMessagesRequest(TLRequest):
         self.id = id
         self.random_id = random_id if random_id is not None else [int.from_bytes(os.urandom(8), 'big', signed=True) for _ in range(len(id))]
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -9912,11 +9355,8 @@ class SendReactionRequest(TLRequest):
         self.add_to_recent = add_to_recent
         self.reaction = reaction
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -9969,11 +9409,8 @@ class SendScheduledMessagesRequest(TLRequest):
         self.peer = peer
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -10014,11 +9451,8 @@ class SendScreenshotNotificationRequest(TLRequest):
         self.reply_to = reply_to
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(8), 'big', signed=True)
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -10057,11 +9491,8 @@ class SendVoteRequest(TLRequest):
         self.msg_id = msg_id
         self.options = options
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -10106,11 +9537,8 @@ class SendWebViewDataRequest(TLRequest):
         self.data = data
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(8), 'big', signed=True)
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -10151,8 +9579,6 @@ class SendWebViewResultMessageRequest(TLRequest):
         self.bot_query_id = bot_query_id
         self.result = result
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SendWebViewResultMessageRequest',
@@ -10188,8 +9614,6 @@ class SetBotCallbackAnswerRequest(TLRequest):
         self.alert = alert
         self.message = message
         self.url = url
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -10241,8 +9665,6 @@ class SetBotGuestChatResultRequest(TLRequest):
         self.query_id = query_id
         self.result = result
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SetBotGuestChatResultRequest',
@@ -10276,8 +9698,6 @@ class SetBotPrecheckoutResultsRequest(TLRequest):
         self.query_id = query_id
         self.success = success
         self.error = error
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -10320,8 +9740,6 @@ class SetBotShippingResultsRequest(TLRequest):
         self.query_id = query_id
         self.error = error
         self.shipping_options = shipping_options
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -10375,11 +9793,8 @@ class SetChatAvailableReactionsRequest(TLRequest):
         self.reactions_limit = reactions_limit
         self.paid_enabled = paid_enabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -10429,11 +9844,8 @@ class SetChatThemeRequest(TLRequest):
         self.peer = peer
         self.theme = theme
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -10472,11 +9884,8 @@ class SetChatWallPaperRequest(TLRequest):
         self.settings = settings
         self.id = id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -10532,8 +9941,6 @@ class SetDefaultHistoryTTLRequest(TLRequest):
         """
         self.period = period
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SetDefaultHistoryTTLRequest',
@@ -10562,8 +9969,6 @@ class SetDefaultReactionRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.reaction = reaction
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -10594,8 +9999,6 @@ class SetEncryptedTypingRequest(TLRequest):
         """
         self.peer = peer
         self.typing = typing
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -10634,13 +10037,9 @@ class SetGameScoreRequest(TLRequest):
         self.edit_message = edit_message
         self.force = force
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -10688,11 +10087,8 @@ class SetHistoryTTLRequest(TLRequest):
         self.peer = peer
         self.period = period
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -10732,8 +10128,6 @@ class SetInlineBotResultsRequest(TLRequest):
         self.next_offset = next_offset
         self.switch_pm = switch_pm
         self.switch_webview = switch_webview
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -10804,11 +10198,8 @@ class SetInlineGameScoreRequest(TLRequest):
         self.edit_message = edit_message
         self.force = force
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -10854,11 +10245,8 @@ class SetTypingRequest(TLRequest):
         self.action = action
         self.top_msg_id = top_msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -10904,13 +10292,9 @@ class StartBotRequest(TLRequest):
         self.start_param = start_param
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(8), 'big', signed=True)
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -10951,11 +10335,8 @@ class StartHistoryImportRequest(TLRequest):
         self.peer = peer
         self.import_id = import_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -10992,11 +10373,8 @@ class SummarizeTextRequest(TLRequest):
         self.to_lang = to_lang
         self.tone = tone
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11047,11 +10425,8 @@ class ToggleBotInAttachMenuRequest(TLRequest):
         self.enabled = enabled
         self.write_allowed = write_allowed
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
-        self._check_peer(self.bot)
 
     def to_dict(self):
         return {
@@ -11090,8 +10465,6 @@ class ToggleDialogFilterTagsRequest(TLRequest):
         """
         self.enabled = enabled
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ToggleDialogFilterTagsRequest',
@@ -11122,11 +10495,8 @@ class ToggleDialogPinRequest(TLRequest):
         self.peer = peer
         self.pinned = pinned
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = await client._get_input_dialog(self.peer)
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11164,11 +10534,8 @@ class ToggleNoForwardsRequest(TLRequest):
         self.enabled = enabled
         self.request_msg_id = request_msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11213,11 +10580,8 @@ class TogglePaidReactionPrivacyRequest(TLRequest):
         self.msg_id = msg_id
         self.private = private
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11255,11 +10619,8 @@ class TogglePeerTranslationsRequest(TLRequest):
         self.peer = peer
         self.disabled = disabled
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11296,11 +10657,8 @@ class ToggleSavedDialogPinRequest(TLRequest):
         self.peer = peer
         self.pinned = pinned
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = await client._get_input_dialog(self.peer)
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11338,8 +10696,6 @@ class ToggleStickerSetsRequest(TLRequest):
         self.uninstall = uninstall
         self.archive = archive
         self.unarchive = unarchive
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -11388,11 +10744,8 @@ class ToggleSuggestedPostApprovalRequest(TLRequest):
         self.schedule_date = schedule_date
         self.reject_comment = reject_comment
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11446,11 +10799,8 @@ class ToggleTodoCompletedRequest(TLRequest):
         self.completed = completed
         self.incompleted = incompleted
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11501,11 +10851,8 @@ class TranscribeAudioRequest(TLRequest):
         self.peer = peer
         self.msg_id = msg_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11543,12 +10890,9 @@ class TranslateRichMessageRequest(TLRequest):
         self.text = text
         self.tone = tone
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.peer:
             self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-            self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11562,7 +10906,7 @@ class TranslateRichMessageRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.peer or self.peer is not None) and (self.id or self.id is not None)) or ((self.peer is None or self.peer is False) and (self.id is None or self.id is False)), 'peer, id parameters must all be False-y (like None) or all be True-y'
+        assert ((self.peer or self.peer is not None) and (self.id or self.id is not None)) or ((self.peer is None or self.peer is False) and (self.id is None or self.id is False)), 'peer, id parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\x04 T\x1a',
             struct.pack('<I', (0 if self.peer is None or self.peer is False else 1) | (0 if self.id is None or self.id is False else 1) | (0 if self.text is None or self.text is False else 2) | (0 if self.tone is None or self.tone is False else 4)),
@@ -11621,12 +10965,9 @@ class TranslateTextRequest(TLRequest):
         self.text = text
         self.tone = tone
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.peer:
             self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-            self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11640,7 +10981,7 @@ class TranslateTextRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.peer or self.peer is not None) and (self.id or self.id is not None)) or ((self.peer is None or self.peer is False) and (self.id is None or self.id is False)), 'peer, id parameters must all be False-y (like None) or all be True-y'
+        assert ((self.peer or self.peer is not None) and (self.id or self.id is not None)) or ((self.peer is None or self.peer is False) and (self.id is None or self.id is False)), 'peer, id parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'E\xc3\xee\xa5',
             struct.pack('<I', (0 if self.peer is None or self.peer is False else 1) | (0 if self.id is None or self.id is False else 1) | (0 if self.text is None or self.text is False else 2) | (0 if self.tone is None or self.tone is False else 4)),
@@ -11695,8 +11036,6 @@ class UninstallStickerSetRequest(TLRequest):
         """
         self.stickerset = stickerset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UninstallStickerSetRequest',
@@ -11728,14 +11067,10 @@ class UnpinAllMessagesRequest(TLRequest):
         self.top_msg_id = top_msg_id
         self.saved_peer_id = saved_peer_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         if self.saved_peer_id:
             self.saved_peer_id = utils.get_input_peer(await client.get_input_entity(self.saved_peer_id))
-            self._check_peer(self.saved_peer_id)
 
     def to_dict(self):
         return {
@@ -11782,8 +11117,6 @@ class UpdateDialogFilterRequest(TLRequest):
         self.id = id
         self.filter = filter
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdateDialogFilterRequest',
@@ -11822,8 +11155,6 @@ class UpdateDialogFiltersOrderRequest(TLRequest):
         """
         self.order = order
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdateDialogFiltersOrderRequest',
@@ -11860,11 +11191,8 @@ class UpdatePinnedForumTopicRequest(TLRequest):
         self.topic_id = topic_id
         self.pinned = pinned
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11905,11 +11233,8 @@ class UpdatePinnedMessageRequest(TLRequest):
         self.unpin = unpin
         self.pm_oneside = pm_oneside
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -11953,8 +11278,6 @@ class UpdateSavedReactionTagRequest(TLRequest):
         self.reaction = reaction
         self.title = title
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UpdateSavedReactionTagRequest',
@@ -11994,8 +11317,6 @@ class UploadEncryptedFileRequest(TLRequest):
         self.peer = peer
         self.file = file
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'UploadEncryptedFileRequest',
@@ -12031,13 +11352,9 @@ class UploadImportedMediaRequest(TLRequest):
         self.file_name = file_name
         self.media = media
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.media = utils.get_input_media(self.media)
-        self._check_peer(self.media)
 
     def to_dict(self):
         return {
@@ -12079,13 +11396,9 @@ class UploadMediaRequest(TLRequest):
         self.media = media
         self.business_connection_id = business_connection_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.media = utils.get_input_media(self.media)
-        self._check_peer(self.media)
 
     def to_dict(self):
         return {
@@ -12127,8 +11440,6 @@ class ViewSponsoredMessageRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(4), 'big', signed=True)
-
-        super().__init__()
 
     def to_dict(self):
         return {

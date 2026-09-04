@@ -21,8 +21,6 @@ class AppConfig(TLObject):
         self.hash = hash
         self.config = config
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AppConfig',
@@ -81,8 +79,6 @@ class AppUpdate(TLObject):
         self.document = document
         self.url = url
         self.sticker = sticker
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -146,13 +142,52 @@ class ConfigSimple(TLObject):
 
     def __init__(self, date: Optional[datetime], expires: Optional[datetime], rules: List['TypeAccessPointRule']):
         """
-        Constructor for help.ConfigSimple: Instance of ConfigSimple.
+        Constructor for help.ConfigSimple: Instance of either ConfigSimple, ConfigSimple.
         """
         self.date = date
         self.expires = expires
         self.rules = rules
 
-        super().__init__()
+    def to_dict(self):
+        return {
+            '_': 'ConfigSimple',
+            'date': self.date,
+            'expires': self.expires,
+            'rules': [] if self.rules is None else [x.to_dict() if isinstance(x, TLObject) else x for x in self.rules]
+        }
+
+    def _bytes(self):
+        self._assert_no_forbidden_constructors()
+        return b''.join((
+            b'l*YZ',
+            self.serialize_datetime(self.date),
+            self.serialize_datetime(self.expires),
+            struct.pack('<i', len(self.rules)),b''.join(x._bytes() for x in self.rules),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _date = reader.tgread_date()
+        _expires = reader.tgread_date()
+        _rules = []
+        for _ in range(reader.read_int()):
+            _x = reader.tgread_object()
+            _rules.append(_x)
+
+        return cls(date=_date, expires=_expires, rules=_rules)
+
+
+class ConfigSimple(TLObject):
+    CONSTRUCTOR_ID = 0x5a592a6c
+    SUBCLASS_OF_ID = 0x29183ac4
+
+    def __init__(self, date: Optional[datetime], expires: Optional[datetime], rules: List['TypeAccessPointRule']):
+        """
+        Constructor for help.ConfigSimple: Instance of either ConfigSimple, ConfigSimple.
+        """
+        self.date = date
+        self.expires = expires
+        self.rules = rules
 
     def to_dict(self):
         return {
@@ -193,8 +228,6 @@ class CountriesList(TLObject):
         """
         self.countries = countries
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -257,8 +290,6 @@ class Country(TLObject):
         self.hidden = hidden
         self.name = name
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Country',
@@ -311,8 +342,6 @@ class CountryCode(TLObject):
         self.country_code = country_code
         self.prefixes = prefixes
         self.patterns = patterns
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -369,8 +398,6 @@ class DeepLinkInfo(TLObject):
         self.message = message
         self.update_app = update_app
         self.entities = entities
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -437,8 +464,6 @@ class InviteText(TLObject):
         """
         self.message = message
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'InviteText',
@@ -488,8 +513,6 @@ class PassportConfig(TLObject):
         """
         self.hash = hash
         self.countries_langs = countries_langs
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -547,8 +570,6 @@ class PeerColorOption(TLObject):
         self.dark_colors = dark_colors
         self.channel_min_level = channel_min_level
         self.group_min_level = group_min_level
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -610,8 +631,6 @@ class PeerColorProfileSet(TLObject):
         self.bg_colors = bg_colors
         self.story_colors = story_colors
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PeerColorProfileSet',
@@ -662,8 +681,6 @@ class PeerColorSet(TLObject):
         """
         self.colors = colors
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PeerColorSet',
@@ -698,8 +715,6 @@ class PeerColors(TLObject):
         """
         self.hash = hash
         self.colors = colors
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -762,8 +777,6 @@ class PremiumPromo(TLObject):
         self.videos = videos
         self.period_options = period_options
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -842,8 +855,6 @@ class PromoData(TLObject):
         self.psa_type = psa_type
         self.psa_message = psa_message
         self.custom_pending_suggestion = custom_pending_suggestion
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -935,8 +946,6 @@ class PromoDataEmpty(TLObject):
         """
         self.expires = expires
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'PromoDataEmpty',
@@ -967,8 +976,6 @@ class RecentMeUrls(TLObject):
         self.urls = urls
         self.chats = chats
         self.users = users
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1021,8 +1028,6 @@ class Support(TLObject):
         self.phone_number = phone_number
         self.user = user
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'Support',
@@ -1054,8 +1059,6 @@ class SupportName(TLObject):
         Constructor for help.SupportName: Instance of SupportName.
         """
         self.name = name
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1089,8 +1092,6 @@ class TermsOfService(TLObject):
         self.entities = entities
         self.popup = popup
         self.min_age_confirm = min_age_confirm
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1144,8 +1145,6 @@ class TermsOfServiceUpdate(TLObject):
         self.expires = expires
         self.terms_of_service = terms_of_service
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'TermsOfServiceUpdate',
@@ -1178,8 +1177,6 @@ class TermsOfServiceUpdateEmpty(TLObject):
         """
         self.expires = expires
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'TermsOfServiceUpdateEmpty',
@@ -1209,8 +1206,6 @@ class TimezonesList(TLObject):
         """
         self.timezones = timezones
         self.hash = hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1271,8 +1266,6 @@ class UserInfo(TLObject):
         self.entities = entities
         self.author = author
         self.date = date
-
-        super().__init__()
 
     def to_dict(self):
         return {

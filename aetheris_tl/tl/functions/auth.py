@@ -21,8 +21,6 @@ class AcceptLoginTokenRequest(TLRequest):
         """
         self.token = token
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AcceptLoginTokenRequest',
@@ -54,8 +52,6 @@ class BindTempAuthKeyRequest(TLRequest):
         self.nonce = nonce
         self.expires_at = expires_at
         self.encrypted_message = encrypted_message
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -96,8 +92,6 @@ class CancelCodeRequest(TLRequest):
         self.phone_number = phone_number
         self.phone_code_hash = phone_code_hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CancelCodeRequest',
@@ -131,8 +125,6 @@ class CheckPaidAuthRequest(TLRequest):
         self.phone_number = phone_number
         self.phone_code_hash = phone_code_hash
         self.form_id = form_id
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -169,8 +161,6 @@ class CheckPasswordRequest(TLRequest):
         """
         self.password = password
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CheckPasswordRequest',
@@ -200,8 +190,6 @@ class CheckRecoveryPasswordRequest(TLRequest):
         """
         self.code = code
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CheckRecoveryPasswordRequest',
@@ -230,8 +218,6 @@ class DropTempAuthKeysRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.except_auth_keys = except_auth_keys
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -267,8 +253,6 @@ class ExportAuthorizationRequest(TLRequest):
         """
         self.dc_id = dc_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ExportAuthorizationRequest',
@@ -300,8 +284,6 @@ class ExportLoginTokenRequest(TLRequest):
         self.api_hash = api_hash
         self.except_ids = except_ids
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ExportLoginTokenRequest',
@@ -332,6 +314,35 @@ class ExportLoginTokenRequest(TLRequest):
         return cls(api_id=_api_id, api_hash=_api_hash, except_ids=_except_ids)
 
 
+class FinishFirebasePnvLoginRequest(TLRequest):
+    CONSTRUCTOR_ID = 0x2c85094c
+    SUBCLASS_OF_ID = 0xb9e04e39
+
+    def __init__(self, google_token: str):
+        """
+        :returns auth.Authorization: Instance of either Authorization, AuthorizationSignUpRequired.
+        """
+        self.google_token = google_token
+
+    def to_dict(self):
+        return {
+            '_': 'FinishFirebasePnvLoginRequest',
+            'google_token': self.google_token
+        }
+
+    def _bytes(self):
+        self._assert_no_forbidden_constructors()
+        return b''.join((
+            b'L\t\x85,',
+            self.serialize_bytes(self.google_token),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _google_token = reader.tgread_string()
+        return cls(google_token=_google_token)
+
+
 class FinishPasskeyLoginRequest(TLRequest):
     CONSTRUCTOR_ID = 0x9857ad07
     SUBCLASS_OF_ID = 0xb9e04e39
@@ -344,8 +355,6 @@ class FinishPasskeyLoginRequest(TLRequest):
         self.from_dc_id = from_dc_id
         self.from_auth_key_id = from_auth_key_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'FinishPasskeyLoginRequest',
@@ -356,7 +365,7 @@ class FinishPasskeyLoginRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.from_dc_id or self.from_dc_id is not None) and (self.from_auth_key_id or self.from_auth_key_id is not None)) or ((self.from_dc_id is None or self.from_dc_id is False) and (self.from_auth_key_id is None or self.from_auth_key_id is False)), 'from_dc_id, from_auth_key_id parameters must all be False-y (like None) or all be True-y'
+        assert ((self.from_dc_id or self.from_dc_id is not None) and (self.from_auth_key_id or self.from_auth_key_id is not None)) or ((self.from_dc_id is None or self.from_dc_id is False) and (self.from_auth_key_id is None or self.from_auth_key_id is False)), 'from_dc_id, from_auth_key_id parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\x07\xadW\x98',
             struct.pack('<I', (0 if self.from_dc_id is None or self.from_dc_id is False else 1) | (0 if self.from_auth_key_id is None or self.from_auth_key_id is False else 1)),
@@ -381,6 +390,45 @@ class FinishPasskeyLoginRequest(TLRequest):
         return cls(credential=_credential, from_dc_id=_from_dc_id, from_auth_key_id=_from_auth_key_id)
 
 
+class FirebasePnvSignUpRequest(TLRequest):
+    CONSTRUCTOR_ID = 0x783f6b56
+    SUBCLASS_OF_ID = 0xb9e04e39
+
+    def __init__(self, first_name: str, last_name: str, no_joined_notifications: Optional[bool]=None):
+        """
+        :returns auth.Authorization: Instance of either Authorization, AuthorizationSignUpRequired.
+        """
+        self.first_name = first_name
+        self.last_name = last_name
+        self.no_joined_notifications = no_joined_notifications
+
+    def to_dict(self):
+        return {
+            '_': 'FirebasePnvSignUpRequest',
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'no_joined_notifications': self.no_joined_notifications
+        }
+
+    def _bytes(self):
+        self._assert_no_forbidden_constructors()
+        return b''.join((
+            b'Vk?x',
+            struct.pack('<I', (0 if self.no_joined_notifications is None or self.no_joined_notifications is False else 1)),
+            self.serialize_bytes(self.first_name),
+            self.serialize_bytes(self.last_name),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        flags = reader.read_int()
+
+        _no_joined_notifications = bool(flags & 1)
+        _first_name = reader.tgread_string()
+        _last_name = reader.tgread_string()
+        return cls(first_name=_first_name, last_name=_last_name, no_joined_notifications=_no_joined_notifications)
+
+
 class ImportAuthorizationRequest(TLRequest):
     CONSTRUCTOR_ID = 0xa57a7dad
     SUBCLASS_OF_ID = 0xb9e04e39
@@ -391,8 +439,6 @@ class ImportAuthorizationRequest(TLRequest):
         """
         self.id = id
         self.bytes = bytes
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -428,8 +474,6 @@ class ImportBotAuthorizationRequest(TLRequest):
         self.api_id = api_id
         self.api_hash = api_hash
         self.bot_auth_token = bot_auth_token
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -469,8 +513,6 @@ class ImportLoginTokenRequest(TLRequest):
         """
         self.token = token
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ImportLoginTokenRequest',
@@ -502,8 +544,6 @@ class ImportWebTokenAuthorizationRequest(TLRequest):
         self.api_hash = api_hash
         self.web_auth_token = web_auth_token
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ImportWebTokenAuthorizationRequest',
@@ -529,6 +569,39 @@ class ImportWebTokenAuthorizationRequest(TLRequest):
         return cls(api_id=_api_id, api_hash=_api_hash, web_auth_token=_web_auth_token)
 
 
+class InitFirebasePnvLoginRequest(TLRequest):
+    CONSTRUCTOR_ID = 0x777df37a
+    SUBCLASS_OF_ID = 0xfa6422a7
+
+    def __init__(self, api_id: int, api_hash: str):
+        """
+        :returns auth.FirebasePnvIntent: Instance of FirebasePnvIntent.
+        """
+        self.api_id = api_id
+        self.api_hash = api_hash
+
+    def to_dict(self):
+        return {
+            '_': 'InitFirebasePnvLoginRequest',
+            'api_id': self.api_id,
+            'api_hash': self.api_hash
+        }
+
+    def _bytes(self):
+        self._assert_no_forbidden_constructors()
+        return b''.join((
+            b'z\xf3}w',
+            struct.pack('<i', self.api_id),
+            self.serialize_bytes(self.api_hash),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _api_id = reader.read_int()
+        _api_hash = reader.tgread_string()
+        return cls(api_id=_api_id, api_hash=_api_hash)
+
+
 class InitPasskeyLoginRequest(TLRequest):
     CONSTRUCTOR_ID = 0x518ad0b7
     SUBCLASS_OF_ID = 0xd9793032
@@ -539,8 +612,6 @@ class InitPasskeyLoginRequest(TLRequest):
         """
         self.api_id = api_id
         self.api_hash = api_hash
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -595,8 +666,6 @@ class RecoverPasswordRequest(TLRequest):
         self.code = code
         self.new_settings = new_settings
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'RecoverPasswordRequest',
@@ -637,8 +706,6 @@ class ReportMissingCodeRequest(TLRequest):
         self.phone_code_hash = phone_code_hash
         self.mnc = mnc
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ReportMissingCodeRequest',
@@ -677,8 +744,6 @@ class RequestFirebaseSmsRequest(TLRequest):
         self.safety_net_token = safety_net_token
         self.play_integrity_token = play_integrity_token
         self.ios_push_secret = ios_push_secret
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -755,8 +820,6 @@ class ResendCodeRequest(TLRequest):
         self.phone_code_hash = phone_code_hash
         self.reason = reason
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResendCodeRequest',
@@ -819,8 +882,6 @@ class ResetLoginEmailRequest(TLRequest):
         self.phone_number = phone_number
         self.phone_code_hash = phone_code_hash
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ResetLoginEmailRequest',
@@ -855,8 +916,6 @@ class SendCodeRequest(TLRequest):
         self.api_id = api_id
         self.api_hash = api_hash
         self.settings = settings
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -898,8 +957,6 @@ class SignInRequest(TLRequest):
         self.phone_code_hash = phone_code_hash
         self.phone_code = phone_code
         self.email_verification = email_verification
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -951,8 +1008,6 @@ class SignUpRequest(TLRequest):
         self.first_name = first_name
         self.last_name = last_name
         self.no_joined_notifications = no_joined_notifications
-
-        super().__init__()
 
     def to_dict(self):
         return {

@@ -21,8 +21,6 @@ class AddStickerToSetRequest(TLRequest):
         self.stickerset = stickerset
         self.sticker = sticker
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AddStickerToSetRequest',
@@ -58,11 +56,8 @@ class ChangeStickerRequest(TLRequest):
         self.mask_coords = mask_coords
         self.keywords = keywords
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.sticker = utils.get_input_document(self.sticker)
-        self._check_peer(self.sticker)
 
     def to_dict(self):
         return {
@@ -115,11 +110,8 @@ class ChangeStickerPositionRequest(TLRequest):
         self.sticker = sticker
         self.position = position
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.sticker = utils.get_input_document(self.sticker)
-        self._check_peer(self.sticker)
 
     def to_dict(self):
         return {
@@ -152,8 +144,6 @@ class CheckShortNameRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.short_name = short_name
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -192,14 +182,10 @@ class CreateStickerSetRequest(TLRequest):
         self.thumb = thumb
         self.software = software
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
         if self.thumb:
             self.thumb = utils.get_input_document(self.thumb)
-            self._check_peer(self.thumb)
 
     def to_dict(self):
         return {
@@ -265,8 +251,6 @@ class DeleteStickerSetRequest(TLRequest):
         """
         self.stickerset = stickerset
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DeleteStickerSetRequest',
@@ -296,11 +280,8 @@ class RemoveStickerFromSetRequest(TLRequest):
         """
         self.sticker = sticker
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.sticker = utils.get_input_document(self.sticker)
-        self._check_peer(self.sticker)
 
     def to_dict(self):
         return {
@@ -331,8 +312,6 @@ class RenameStickerSetRequest(TLRequest):
         """
         self.stickerset = stickerset
         self.title = title
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -367,11 +346,8 @@ class ReplaceStickerRequest(TLRequest):
         self.sticker = sticker
         self.new_sticker = new_sticker
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.sticker = utils.get_input_document(self.sticker)
-        self._check_peer(self.sticker)
 
     def to_dict(self):
         return {
@@ -407,12 +383,9 @@ class SetStickerSetThumbRequest(TLRequest):
         self.thumb = thumb
         self.thumb_document_id = thumb_document_id
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         if self.thumb:
             self.thumb = utils.get_input_document(self.thumb)
-            self._check_peer(self.thumb)
 
     def to_dict(self):
         return {
@@ -457,8 +430,6 @@ class SuggestShortNameRequest(TLRequest):
         :returns stickers.SuggestedShortName: Instance of SuggestedShortName.
         """
         self.title = title
-
-        super().__init__()
 
     def to_dict(self):
         return {

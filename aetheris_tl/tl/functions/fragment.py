@@ -20,8 +20,6 @@ class GetCollectibleInfoRequest(TLRequest):
         """
         self.collectible = collectible
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'GetCollectibleInfoRequest',

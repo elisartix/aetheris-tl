@@ -21,8 +21,6 @@ class CollectibleInfo(TLObject):
         self.crypto_amount = crypto_amount
         self.url = url
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CollectibleInfo',

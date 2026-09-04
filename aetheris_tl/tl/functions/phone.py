@@ -22,8 +22,6 @@ class AcceptCallRequest(TLRequest):
         self.g_b = g_b
         self.protocol = protocol
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'AcceptCallRequest',
@@ -60,11 +58,8 @@ class CheckGroupCallRequest(TLRequest):
         self.call = call
         self.sources = sources
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -111,8 +106,6 @@ class ConfirmCallRequest(TLRequest):
         self.key_fingerprint = key_fingerprint
         self.protocol = protocol
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'ConfirmCallRequest',
@@ -157,8 +150,6 @@ class CreateConferenceCallRequest(TLRequest):
         self.block = block
         self.params = params
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'CreateConferenceCallRequest',
@@ -173,7 +164,7 @@ class CreateConferenceCallRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.join or self.join is not None) and (self.public_key or self.public_key is not None) and (self.block or self.block is not None) and (self.params or self.params is not None)) or ((self.join is None or self.join is False) and (self.public_key is None or self.public_key is False) and (self.block is None or self.block is False) and (self.params is None or self.params is False)), 'join, public_key, block, params parameters must all be False-y (like None) or all be True-y'
+        assert ((self.join or self.join is not None) and (self.public_key or self.public_key is not None) and (self.block or self.block is not None) and (self.params or self.params is not None)) or ((self.join is None or self.join is False) and (self.public_key is None or self.public_key is False) and (self.block is None or self.block is False) and (self.params is None or self.params is False)), 'join, public_key, block, params parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xbbD\x04}',
             struct.pack('<I', (0 if self.muted is None or self.muted is False else 1) | (0 if self.video_stopped is None or self.video_stopped is False else 4) | (0 if self.join is None or self.join is False else 8) | (0 if self.public_key is None or self.public_key is False else 8) | (0 if self.block is None or self.block is False else 8) | (0 if self.params is None or self.params is False else 8)),
@@ -220,11 +211,8 @@ class CreateGroupCallRequest(TLRequest):
         self.title = title
         self.schedule_date = schedule_date
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -275,8 +263,6 @@ class DeclineConferenceCallInviteRequest(TLRequest):
         """
         self.msg_id = msg_id
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'DeclineConferenceCallInviteRequest',
@@ -310,11 +296,8 @@ class DeleteConferenceCallParticipantsRequest(TLRequest):
         self.only_left = only_left
         self.kick = kick
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -365,11 +348,8 @@ class DeleteGroupCallMessagesRequest(TLRequest):
         self.messages = messages
         self.report_spam = report_spam
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -415,13 +395,9 @@ class DeleteGroupCallParticipantMessagesRequest(TLRequest):
         self.participant = participant
         self.report_spam = report_spam
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -463,8 +439,6 @@ class DiscardCallRequest(TLRequest):
         self.reason = reason
         self.connection_id = connection_id
         self.video = video
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -509,11 +483,8 @@ class DiscardGroupCallRequest(TLRequest):
         """
         self.call = call
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -551,13 +522,9 @@ class EditGroupCallParticipantRequest(TLRequest):
         self.video_paused = video_paused
         self.presentation_paused = presentation_paused
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
         self.participant = utils.get_input_peer(await client.get_input_entity(self.participant))
-        self._check_peer(self.participant)
 
     def to_dict(self):
         return {
@@ -631,11 +598,8 @@ class EditGroupCallTitleRequest(TLRequest):
         self.call = call
         self.title = title
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -670,11 +634,8 @@ class ExportGroupCallInviteRequest(TLRequest):
         self.call = call
         self.can_self_unmute = can_self_unmute
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -731,11 +692,8 @@ class GetGroupCallRequest(TLRequest):
         self.call = call
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -772,11 +730,8 @@ class GetGroupCallChainBlocksRequest(TLRequest):
         self.offset = offset
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -816,11 +771,8 @@ class GetGroupCallJoinAsRequest(TLRequest):
         """
         self.peer = peer
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -851,11 +803,8 @@ class GetGroupCallStarsRequest(TLRequest):
         """
         self.call = call
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -886,11 +835,8 @@ class GetGroupCallStreamChannelsRequest(TLRequest):
         """
         self.call = call
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -923,11 +869,8 @@ class GetGroupCallStreamRtmpUrlRequest(TLRequest):
         self.revoke = revoke
         self.live_story = live_story
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
 
     def to_dict(self):
         return {
@@ -970,11 +913,8 @@ class GetGroupParticipantsRequest(TLRequest):
         self.offset = offset
         self.limit = limit
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
         _tmp = []
         for _x in self.ids:
             _tmp.append(utils.get_input_peer(await client.get_input_entity(_x)))
@@ -1034,13 +974,9 @@ class InviteConferenceCallParticipantRequest(TLRequest):
         self.user_id = user_id
         self.video = video
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -1080,11 +1016,8 @@ class InviteToGroupCallRequest(TLRequest):
         self.call = call
         self.users = users
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
         _tmp = []
         for _x in self.users:
             _tmp.append(utils.get_input_user(await client.get_input_entity(_x)))
@@ -1135,13 +1068,9 @@ class JoinGroupCallRequest(TLRequest):
         self.public_key = public_key
         self.block = block
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
         self.join_as = utils.get_input_peer(await client.get_input_entity(self.join_as))
-        self._check_peer(self.join_as)
 
     def to_dict(self):
         return {
@@ -1158,7 +1087,7 @@ class JoinGroupCallRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.public_key or self.public_key is not None) and (self.block or self.block is not None)) or ((self.public_key is None or self.public_key is False) and (self.block is None or self.block is False)), 'public_key, block parameters must all be False-y (like None) or all be True-y'
+        assert ((self.public_key or self.public_key is not None) and (self.block or self.block is not None)) or ((self.public_key is None or self.public_key is False) and (self.block is None or self.block is False)), 'public_key, block parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'W0\xb5\x8f',
             struct.pack('<I', (0 if self.muted is None or self.muted is False else 1) | (0 if self.video_stopped is None or self.video_stopped is False else 4) | (0 if self.invite_hash is None or self.invite_hash is False else 2) | (0 if self.public_key is None or self.public_key is False else 8) | (0 if self.block is None or self.block is False else 8)),
@@ -1205,11 +1134,8 @@ class JoinGroupCallPresentationRequest(TLRequest):
         self.call = call
         self.params = params
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -1244,11 +1170,8 @@ class LeaveGroupCallRequest(TLRequest):
         self.call = call
         self.source = source
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -1282,11 +1205,8 @@ class LeaveGroupCallPresentationRequest(TLRequest):
         """
         self.call = call
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -1316,8 +1236,6 @@ class ReceivedCallRequest(TLRequest):
         :returns Bool: This type has no constructors.
         """
         self.peer = peer
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1352,11 +1270,8 @@ class RequestCallRequest(TLRequest):
         self.video = video
         self.random_id = random_id if random_id is not None else int.from_bytes(os.urandom(4), 'big', signed=True)
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.user_id = utils.get_input_user(await client.get_input_entity(self.user_id))
-        self._check_peer(self.user_id)
 
     def to_dict(self):
         return {
@@ -1402,8 +1317,6 @@ class SaveCallDebugRequest(TLRequest):
         self.peer = peer
         self.debug = debug
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SaveCallDebugRequest',
@@ -1436,8 +1349,6 @@ class SaveCallLogRequest(TLRequest):
         """
         self.peer = peer
         self.file = file
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1472,13 +1383,9 @@ class SaveDefaultGroupCallJoinAsRequest(TLRequest):
         self.peer = peer
         self.join_as = join_as
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.peer = utils.get_input_peer(await client.get_input_entity(self.peer))
-        self._check_peer(self.peer)
         self.join_as = utils.get_input_peer(await client.get_input_entity(self.join_as))
-        self._check_peer(self.join_as)
 
     def to_dict(self):
         return {
@@ -1513,13 +1420,9 @@ class SaveDefaultSendAsRequest(TLRequest):
         self.call = call
         self.send_as = send_as
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
         self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-        self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -1554,11 +1457,8 @@ class SendConferenceCallBroadcastRequest(TLRequest):
         self.call = call
         self.block = block
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -1593,11 +1493,8 @@ class SendGroupCallEncryptedMessageRequest(TLRequest):
         self.call = call
         self.encrypted_message = encrypted_message
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -1635,14 +1532,10 @@ class SendGroupCallMessageRequest(TLRequest):
         self.allow_paid_stars = allow_paid_stars
         self.send_as = send_as
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
         if self.send_as:
             self.send_as = utils.get_input_peer(await client.get_input_entity(self.send_as))
-            self._check_peer(self.send_as)
 
     def to_dict(self):
         return {
@@ -1695,8 +1588,6 @@ class SendSignalingDataRequest(TLRequest):
         self.peer = peer
         self.data = data
 
-        super().__init__()
-
     def to_dict(self):
         return {
             '_': 'SendSignalingDataRequest',
@@ -1731,8 +1622,6 @@ class SetCallRatingRequest(TLRequest):
         self.rating = rating
         self.comment = comment
         self.user_initiative = user_initiative
-
-        super().__init__()
 
     def to_dict(self):
         return {
@@ -1774,11 +1663,8 @@ class StartScheduledGroupCallRequest(TLRequest):
         """
         self.call = call
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -1813,11 +1699,8 @@ class ToggleGroupCallRecordRequest(TLRequest):
         self.title = title
         self.video_portrait = video_portrait
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -1831,7 +1714,7 @@ class ToggleGroupCallRecordRequest(TLRequest):
 
     def _bytes(self):
         self._assert_no_forbidden_constructors()
-        assert ((self.video or self.video is not None) and (self.video_portrait or self.video_portrait is not None)) or ((self.video is None or self.video is False) and (self.video_portrait is None or self.video_portrait is False)), 'video, video_portrait parameters must all be False-y (like None) or all be True-y'
+        assert ((self.video or self.video is not None) and (self.video_portrait or self.video_portrait is not None)) or ((self.video is None or self.video is False) and (self.video_portrait is None or self.video_portrait is False)), 'video, video_portrait parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\x08\xc7(\xf1',
             struct.pack('<I', (0 if self.start is None or self.start is False else 1) | (0 if self.video is None or self.video is False else 4) | (0 if self.title is None or self.title is False else 2) | (0 if self.video_portrait is None else 4)),
@@ -1872,11 +1755,8 @@ class ToggleGroupCallSettingsRequest(TLRequest):
         self.messages_enabled = messages_enabled
         self.send_paid_messages_stars = send_paid_messages_stars
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
@@ -1931,11 +1811,8 @@ class ToggleGroupCallStartSubscriptionRequest(TLRequest):
         self.call = call
         self.subscribed = subscribed
 
-        super().__init__()
-
     async def resolve(self, client, utils):
         self.call = utils.get_input_group_call(self.call)
-        self._check_peer(self.call)
 
     def to_dict(self):
         return {
