@@ -29,7 +29,6 @@ class ActivateStealthModeRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'f\xd1\xbbW',
             struct.pack('<I', (0 if self.past is None or self.past is False else 1) | (0 if self.future is None or self.future is False else 2)),
@@ -64,7 +63,6 @@ class CanSendStoryRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf0c\xeb0',
             self.peer._bytes(),
@@ -100,7 +98,6 @@ class CreateAlbumRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe5\x96c\xa3',
             self.peer._bytes(),
@@ -143,7 +140,6 @@ class DeleteAlbumRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd0V4\x8d',
             self.peer._bytes(),
@@ -179,7 +175,6 @@ class DeleteStoriesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'_\xdbY\xae',
             self.peer._bytes(),
@@ -242,7 +237,6 @@ class EditStoryRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.caption or self.caption is not None) and (self.entities or self.entities is not None)) or ((self.caption is None or self.caption is False) and (self.entities is None or self.entities is False)), 'caption, entities parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'+\xa7c,',
@@ -327,7 +321,6 @@ class ExportStoryLinkRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b' \xef\x8d{',
             self.peer._bytes(),
@@ -367,7 +360,6 @@ class GetAlbumStoriesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'am\x80\xac',
             self.peer._bytes(),
@@ -407,7 +399,6 @@ class GetAlbumsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc7\xea\xb3%',
             self.peer._bytes(),
@@ -431,7 +422,6 @@ class GetAllReadPeerStoriesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf9\xe7Z\x9b',
         ))
@@ -462,7 +452,6 @@ class GetAllStoriesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'%\xd6\xb0\xee',
             struct.pack('<I', (0 if self.next is None or self.next is False else 2) | (0 if self.hidden is None or self.hidden is False else 4) | (0 if self.state is None or self.state is False else 1)),
@@ -492,7 +481,6 @@ class GetChatsToSendRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'`\x8bj\xa5',
         ))
@@ -526,7 +514,6 @@ class GetPeerMaxIDsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'p\x91Ix',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.id)),b''.join(x._bytes() for x in self.id),
@@ -563,7 +550,6 @@ class GetPeerStoriesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'P\xdaJ,',
             self.peer._bytes(),
@@ -599,7 +585,6 @@ class GetPinnedStoriesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xdc\xa5!X',
             self.peer._bytes(),
@@ -639,7 +624,6 @@ class GetStoriesArchiveRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x16 5\xb4',
             self.peer._bytes(),
@@ -677,7 +661,6 @@ class GetStoriesByIDRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b't\xcatW',
             self.peer._bytes(),
@@ -718,7 +701,6 @@ class GetStoriesViewsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc8l\xe1(',
             self.peer._bytes(),
@@ -767,7 +749,6 @@ class GetStoryReactionsListRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1f\x88\xb2\xb9',
             struct.pack('<I', (0 if self.forwards_first is None or self.forwards_first is False else 4) | (0 if self.reaction is None or self.reaction is False else 1) | (0 if self.offset is None or self.offset is False else 2)),
@@ -831,7 +812,6 @@ class GetStoryViewsListRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'W<\xd2~',
             struct.pack('<I', (0 if self.just_contacts is None or self.just_contacts is False else 1) | (0 if self.reactions_first is None or self.reactions_first is False else 4) | (0 if self.forwards_first is None or self.forwards_first is False else 8) | (0 if self.q is None or self.q is False else 2)),
@@ -882,7 +862,6 @@ class IncrementStoryViewsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfb\x8a\x02\xb2',
             self.peer._bytes(),
@@ -923,7 +902,6 @@ class ReadStoriesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc8\xdaV\xa5',
             self.peer._bytes(),
@@ -964,7 +942,6 @@ class ReorderAlbumsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd9\xfb5\x85',
             self.peer._bytes(),
@@ -1009,7 +986,6 @@ class ReportRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'E\xeb\xd8\x19',
             self.peer._bytes(),
@@ -1061,7 +1037,6 @@ class SearchPostsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x07\t\x81\xd1',
             struct.pack('<I', (0 if self.hashtag is None or self.hashtag is False else 1) | (0 if self.area is None or self.area is False else 2) | (0 if self.peer is None or self.peer is False else 4)),
@@ -1119,7 +1094,6 @@ class SendReactionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb26\xd7\x7f',
             struct.pack('<I', (0 if self.add_to_recent is None or self.add_to_recent is False else 1)),
@@ -1193,7 +1167,6 @@ class SendStoryRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.fwd_from_id or self.fwd_from_id is not None) and (self.fwd_from_story or self.fwd_from_story is not None)) or ((self.fwd_from_id is None or self.fwd_from_id is False) and (self.fwd_from_story is None or self.fwd_from_story is False)), 'fwd_from_id, fwd_from_story parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\x98h\x9e\x8f',
@@ -1316,7 +1289,6 @@ class StartLiveRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xde\xcci\xd0',
             struct.pack('<I', (0 if self.pinned is None or self.pinned is False else 4) | (0 if self.noforwards is None or self.noforwards is False else 16) | (0 if self.rtmp_stream is None or self.rtmp_stream is False else 32) | (0 if self.caption is None or self.caption is False else 1) | (0 if self.entities is None or self.entities is False else 2) | (0 if self.messages_enabled is None else 64) | (0 if self.send_paid_messages_stars is None or self.send_paid_messages_stars is False else 128)),
@@ -1385,7 +1357,6 @@ class ToggleAllStoriesHiddenRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc4W%|',
             b'\xb5ur\x99' if self.hidden else b'7\x97y\xbc',
@@ -1419,7 +1390,6 @@ class TogglePeerStoriesHiddenRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc4\x15\x04\xbd',
             self.peer._bytes(),
@@ -1457,7 +1427,6 @@ class TogglePinnedRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xef\xa1u\x9a',
             self.peer._bytes(),
@@ -1505,7 +1474,6 @@ class TogglePinnedToTopRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9b~)\x0b',
             self.peer._bytes(),
@@ -1554,7 +1522,6 @@ class UpdateAlbumRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb6YR^',
             struct.pack('<I', (0 if self.title is None or self.title is False else 1) | (0 if self.delete_stories is None or self.delete_stories is False else 2) | (0 if self.add_stories is None or self.add_stories is False else 4) | (0 if self.order is None or self.order is False else 8)),

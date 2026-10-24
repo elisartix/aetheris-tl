@@ -29,7 +29,6 @@ class AppConfig(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'.x\x18\xdd',
             struct.pack('<i', self.hash),
@@ -53,7 +52,6 @@ class AppConfigNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1dd\xde|',
         ))
@@ -94,7 +92,6 @@ class AppUpdate(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'0\xce\xbb\xcc',
             struct.pack('<I', (0 if self.can_not_skip is None or self.can_not_skip is False else 1) | (0 if self.document is None or self.document is False else 2) | (0 if self.url is None or self.url is False else 4) | (0 if self.sticker is None or self.sticker is False else 8)),
@@ -157,7 +154,6 @@ class ConfigSimple(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'l*YZ',
             self.serialize_datetime(self.date),
@@ -198,7 +194,6 @@ class ConfigSimple(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'l*YZ',
             self.serialize_datetime(self.date),
@@ -237,7 +232,6 @@ class CountriesList(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9eu\xd0\x87',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.countries)),b''.join(x._bytes() for x in self.countries),
@@ -266,7 +260,6 @@ class CountriesListNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'2\x1f\xcc\x93',
         ))
@@ -301,7 +294,6 @@ class Country(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'#\x8e\x87\xc3',
             struct.pack('<I', (0 if self.hidden is None or self.hidden is False else 1) | (0 if self.name is None or self.name is False else 2)),
@@ -352,7 +344,6 @@ class CountryCode(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xef\xc5\x03B',
             struct.pack('<I', (0 if self.prefixes is None or self.prefixes is False else 1) | (0 if self.patterns is None or self.patterns is False else 2)),
@@ -408,7 +399,6 @@ class DeepLinkInfo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'2\xe8Nj',
             struct.pack('<I', (0 if self.update_app is None or self.update_app is False else 1) | (0 if self.entities is None or self.entities is False else 2)),
@@ -444,7 +434,6 @@ class DeepLinkInfoEmpty(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'f\xa1\xaff',
         ))
@@ -471,7 +460,6 @@ class InviteText(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'x\x9f\xcb\x18',
             self.serialize_bytes(self.message),
@@ -493,7 +481,6 @@ class NoAppUpdate(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'6eZ\xc4',
         ))
@@ -522,7 +509,6 @@ class PassportConfig(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xaf\xd6\x98\xa0',
             struct.pack('<i', self.hash),
@@ -546,7 +532,6 @@ class PassportConfigNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'W\xf4\xb9\xbf',
         ))
@@ -583,7 +568,6 @@ class PeerColorOption(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xben\xec\xad',
             struct.pack('<I', (0 if self.hidden is None or self.hidden is False else 1) | (0 if self.colors is None or self.colors is False else 2) | (0 if self.dark_colors is None or self.dark_colors is False else 4) | (0 if self.channel_min_level is None or self.channel_min_level is False else 8) | (0 if self.group_min_level is None or self.group_min_level is False else 16)),
@@ -640,7 +624,6 @@ class PeerColorProfileSet(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xeba}v',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.palette_colors)),b''.join(struct.pack('<i', x) for x in self.palette_colors),
@@ -688,7 +671,6 @@ class PeerColorSet(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'X\x9a!&',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.colors)),b''.join(struct.pack('<i', x) for x in self.colors),
@@ -724,7 +706,6 @@ class PeerColors(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x08\xed\xf8\x00',
             struct.pack('<i', self.hash),
@@ -753,7 +734,6 @@ class PeerColorsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xce\xf5\xa1+',
         ))
@@ -790,7 +770,6 @@ class PremiumPromo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9cu4S',
             self.serialize_bytes(self.status_text),
@@ -872,7 +851,6 @@ class PromoData(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'z\xd8\xa4\x08',
             struct.pack('<I', (0 if self.proxy is None or self.proxy is False else 1) | (0 if self.peer is None or self.peer is False else 8) | (0 if self.psa_type is None or self.psa_type is False else 2) | (0 if self.psa_message is None or self.psa_message is False else 4) | (0 if self.custom_pending_suggestion is None or self.custom_pending_suggestion is False else 16)),
@@ -953,7 +931,6 @@ class PromoDataEmpty(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'u\xac\xf6\x98',
             self.serialize_datetime(self.expires),
@@ -986,7 +963,6 @@ class RecentMeUrls(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd7\x10\x03\x0e',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.urls)),b''.join(x._bytes() for x in self.urls),
@@ -1036,7 +1012,6 @@ class Support(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf6\xb5\xc6\x17',
             self.serialize_bytes(self.phone_number),
@@ -1067,7 +1042,6 @@ class SupportName(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc9\xf1\x05\x8c',
             self.serialize_bytes(self.name),
@@ -1104,7 +1078,6 @@ class TermsOfService(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x10\x03\nx',
             struct.pack('<I', (0 if self.popup is None or self.popup is False else 1) | (0 if self.min_age_confirm is None or self.min_age_confirm is False else 2)),
@@ -1153,7 +1126,6 @@ class TermsOfServiceUpdate(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'a\xf9\xec(',
             self.serialize_datetime(self.expires),
@@ -1184,7 +1156,6 @@ class TermsOfServiceUpdateEmpty(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x7f\x9f0\xe3',
             self.serialize_datetime(self.expires),
@@ -1215,7 +1186,6 @@ class TimezonesList(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'q\xedt{',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.timezones)),b''.join(x._bytes() for x in self.timezones),
@@ -1244,7 +1214,6 @@ class TimezonesListNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xcc\x08\x07\x97',
         ))
@@ -1277,7 +1246,6 @@ class UserInfo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'X7\xeb\x01',
             self.serialize_bytes(self.message),
@@ -1310,7 +1278,6 @@ class UserInfoEmpty(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xed.\xae\xf3',
         ))

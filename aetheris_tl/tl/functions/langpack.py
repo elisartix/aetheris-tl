@@ -28,7 +28,6 @@ class GetDifferenceRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa5J\x98\xcd',
             self.serialize_bytes(self.lang_pack),
@@ -63,7 +62,6 @@ class GetLangPackRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\n3\xf2\xf2',
             self.serialize_bytes(self.lang_pack),
@@ -96,7 +94,6 @@ class GetLanguageRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x02eYj',
             self.serialize_bytes(self.lang_pack),
@@ -127,7 +124,6 @@ class GetLanguagesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8f\x97\xc6B',
             self.serialize_bytes(self.lang_pack),
@@ -161,7 +157,6 @@ class GetStringsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x038\xea\xef',
             self.serialize_bytes(self.lang_pack),

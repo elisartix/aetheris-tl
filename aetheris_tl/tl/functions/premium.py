@@ -32,7 +32,6 @@ class ApplyBoostRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'F\xa7}k',
             struct.pack('<I', (0 if self.slots is None or self.slots is False else 1)),
@@ -83,7 +82,6 @@ class GetBoostsListRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'`v\xf6`',
             struct.pack('<I', (0 if self.gifts is None or self.gifts is False else 1)),
@@ -123,7 +121,6 @@ class GetBoostsStatusRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'a\x1f/\x04',
             self.peer._bytes(),
@@ -145,7 +142,6 @@ class GetMyBoostsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'J{\xe7\x0b',
         ))
@@ -178,7 +174,6 @@ class GetUserBoostsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1fM\x859',
             self.peer._bytes(),

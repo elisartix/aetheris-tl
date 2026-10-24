@@ -16,7 +16,6 @@ class FileGif(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xdf\xaa\xe1\xca',
         ))
@@ -36,7 +35,6 @@ class FileJpeg(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x0e\xfe~\x00',
         ))
@@ -56,7 +54,6 @@ class FileMov(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbc\xeb\tK',
         ))
@@ -76,7 +73,6 @@ class FileMp3(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'w\x06\x8aR',
         ))
@@ -96,7 +92,6 @@ class FileMp4(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe4\xa0\xce\xb3',
         ))
@@ -116,7 +111,6 @@ class FilePartial(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Ro\xbc@',
         ))
@@ -136,7 +130,6 @@ class FilePdf(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8dP\x1e\xae',
         ))
@@ -156,7 +149,6 @@ class FilePng(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc0cO\n',
         ))
@@ -176,7 +168,6 @@ class FileUnknown(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x05;\x96\xaa',
         ))
@@ -196,7 +187,6 @@ class FileWebp(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'LF\x81\x10',
         ))

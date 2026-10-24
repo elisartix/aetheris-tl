@@ -30,7 +30,6 @@ class GetFullUserRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x18Y\x0f\xb6',
             self.id._bytes(),
@@ -66,7 +65,6 @@ class GetRequirementsToContactRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa3\x83\x9a\xd8',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.id)),b''.join(x._bytes() for x in self.id),
@@ -109,7 +107,6 @@ class GetSavedMusicRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe3\x7f\x8dx',
             self.id._bytes(),
@@ -154,7 +151,6 @@ class GetSavedMusicByIDRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe9\xa4su',
             self.id._bytes(),
@@ -197,7 +193,6 @@ class GetUsersRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'H\xa5\x91\r',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.id)),b''.join(x._bytes() for x in self.id),
@@ -236,7 +231,6 @@ class SetSecureValueErrorsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb5\x94\xc8\x90',
             self.id._bytes(),
@@ -277,7 +271,6 @@ class SuggestBirthdayRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'r3S\xfc',
             self.id._bytes(),

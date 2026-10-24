@@ -54,18 +54,24 @@ class MessageButton:
         """The `bytes` data for :tl:`KeyboardButtonCallback` objects."""
         if isinstance(self.button, types.KeyboardButtonCallback):
             return self.button.data
+        if isinstance(self.button, types.KeyboardInlineButton) and isinstance(self.button.type, types.InlineButtonTypeCallback):
+            return self.button.type.data
 
     @property
     def inline_query(self):
         """The query `str` for :tl:`KeyboardButtonSwitchInline` objects."""
         if isinstance(self.button, types.KeyboardButtonSwitchInline):
             return self.button.query
+        if isinstance(self.button, types.KeyboardInlineButton) and isinstance(self.button.type, types.InlineButtonTypeSwitchInline):
+            return self.button.type.query
 
     @property
     def url(self):
         """The url `str` for :tl:`KeyboardButtonUrl` objects."""
         if isinstance(self.button, types.KeyboardButtonUrl):
             return self.button.url
+        if isinstance(self.button, types.KeyboardInlineButton) and isinstance(self.button.type, types.InlineButtonTypeUrl):
+            return self.button.type.url
 
     async def click(
         self, share_phone=None, share_geo=None, *, password=None, open_url=None
@@ -104,7 +110,7 @@ class MessageButton:
             return await self._client.send_message(
                 self._chat, self.button.text, parse_mode=None
             )
-        elif isinstance(self.button, types.KeyboardButtonCallback):
+        elif isinstance(self.button, (types.KeyboardButtonCallback, types.KeyboardInlineButton)) and (not isinstance(self.button, types.KeyboardInlineButton) or isinstance(self.button.type, types.InlineButtonTypeCallback)):
             if password is not None:
                 pwd = await self._client(functions.account.GetPasswordRequest())
                 password = pwd_mod.compute_check(pwd, password)
@@ -112,7 +118,7 @@ class MessageButton:
             req = functions.messages.GetBotCallbackAnswerRequest(
                 peer=self._chat,
                 msg_id=self._msg_id,
-                data=self.button.data,
+                data=self.data,
                 password=password,
             )
             try:

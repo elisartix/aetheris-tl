@@ -39,7 +39,6 @@ class ChannelDifference(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Ngd ',
             struct.pack('<I', (0 if self.final is None or self.final is False else 1) | (0 if self.timeout is None or self.timeout is False else 2)),
@@ -109,7 +108,6 @@ class ChannelDifferenceEmpty(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfb\xaf\x11>',
             struct.pack('<I', (0 if self.final is None or self.final is False else 1) | (0 if self.timeout is None or self.timeout is False else 2)),
@@ -157,7 +155,6 @@ class ChannelDifferenceTooLong(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfe\xc6\xbc\xa4',
             struct.pack('<I', (0 if self.final is None or self.final is False else 1) | (0 if self.timeout is None or self.timeout is False else 2)),
@@ -226,7 +223,6 @@ class Difference(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa0\x9c\xf4\x00',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.new_messages)),b''.join(x._bytes() for x in self.new_messages),
@@ -292,7 +288,6 @@ class DifferenceEmpty(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'8\xa1u]',
             self.serialize_datetime(self.date),
@@ -333,7 +328,6 @@ class DifferenceSlice(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x81\x19\xfb\xa8',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.new_messages)),b''.join(x._bytes() for x in self.new_messages),
@@ -397,7 +391,6 @@ class DifferenceTooLong(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'm\x8f\xfeJ',
             struct.pack('<i', self.pts),
@@ -434,7 +427,6 @@ class State(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'>*l\xa5',
             struct.pack('<i', self.pts),

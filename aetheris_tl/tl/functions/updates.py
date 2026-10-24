@@ -38,7 +38,6 @@ class GetChannelDifferenceRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'x=\x17\x03',
             struct.pack('<I', (0 if self.force is None or self.force is False else 1)),
@@ -87,7 +86,6 @@ class GetDifferenceRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'c\xf7\xc2\x19',
             struct.pack('<I', (0 if self.pts_limit is None or self.pts_limit is False else 2) | (0 if self.pts_total_limit is None or self.pts_total_limit is False else 1) | (0 if self.qts_limit is None or self.qts_limit is False else 4)),
@@ -131,7 +129,6 @@ class GetStateRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'*\x88\xd4\xed',
         ))

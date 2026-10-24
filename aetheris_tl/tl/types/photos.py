@@ -28,7 +28,6 @@ class Photo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa8,! ',
             self.photo._bytes(),
@@ -66,7 +65,6 @@ class Photos(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa5j\xca\x8d',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.photos)),b''.join(x._bytes() for x in self.photos),
@@ -111,7 +109,6 @@ class PhotosSlice(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'T\x1f\x05\x15',
             struct.pack('<i', self.count),

@@ -26,7 +26,6 @@ class ExportedGroupCallInvite(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'X\xd1K ',
             self.serialize_bytes(self.link),
@@ -63,7 +62,6 @@ class GroupCall(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xadzr\x9e',
             self.call._bytes(),
@@ -121,7 +119,6 @@ class GroupCallStars(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'&\xbd\x1d\x9d',
             struct.pack('<q', self.total_stars),
@@ -171,7 +168,6 @@ class GroupCallStreamChannels(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb2\x82\xe4\xd0',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.channels)),b''.join(x._bytes() for x in self.channels),
@@ -207,7 +203,6 @@ class GroupCallStreamRtmpUrl(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'24\xbf-',
             self.serialize_bytes(self.url),
@@ -248,7 +243,6 @@ class GroupParticipants(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb6Qw\xf4',
             struct.pack('<i', self.count),
@@ -306,7 +300,6 @@ class JoinAsPeers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'?b\xe5\xaf',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.peers)),b''.join(x._bytes() for x in self.peers),
@@ -356,7 +349,6 @@ class PhoneCall(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'@\xe1\x82\xec',
             self.phone_call._bytes(),

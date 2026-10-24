@@ -23,7 +23,6 @@ class SuggestedShortName(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'?\xa0\xfe\x85',
             self.serialize_bytes(self.short_name),

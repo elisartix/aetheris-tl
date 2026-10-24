@@ -2,7 +2,7 @@
 from ...tl.tlobject import TLObject
 from ...tl.tlobject import TLRequest
 from typing import Optional, List, Union, TYPE_CHECKING
-from . import account, aicompose, auth, bots, channels, chatlists, communities, contacts, ephemeral, folders, fragment, help, langpack, messages, payments, phone, photos, premium, smsjobs, stats, stickers, stories, updates, upload, users
+from . import account, aicompose, auth, bots, channels, chatlists, communities, contacts, ephemeral, folders, fragment, help, langpack, messages, payments, phone, photos, premium, smsjobs, stats, stickers, stories, test, toncenter, updates, upload, users, wallet
 import os
 import struct
 from datetime import datetime
@@ -21,7 +21,6 @@ class DestroyAuthKeyRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'`QC\xd1',
         ))
@@ -48,7 +47,6 @@ class DestroySessionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'&!Q\xe7',
             struct.pack('<q', self.session_id),
@@ -77,7 +75,6 @@ class GetFutureSaltsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x04\xbd!\xb9',
             struct.pack('<i', self.num),
@@ -124,7 +121,6 @@ class InitConnectionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa9^\xcd\xc1',
             struct.pack('<I', (0 if self.proxy is None or self.proxy is False else 1) | (0 if self.params is None or self.params is False else 2)),
@@ -182,7 +178,6 @@ class InvokeAfterMsgRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'-7\x9f\xcb',
             struct.pack('<q', self.msg_id),
@@ -215,7 +210,6 @@ class InvokeAfterMsgsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf0\xb4\xc4=',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.msg_ids)),b''.join(struct.pack('<q', x) for x in self.msg_ids),
@@ -255,7 +249,6 @@ class InvokeWithApnsSecretRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf8T\xae\r',
             self.serialize_bytes(self.nonce),
@@ -290,7 +283,6 @@ class InvokeWithApnsSecretPrefixRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf8T\xae\r',
             self.serialize_bytes(self.nonce),
@@ -323,7 +315,6 @@ class InvokeWithBusinessConnectionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8e\x9f(\xdd',
             self.serialize_bytes(self.connection_id),
@@ -354,7 +345,6 @@ class InvokeWithBusinessConnectionPrefixRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8e\x9f(\xdd',
             self.serialize_bytes(self.connection_id),
@@ -387,7 +377,6 @@ class InvokeWithGooglePlayIntegrityRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x84)\xf9\x1d',
             self.serialize_bytes(self.nonce),
@@ -422,7 +411,6 @@ class InvokeWithGooglePlayIntegrityPrefixRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x84)\xf9\x1d',
             self.serialize_bytes(self.nonce),
@@ -455,7 +443,6 @@ class InvokeWithLayerRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\r\r\x9b\xda',
             struct.pack('<i', self.layer),
@@ -488,7 +475,6 @@ class InvokeWithMessagesRangeRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf2uR6',
             self.range._bytes(),
@@ -521,7 +507,6 @@ class InvokeWithReCaptchaRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x94\x0f\xbb\xad',
             self.serialize_bytes(self.token),
@@ -552,7 +537,6 @@ class InvokeWithReCaptchaPrefixRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x94\x0f\xbb\xad',
             self.serialize_bytes(self.token),
@@ -583,7 +567,6 @@ class InvokeWithTakeoutRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'.\xfd\xa9\xac',
             struct.pack('<q', self.takeout_id),
@@ -614,7 +597,6 @@ class InvokeWithoutUpdatesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb7Y\x94\xbf',
             self.query._bytes(),
@@ -643,7 +625,6 @@ class PingRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xecw\xbez',
             struct.pack('<q', self.ping_id),
@@ -674,7 +655,6 @@ class PingDelayDisconnectRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8c{B\xf3',
             struct.pack('<q', self.ping_id),
@@ -715,7 +695,6 @@ class ReqDHParamsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbe\xe4\x12\xd7',
             self.nonce.to_bytes(16, 'little', signed=True),
@@ -754,7 +733,6 @@ class ReqPqRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'x\x97F`',
             self.nonce.to_bytes(16, 'little', signed=True),
@@ -783,7 +761,6 @@ class ReqPqMultiRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf1\x8e~\xbe',
             self.nonce.to_bytes(16, 'little', signed=True),
@@ -812,7 +789,6 @@ class RpcDropAnswerRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'@\xa7\xe4X',
             struct.pack('<q', self.req_msg_id),
@@ -845,7 +821,6 @@ class SetClientDHParamsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1f_\x04\xf5',
             self.nonce.to_bytes(16, 'little', signed=True),

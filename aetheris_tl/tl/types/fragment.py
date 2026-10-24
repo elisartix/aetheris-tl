@@ -33,7 +33,6 @@ class CollectibleInfo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x91\xff\xbdn',
             self.serialize_datetime(self.purchase_date),

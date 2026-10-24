@@ -32,7 +32,6 @@ class BoostsList(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'<a\xf8\x86',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -101,7 +100,6 @@ class BoostsStatus(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.my_boost or self.my_boost is not None) and (self.my_boost_slots or self.my_boost_slots is not None)) or ((self.my_boost is None or self.my_boost is False) and (self.my_boost_slots is None or self.my_boost_slots is False)), 'my_boost, my_boost_slots parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'zBYI',
@@ -180,7 +178,6 @@ class MyBoosts(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe2(\xe2\x9a',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.my_boosts)),b''.join(x._bytes() for x in self.my_boosts),

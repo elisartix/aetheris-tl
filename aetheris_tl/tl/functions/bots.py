@@ -6,7 +6,7 @@ import os
 import struct
 from datetime import datetime
 if TYPE_CHECKING:
-    from ...tl.types import TypeBotCommand, TypeBotCommandScope, TypeBotMenuButton, TypeChatAdminRights, TypeDataJSON, TypeEmojiStatus, TypeInputMedia, TypeInputPeer, TypeInputUser, TypeJoinChatBotResult, TypeKeyboardButton
+    from ...tl.types import TypeBotCommand, TypeBotCommandScope, TypeBotMenuButton, TypeChatAdminRights, TypeDataJSON, TypeEmojiStatus, TypeInputMedia, TypeInputPeer, TypeInputUser, TypeJoinChatBotResult, TypeKeyboardButton, TypeTextWithEntities
 
 
 
@@ -35,7 +35,6 @@ class AddPreviewMediaRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Z\xb7\xae\x17',
             self.bot._bytes(),
@@ -49,6 +48,41 @@ class AddPreviewMediaRequest(TLRequest):
         _lang_code = reader.tgread_string()
         _media = reader.tgread_object()
         return cls(bot=_bot, lang_code=_lang_code, media=_media)
+
+
+class AddUsernameRequest(TLRequest):
+    CONSTRUCTOR_ID = 0x3501c08a
+    SUBCLASS_OF_ID = 0xf5b399ac
+
+    def __init__(self, bot: 'TypeInputUser', username: str):
+        """
+        :returns Bool: This type has no constructors.
+        """
+        self.bot = bot
+        self.username = username
+
+    async def resolve(self, client, utils):
+        self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
+
+    def to_dict(self):
+        return {
+            '_': 'AddUsernameRequest',
+            'bot': self.bot.to_dict() if isinstance(self.bot, TLObject) else self.bot,
+            'username': self.username
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'\x8a\xc0\x015',
+            self.bot._bytes(),
+            self.serialize_bytes(self.username),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _bot = reader.tgread_object()
+        _username = reader.tgread_string()
+        return cls(bot=_bot, username=_username)
 
 
 class AllowSendMessageRequest(TLRequest):
@@ -71,7 +105,6 @@ class AllowSendMessageRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xef\xe32\xf1',
             self.bot._bytes(),
@@ -102,7 +135,6 @@ class AnswerWebhookJSONQueryRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'M?!\xe6',
             struct.pack('<q', self.query_id),
@@ -136,7 +168,6 @@ class CanSendMessageRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe6\xf4Y\x13',
             self.bot._bytes(),
@@ -172,7 +203,6 @@ class CheckDownloadFileParamsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x89u\x07P',
             self.bot._bytes(),
@@ -189,32 +219,37 @@ class CheckDownloadFileParamsRequest(TLRequest):
 
 
 class CheckUsernameRequest(TLRequest):
-    CONSTRUCTOR_ID = 0x87f2219b
+    CONSTRUCTOR_ID = 0xe3ac4c61
     SUBCLASS_OF_ID = 0xf5b399ac
 
-    def __init__(self, username: str):
+    def __init__(self, username: str, additional: Optional[bool]=None):
         """
         :returns Bool: This type has no constructors.
         """
         self.username = username
+        self.additional = additional
 
     def to_dict(self):
         return {
             '_': 'CheckUsernameRequest',
-            'username': self.username
+            'username': self.username,
+            'additional': self.additional
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
-            b'\x9b!\xf2\x87',
+            b'aL\xac\xe3',
+            struct.pack('<I', (0 if self.additional is None or self.additional is False else 1)),
             self.serialize_bytes(self.username),
         ))
 
     @classmethod
     def from_reader(cls, reader):
+        flags = reader.read_int()
+
+        _additional = bool(flags & 1)
         _username = reader.tgread_string()
-        return cls(username=_username)
+        return cls(username=_username, additional=_additional)
 
 
 class CreateBotRequest(TLRequest):
@@ -243,7 +278,6 @@ class CreateBotRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'+\x7f\xb1\xe5',
             struct.pack('<I', (0 if self.via_deeplink is None or self.via_deeplink is False else 1)),
@@ -292,7 +326,6 @@ class DeletePreviewMediaRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb35\x01-',
             self.bot._bytes(),
@@ -343,7 +376,6 @@ class EditAccessSettingsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd8<\x811',
             struct.pack('<I', (0 if self.restricted is None or self.restricted is False else 1) | (0 if self.add_users is None or self.add_users is False else 2)),
@@ -397,7 +429,6 @@ class EditPreviewMediaRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'o`%\x85',
             self.bot._bytes(),
@@ -437,7 +468,6 @@ class ExportBotTokenRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xeb\x99\r\xbd',
             self.bot._bytes(),
@@ -471,7 +501,6 @@ class GetAccessSettingsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa3S8!',
             self.bot._bytes(),
@@ -493,7 +522,6 @@ class GetAdminedBotsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x83\x1dq\xb0',
         ))
@@ -522,7 +550,6 @@ class GetBotCommandsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd6\rL\xe3',
             self.scope._bytes(),
@@ -559,7 +586,6 @@ class GetBotInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfd\x14\xd9\xdc',
             struct.pack('<I', (0 if self.bot is None or self.bot is False else 1)),
@@ -599,7 +625,6 @@ class GetBotMenuButtonRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'(\xeb`\x9c',
             self.user_id._bytes(),
@@ -631,7 +656,6 @@ class GetBotRecommendationsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x15\x08\xb7\xa1',
             self.bot._bytes(),
@@ -662,7 +686,6 @@ class GetPopularAppBotsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x92\x01Q\xc2',
             self.serialize_bytes(self.offset),
@@ -698,7 +721,6 @@ class GetPreviewInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xad\xb3:B',
             self.bot._bytes(),
@@ -732,7 +754,6 @@ class GetPreviewMediasRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'MY\xa5\xa2',
             self.bot._bytes(),
@@ -766,7 +787,6 @@ class GetRequestedWebViewButtonRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf3\xb7%\xbf',
             self.bot._bytes(),
@@ -804,7 +824,6 @@ class InvokeWebViewCustomMethodRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe7\xc5\x7f\x08',
             self.bot._bytes(),
@@ -818,6 +837,41 @@ class InvokeWebViewCustomMethodRequest(TLRequest):
         _custom_method = reader.tgread_string()
         _params = reader.tgread_object()
         return cls(bot=_bot, custom_method=_custom_method, params=_params)
+
+
+class RemoveUsernameRequest(TLRequest):
+    CONSTRUCTOR_ID = 0xc704147d
+    SUBCLASS_OF_ID = 0xf5b399ac
+
+    def __init__(self, bot: 'TypeInputUser', username: str):
+        """
+        :returns Bool: This type has no constructors.
+        """
+        self.bot = bot
+        self.username = username
+
+    async def resolve(self, client, utils):
+        self.bot = utils.get_input_user(await client.get_input_entity(self.bot))
+
+    def to_dict(self):
+        return {
+            '_': 'RemoveUsernameRequest',
+            'bot': self.bot.to_dict() if isinstance(self.bot, TLObject) else self.bot,
+            'username': self.username
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'}\x14\x04\xc7',
+            self.bot._bytes(),
+            self.serialize_bytes(self.username),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _bot = reader.tgread_object()
+        _username = reader.tgread_string()
+        return cls(bot=_bot, username=_username)
 
 
 class ReorderPreviewMediasRequest(TLRequest):
@@ -849,7 +903,6 @@ class ReorderPreviewMediasRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b"\xaa\xf3'\xb6",
             self.bot._bytes(),
@@ -892,7 +945,6 @@ class ReorderUsernamesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc2\xb1\t\x97',
             self.bot._bytes(),
@@ -933,7 +985,6 @@ class RequestWebViewButtonRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'^\xa3\xa21',
             self.user_id._bytes(),
@@ -966,7 +1017,6 @@ class ResetBotCommandsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf9\xe0\x8d=',
             self.scope._bytes(),
@@ -999,7 +1049,6 @@ class SendCustomRequestRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b"\xedi'\xaa",
             self.serialize_bytes(self.custom_method),
@@ -1030,7 +1079,6 @@ class SetBotBroadcastDefaultAdminRightsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe1d\x84x',
             self.admin_rights._bytes(),
@@ -1063,7 +1111,6 @@ class SetBotCommandsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Z\x16\x17\x05',
             self.scope._bytes(),
@@ -1101,7 +1148,6 @@ class SetBotGroupDefaultAdminRightsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xea\xc9^\x92',
             self.admin_rights._bytes(),
@@ -1142,7 +1188,6 @@ class SetBotInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'#1\xcf\x10',
             struct.pack('<I', (0 if self.bot is None or self.bot is False else 4) | (0 if self.name is None or self.name is False else 8) | (0 if self.about is None or self.about is False else 1) | (0 if self.description is None or self.description is False else 2)),
@@ -1199,7 +1244,6 @@ class SetBotMenuButtonRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'O\xd5\x04E',
             self.user_id._bytes(),
@@ -1214,10 +1258,10 @@ class SetBotMenuButtonRequest(TLRequest):
 
 
 class SetCustomVerificationRequest(TLRequest):
-    CONSTRUCTOR_ID = 0x8b89dfbd
+    CONSTRUCTOR_ID = 0xf4946757
     SUBCLASS_OF_ID = 0xf5b399ac
 
-    def __init__(self, peer: 'TypeInputPeer', enabled: Optional[bool]=None, bot: Optional['TypeInputUser']=None, custom_description: Optional[str]=None):
+    def __init__(self, peer: 'TypeInputPeer', enabled: Optional[bool]=None, bot: Optional['TypeInputUser']=None, custom_description: Optional['TypeTextWithEntities']=None):
         """
         :returns Bool: This type has no constructors.
         """
@@ -1237,17 +1281,16 @@ class SetCustomVerificationRequest(TLRequest):
             'peer': self.peer.to_dict() if isinstance(self.peer, TLObject) else self.peer,
             'enabled': self.enabled,
             'bot': self.bot.to_dict() if isinstance(self.bot, TLObject) else self.bot,
-            'custom_description': self.custom_description
+            'custom_description': self.custom_description.to_dict() if isinstance(self.custom_description, TLObject) else self.custom_description
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
-            b'\xbd\xdf\x89\x8b',
+            b'Wg\x94\xf4',
             struct.pack('<I', (0 if self.enabled is None or self.enabled is False else 2) | (0 if self.bot is None or self.bot is False else 1) | (0 if self.custom_description is None or self.custom_description is False else 4)),
             b'' if self.bot is None or self.bot is False else (self.bot._bytes()),
             self.peer._bytes(),
-            b'' if self.custom_description is None or self.custom_description is False else (self.serialize_bytes(self.custom_description)),
+            b'' if self.custom_description is None or self.custom_description is False else (self.custom_description._bytes()),
         ))
 
     @classmethod
@@ -1261,7 +1304,7 @@ class SetCustomVerificationRequest(TLRequest):
             _bot = None
         _peer = reader.tgread_object()
         if flags & 4:
-            _custom_description = reader.tgread_string()
+            _custom_description = reader.tgread_object()
         else:
             _custom_description = None
         return cls(peer=_peer, enabled=_enabled, bot=_bot, custom_description=_custom_description)
@@ -1286,7 +1329,6 @@ class SetJoinChatResultsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x10H\x1a\xe7',
             struct.pack('<q', self.query_id),
@@ -1322,7 +1364,6 @@ class ToggleUserEmojiStatusPermissionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x92c\xde\x06',
             self.bot._bytes(),
@@ -1360,7 +1401,6 @@ class ToggleUsernameRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b's\xa9<\x05',
             self.bot._bytes(),
@@ -1400,7 +1440,6 @@ class UpdateStarRefProgramRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb3Z\x8bw',
             struct.pack('<I', (0 if self.duration_months is None or self.duration_months is False else 1)),
@@ -1444,7 +1483,6 @@ class UpdateUserEmojiStatusRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc50\x9f\xed',
             self.user_id._bytes(),

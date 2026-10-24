@@ -31,7 +31,6 @@ class AcceptCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa0\xb4\xd2;',
             self.peer._bytes(),
@@ -69,7 +68,6 @@ class CheckGroupCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'w\xf9\x9c\xb5',
             self.call._bytes(),
@@ -116,7 +114,6 @@ class ConfirmCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'"\x17\xfe.',
             self.peer._bytes(),
@@ -163,7 +160,6 @@ class CreateConferenceCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.join or self.join is not None) and (self.public_key or self.public_key is not None) and (self.block or self.block is not None) and (self.params or self.params is not None)) or ((self.join is None or self.join is False) and (self.public_key is None or self.public_key is False) and (self.block is None or self.block is False) and (self.params is None or self.params is False)), 'join, public_key, block, params parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xbbD\x04}',
@@ -225,7 +221,6 @@ class CreateGroupCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd8\xc6\xcdH',
             struct.pack('<I', (0 if self.rtmp_stream is None or self.rtmp_stream is False else 4) | (0 if self.title is None or self.title is False else 1) | (0 if self.schedule_date is None or self.schedule_date is False else 2)),
@@ -270,7 +265,6 @@ class DeclineConferenceCallInviteRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'q\x99G<',
             struct.pack('<i', self.msg_id),
@@ -310,7 +304,6 @@ class DeleteConferenceCallParticipantsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'%\x05\xa6\x8c',
             struct.pack('<I', (0 if self.only_left is None or self.only_left is False else 1) | (0 if self.kick is None or self.kick is False else 2)),
@@ -360,7 +353,6 @@ class DeleteGroupCallMessagesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf7TO\xf6',
             struct.pack('<I', (0 if self.report_spam is None or self.report_spam is False else 1)),
@@ -408,7 +400,6 @@ class DeleteGroupCallParticipantMessagesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa0\xec\xbf\x1d',
             struct.pack('<I', (0 if self.report_spam is None or self.report_spam is False else 1)),
@@ -451,7 +442,6 @@ class DiscardCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc0\xc1\xcb\xb2',
             struct.pack('<I', (0 if self.video is None or self.video is False else 1)),
@@ -493,7 +483,6 @@ class DiscardGroupCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'5qwz',
             self.call._bytes(),
@@ -540,7 +529,6 @@ class EditGroupCallParticipantRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b"\xbf:'\xa5",
             struct.pack('<I', (0 if self.muted is None else 1) | (0 if self.volume is None or self.volume is False else 2) | (0 if self.raise_hand is None else 4) | (0 if self.video_stopped is None else 8) | (0 if self.video_paused is None else 16) | (0 if self.presentation_paused is None else 32)),
@@ -609,7 +597,6 @@ class EditGroupCallTitleRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\n\xac\xa6\x1c',
             self.call._bytes(),
@@ -645,7 +632,6 @@ class ExportGroupCallInviteRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x7fd\xaa\xe6',
             struct.pack('<I', (0 if self.can_self_unmute is None or self.can_self_unmute is False else 1)),
@@ -671,7 +657,6 @@ class GetCallConfigRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa9\x1fEU',
         ))
@@ -703,7 +688,6 @@ class GetGroupCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xdbE\x18\x04',
             self.call._bytes(),
@@ -743,7 +727,6 @@ class GetGroupCallChainBlocksRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa6\x88\x9f\xee',
             self.call._bytes(),
@@ -781,7 +764,6 @@ class GetGroupCallJoinAsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b':!|\xef',
             self.peer._bytes(),
@@ -813,7 +795,6 @@ class GetGroupCallStarsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x02cco',
             self.call._bytes(),
@@ -845,7 +826,6 @@ class GetGroupCallStreamChannelsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'@\x19\xb2\x1a',
             self.call._bytes(),
@@ -881,7 +861,6 @@ class GetGroupCallStreamRtmpUrlRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b':\xc7\xf4Z',
             struct.pack('<I', (0 if self.live_story is None or self.live_story is False else 1)),
@@ -932,7 +911,6 @@ class GetGroupParticipantsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xab\xd8X\xc5',
             self.call._bytes(),
@@ -987,7 +965,6 @@ class InviteConferenceCallParticipantRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x85&\xf2\xbc',
             struct.pack('<I', (0 if self.video is None or self.video is False else 1)),
@@ -1032,7 +1009,6 @@ class InviteToGroupCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'`19{',
             self.call._bytes(),
@@ -1086,7 +1062,6 @@ class JoinGroupCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.public_key or self.public_key is not None) and (self.block or self.block is not None)) or ((self.public_key is None or self.public_key is False) and (self.block is None or self.block is False)), 'public_key, block parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'W0\xb5\x8f',
@@ -1145,7 +1120,6 @@ class JoinGroupCallPresentationRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc4k\xea\xcb',
             self.call._bytes(),
@@ -1181,7 +1155,6 @@ class LeaveGroupCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf9w\x03P',
             self.call._bytes(),
@@ -1215,7 +1188,6 @@ class LeaveGroupCallPresentationRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'D\xd1P\x1c',
             self.call._bytes(),
@@ -1244,7 +1216,6 @@ class ReceivedCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'aO\xd5\x17',
             self.peer._bytes(),
@@ -1284,7 +1255,6 @@ class RequestCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xed\x96\xffB',
             struct.pack('<I', (0 if self.video is None or self.video is False else 1)),
@@ -1325,7 +1295,6 @@ class SaveCallDebugRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b"~\xddz'",
             self.peer._bytes(),
@@ -1358,7 +1327,6 @@ class SaveCallLogRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x86\x87$A',
             self.peer._bytes(),
@@ -1395,7 +1363,6 @@ class SaveDefaultGroupCallJoinAsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8c\x1f^W',
             self.peer._bytes(),
@@ -1432,7 +1399,6 @@ class SaveDefaultSendAsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd1\xadgA',
             self.call._bytes(),
@@ -1468,7 +1434,6 @@ class SendConferenceCallBroadcastRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x00\x19p\xc6',
             self.call._bytes(),
@@ -1504,7 +1469,6 @@ class SendGroupCallEncryptedMessageRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'm\xa5\xaf\xe5',
             self.call._bytes(),
@@ -1548,7 +1512,6 @@ class SendGroupCallMessageRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x10\x14\xd1\xb1',
             struct.pack('<I', (0 if self.allow_paid_stars is None or self.allow_paid_stars is False else 1) | (0 if self.send_as is None or self.send_as is False else 2)),
@@ -1596,7 +1559,6 @@ class SendSignalingDataRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x83\x93z\xff',
             self.peer._bytes(),
@@ -1633,7 +1595,6 @@ class SetCallRatingRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b"'\xd6\xeaY",
             struct.pack('<I', (0 if self.user_initiative is None or self.user_initiative is False else 1)),
@@ -1673,7 +1634,6 @@ class StartScheduledGroupCallRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'B\xe3\x80V',
             self.call._bytes(),
@@ -1713,7 +1673,6 @@ class ToggleGroupCallRecordRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.video or self.video is not None) and (self.video_portrait or self.video_portrait is not None)) or ((self.video is None or self.video is False) and (self.video_portrait is None or self.video_portrait is False)), 'video, video_portrait parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\x08\xc7(\xf1',
@@ -1769,7 +1728,6 @@ class ToggleGroupCallSettingsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf2\x92C\x97',
             struct.pack('<I', (0 if self.reset_invite_hash is None or self.reset_invite_hash is False else 2) | (0 if self.join_muted is None else 1) | (0 if self.messages_enabled is None else 4) | (0 if self.send_paid_messages_stars is None or self.send_paid_messages_stars is False else 8)),
@@ -1822,7 +1780,6 @@ class ToggleGroupCallStartSubscriptionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe64\x9c!',
             self.call._bytes(),

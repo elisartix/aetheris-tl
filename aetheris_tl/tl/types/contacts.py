@@ -30,7 +30,6 @@ class Blocked(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x91\x15\xde\n',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.blocked)),b''.join(x._bytes() for x in self.blocked),
@@ -84,7 +83,6 @@ class BlockedSlice(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x94Af\xe1',
             struct.pack('<i', self.count),
@@ -136,7 +134,6 @@ class ContactBirthdays(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\r\xf3O\x11',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.contacts)),b''.join(x._bytes() for x in self.contacts),
@@ -181,7 +178,6 @@ class Contacts(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'B~\xe8\xea',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.contacts)),b''.join(x._bytes() for x in self.contacts),
@@ -217,7 +213,6 @@ class ContactsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd2\xa9K\xb7',
         ))
@@ -250,7 +245,6 @@ class Found(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9dM\x13\xb3',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.my_results)),b''.join(x._bytes() for x in self.my_results),
@@ -311,7 +305,6 @@ class ImportedContacts(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b';\x1c\xd0w',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.imported)),b''.join(x._bytes() for x in self.imported),
@@ -370,7 +363,6 @@ class ResolvedPeer(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd9z\x07\x7f',
             self.peer._bytes(),
@@ -417,7 +409,6 @@ class SponsoredPeers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x84(\x03\xeb',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.peers)),b''.join(x._bytes() for x in self.peers),
@@ -458,7 +449,6 @@ class SponsoredPeersEmpty(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb1\xb42\xea',
         ))
@@ -489,7 +479,6 @@ class TopPeers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa8r\xb7p',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.categories)),b''.join(x._bytes() for x in self.categories),
@@ -530,7 +519,6 @@ class TopPeersDisabled(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9d\x93,\xb5',
         ))
@@ -550,7 +538,6 @@ class TopPeersNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf5n&\xde',
         ))

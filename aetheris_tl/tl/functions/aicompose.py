@@ -33,7 +33,6 @@ class CreateToneRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x139\xa8J',
             struct.pack('<I', (0 if self.display_author is None or self.display_author is False else 1)),
@@ -70,7 +69,6 @@ class DeleteToneRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'j19\xdd',
             self.tone._bytes(),
@@ -99,7 +97,6 @@ class GetToneRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x03\xba\xe8\xb2',
             self.tone._bytes(),
@@ -130,7 +127,6 @@ class GetToneExampleRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x14\xab\xb4\xd1',
             self.tone._bytes(),
@@ -161,7 +157,6 @@ class GetTonesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x01\x92\xd5\xab',
             struct.pack('<q', self.hash),
@@ -192,7 +187,6 @@ class SaveToneRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb1\xcb\x82\x17',
             self.tone._bytes(),
@@ -231,7 +225,6 @@ class UpdateToneRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Y\xcf;\x90',
             struct.pack('<I', (0 if self.display_author is None else 1) | (0 if self.emoji_id is None or self.emoji_id is False else 2) | (0 if self.title is None or self.title is False else 4) | (0 if self.prompt is None or self.prompt is False else 8)),

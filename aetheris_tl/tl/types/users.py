@@ -28,7 +28,6 @@ class SavedMusic(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x97\xf2\xa24',
             struct.pack('<i', self.count),
@@ -64,7 +63,6 @@ class SavedMusicNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa4\x8a\x87\xe3',
             struct.pack('<i', self.count),
@@ -97,7 +95,6 @@ class UserFull(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'.\x15m;',
             self.full_user._bytes(),
@@ -140,7 +137,6 @@ class Users(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb8\x06\xd7b',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.users)),b''.join(x._bytes() for x in self.users),
@@ -176,7 +172,6 @@ class UsersSlice(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'tIZ1',
             struct.pack('<i', self.count),

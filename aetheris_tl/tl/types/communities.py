@@ -32,7 +32,6 @@ class ParticipantJoinedChats(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'*Qx\x8d',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.creator_chat_ids)),b''.join(struct.pack('<q', x) for x in self.creator_chat_ids),
@@ -95,7 +94,6 @@ class PeerLinkRequests(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xad\xafD"',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),

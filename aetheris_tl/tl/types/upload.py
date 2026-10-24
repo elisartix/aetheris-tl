@@ -27,7 +27,6 @@ class CdnFile(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'O\xca\x9f\xa9',
             self.serialize_bytes(self.bytes),
@@ -56,7 +55,6 @@ class CdnFileReuploadNeeded(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'n\xe4\xa8\xee',
             self.serialize_bytes(self.request_token),
@@ -89,7 +87,6 @@ class File(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd5\x18j\t',
             self.type._bytes(),
@@ -130,7 +127,6 @@ class FileCdnRedirect(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'D\xda\x8c\xf1',
             struct.pack('<i', self.dc_id),
@@ -180,7 +176,6 @@ class WebFile(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbcS\xe7!',
             struct.pack('<i', self.size),

@@ -28,7 +28,6 @@ class Albums(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b':z\x98\xc3',
             struct.pack('<q', self.hash),
@@ -57,7 +56,6 @@ class AlbumsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xeb\xdaNV',
         ))
@@ -96,7 +94,6 @@ class AllStories(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x81^\xfcn',
             struct.pack('<I', (0 if self.has_more is None or self.has_more is False else 1)),
@@ -156,7 +153,6 @@ class AllStoriesNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'>\xfeX\x11',
             b'\0\0\0\0',
@@ -190,7 +186,6 @@ class CanSendStoryCount(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'N\xc0\x87\xc3',
             struct.pack('<i', self.count_remains),
@@ -227,7 +222,6 @@ class FoundStories(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'7w\xde\xe2',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -289,7 +283,6 @@ class PeerStories(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'h\x87\xe6\xca',
             self.stories._bytes(),
@@ -340,7 +333,6 @@ class Stories(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\n\xdd\xc3c',
             struct.pack('<I', (0 if self.pinned_to_top is None or self.pinned_to_top is False else 1)),
@@ -411,7 +403,6 @@ class StoryReactionsList(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9cx_\xaa',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -471,7 +462,6 @@ class StoryViews(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1d\xed\x9e\xde',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.views)),b''.join(x._bytes() for x in self.views),
@@ -526,7 +516,6 @@ class StoryViewsList(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc5\x8f\xd7Y',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),

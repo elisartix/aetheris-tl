@@ -34,7 +34,6 @@ class DeletePhotosRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'/\x7f\xcf\x87',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.id)),b''.join(x._bytes() for x in self.id),
@@ -82,7 +81,6 @@ class GetUserPhotosRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa82\xcd\x91',
             self.user_id._bytes(),
@@ -126,7 +124,6 @@ class UpdateProfilePhotoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'9 \xe8\t',
             struct.pack('<I', (0 if self.fallback is None or self.fallback is False else 1) | (0 if self.bot is None or self.bot is False else 2)),
@@ -179,7 +176,6 @@ class UploadContactProfilePhotoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'qJL\xe1',
             struct.pack('<I', (0 if self.suggest is None or self.suggest is False else 8) | (0 if self.save is None or self.save is False else 16) | (0 if self.file is None or self.file is False else 1) | (0 if self.video is None or self.video is False else 2) | (0 if self.video_start_ts is None or self.video_start_ts is False else 4) | (0 if self.video_emoji_markup is None or self.video_emoji_markup is False else 32)),
@@ -247,7 +243,6 @@ class UploadProfilePhotoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb5\xa3\x88\x03',
             struct.pack('<I', (0 if self.fallback is None or self.fallback is False else 8) | (0 if self.bot is None or self.bot is False else 32) | (0 if self.file is None or self.file is False else 1) | (0 if self.video is None or self.video is False else 2) | (0 if self.video_start_ts is None or self.video_start_ts is False else 4) | (0 if self.video_emoji_markup is None or self.video_emoji_markup is False else 16)),

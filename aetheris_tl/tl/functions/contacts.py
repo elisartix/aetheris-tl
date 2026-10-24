@@ -30,7 +30,6 @@ class AcceptContactRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x0f\xa21\xf8',
             self.id._bytes(),
@@ -72,7 +71,6 @@ class AddContactRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'T.\xba\xd9',
             struct.pack('<I', (0 if self.add_phone_privacy_exception is None or self.add_phone_privacy_exception is False else 1) | (0 if self.note is None or self.note is False else 2)),
@@ -121,7 +119,6 @@ class BlockRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'4\x87..',
             struct.pack('<I', (0 if self.my_stories_from is None or self.my_stories_from is False else 1)),
@@ -160,7 +157,6 @@ class BlockFromRepliesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b',\x96\xa8)',
             struct.pack('<I', (0 if self.delete_message is None or self.delete_message is False else 1) | (0 if self.delete_history is None or self.delete_history is False else 2) | (0 if self.report_spam is None or self.report_spam is False else 4)),
@@ -195,7 +191,6 @@ class DeleteByPhonesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9e\xfd\x13\x10',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.phones)),b''.join(self.serialize_bytes(x) for x in self.phones),
@@ -236,7 +231,6 @@ class DeleteContactsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x00\x0ej\t',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.id)),b''.join(x._bytes() for x in self.id),
@@ -270,7 +264,6 @@ class EditCloseFriendsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf0\x05g\xba',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.id)),b''.join(struct.pack('<q', x) for x in self.id),
@@ -297,7 +290,6 @@ class ExportContactTokenRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b"'@e\xf8",
         ))
@@ -317,7 +309,6 @@ class GetBirthdaysRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'd\xa8\xed\xda',
         ))
@@ -348,7 +339,6 @@ class GetBlockedRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x80\x8f\x86\x9a',
             struct.pack('<I', (0 if self.my_stories_from is None or self.my_stories_from is False else 1)),
@@ -383,7 +373,6 @@ class GetContactIDsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9df\xdcz',
             struct.pack('<q', self.hash),
@@ -417,7 +406,6 @@ class GetContactsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x12\x9e\xd6]',
             struct.pack('<q', self.hash),
@@ -450,7 +438,6 @@ class GetLocatedRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'D\xbcH\xd3',
             struct.pack('<I', (0 if self.background is None or self.background is False else 2) | (0 if self.self_expires is None or self.self_expires is False else 1)),
@@ -481,7 +468,6 @@ class GetSavedRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9f\xe3\xf1\x82',
         ))
@@ -508,7 +494,6 @@ class GetSponsoredPeersRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x93\xc3\xc8\xb6',
             self.serialize_bytes(self.q),
@@ -530,7 +515,6 @@ class GetStatusesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xeeS\xa3\xc4',
         ))
@@ -581,7 +565,6 @@ class GetTopPeersRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb6x4\x97',
             struct.pack('<I', (0 if self.correspondents is None or self.correspondents is False else 1) | (0 if self.bots_pm is None or self.bots_pm is False else 2) | (0 if self.bots_inline is None or self.bots_inline is False else 4) | (0 if self.phone_calls is None or self.phone_calls is False else 8) | (0 if self.forward_users is None or self.forward_users is False else 16) | (0 if self.forward_chats is None or self.forward_chats is False else 32) | (0 if self.groups is None or self.groups is False else 1024) | (0 if self.channels is None or self.channels is False else 32768) | (0 if self.bots_app is None or self.bots_app is False else 65536) | (0 if self.bots_guestchat is None or self.bots_guestchat is False else 131072)),
@@ -627,7 +610,6 @@ class ImportContactTokenRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x88W\x00\x13',
             self.serialize_bytes(self.token),
@@ -656,7 +638,6 @@ class ImportContactsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe5\x0b\x80,',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.contacts)),b''.join(x._bytes() for x in self.contacts),
@@ -683,7 +664,6 @@ class ResetSavedRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf17\x95\x87',
         ))
@@ -715,7 +695,6 @@ class ResetTopPeerRatingRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xacs\xe3\x1a',
             self.category._bytes(),
@@ -746,7 +725,6 @@ class ResolvePhoneRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'DC\xf9\x8a',
             self.serialize_bytes(self.phone),
@@ -777,7 +755,6 @@ class ResolveUsernameRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbc\xfbZr',
             struct.pack('<I', (0 if self.referer is None or self.referer is False else 1)),
@@ -820,7 +797,6 @@ class SearchRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x0f\x8d\xf5\x05',
             struct.pack('<I', (0 if self.broadcasts is None or self.broadcasts is False else 1) | (0 if self.bots is None or self.bots is False else 2)),
@@ -867,7 +843,6 @@ class SetBlockedRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'v\\\xc6\x94',
             struct.pack('<I', (0 if self.my_stories_from is None or self.my_stories_from is False else 1)),
@@ -907,7 +882,6 @@ class ToggleTopPeersRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xda\xbd\x14\x85',
             b'\xb5ur\x99' if self.enabled else b'7\x97y\xbc',
@@ -941,7 +915,6 @@ class UnblockRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'(\xd3P\xb5',
             struct.pack('<I', (0 if self.my_stories_from is None or self.my_stories_from is False else 1)),
@@ -979,7 +952,6 @@ class UpdateContactNoteRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfbc\x9f\x13',
             self.id._bytes(),

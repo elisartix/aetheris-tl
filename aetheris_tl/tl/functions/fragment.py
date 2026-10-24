@@ -27,7 +27,6 @@ class GetCollectibleInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xba\x85\x1e\xbe',
             self.collectible._bytes(),

@@ -73,6 +73,7 @@ class Button:
             button,
             (
                 types.KeyboardButtonCopy,
+                types.KeyboardInlineButton,
                 types.KeyboardButtonBuy,
                 types.KeyboardButtonCallback,
                 types.KeyboardButtonGame,
@@ -110,8 +111,8 @@ class Button:
         if len(data) > 64:
             raise ValueError("Too many bytes for the data")
 
-        return types.KeyboardButtonCallback(
-            text, data, style=Button._get_style(style, icon)
+        return types.KeyboardInlineButton(
+            text, types.InlineButtonTypeCallback(data), style=Button._get_style(style, icon)
         )
 
     @staticmethod

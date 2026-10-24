@@ -27,7 +27,6 @@ class EditPeerFoldersRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xab\xd0Gh',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.folder_peers)),b''.join(x._bytes() for x in self.folder_peers),

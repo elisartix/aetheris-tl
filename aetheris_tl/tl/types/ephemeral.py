@@ -28,7 +28,6 @@ class WelcomeMessages(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'r\xc8O\x10',
             struct.pack('<q', self.hash),
@@ -57,7 +56,6 @@ class WelcomeMessagesNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'1\xdb\xffY',
         ))

@@ -36,7 +36,6 @@ class CreateRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xecY8\xa6',
             struct.pack('<I', (0 if self.hidden is None or self.hidden is False else 2) | (0 if self.about is None or self.about is False else 1)),
@@ -69,7 +68,6 @@ class GetJoinedCommunitiesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'0\xe8c\xa6',
         ))
@@ -102,7 +100,6 @@ class GetParticipantJoinedChatsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xab\xab~\xf8',
             self.community._bytes(),
@@ -140,7 +137,6 @@ class GetPeerLinkRequestsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'D3w\x93',
             self.community._bytes(),
@@ -178,7 +174,6 @@ class ToggleAllPeerLinkRequestApprovalRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'=\xdd\xe3\xbf',
             struct.pack('<I', (0 if self.reject is None or self.reject is False else 1)),
@@ -216,7 +211,6 @@ class ToggleCommunityCollapsedInDialogsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xea\xe3f\xd7',
             struct.pack('<I', (0 if self.collapsed is None or self.collapsed is False else 1)),
@@ -257,7 +251,6 @@ class ToggleParticipantBannedRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x0f\xadg\x99',
             struct.pack('<I', (0 if self.unban is None or self.unban is False else 1)),
@@ -304,7 +297,6 @@ class TogglePeerLinkRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xea\xcfms',
             struct.pack('<I', (0 if self.visible is None or self.visible is False else 1) | (0 if self.hidden is None or self.hidden is False else 2) | (0 if self.deleted is None or self.deleted is False else 4)),
@@ -349,7 +341,6 @@ class TogglePeerLinkRequestApprovalRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa8\x19\x82\x8c',
             struct.pack('<I', (0 if self.reject is None or self.reject is False else 1)),

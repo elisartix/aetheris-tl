@@ -33,7 +33,6 @@ class AffectedFoundMessages(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'l>\x8d\xef',
             struct.pack('<i', self.pts),
@@ -77,7 +76,6 @@ class AffectedHistory(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd1i\\\xb4',
             struct.pack('<i', self.pts),
@@ -112,7 +110,6 @@ class AffectedMessages(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x85\x91\xd1\x84',
             struct.pack('<i', self.pts),
@@ -145,7 +142,6 @@ class AllStickers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbb\xce\xbb\xcd',
             struct.pack('<q', self.hash),
@@ -174,7 +170,6 @@ class AllStickersNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc3\x02f\xe8',
         ))
@@ -203,7 +198,6 @@ class ArchivedStickers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc8\xa9\xcbO',
             struct.pack('<i', self.count),
@@ -243,7 +237,6 @@ class AvailableEffects(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'na\xdb\xbd',
             struct.pack('<i', self.hash),
@@ -279,7 +272,6 @@ class AvailableEffectsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'[\x9a\xed\xd1',
         ))
@@ -308,7 +300,6 @@ class AvailableReactions(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xad:\x8ev',
             struct.pack('<i', self.hash),
@@ -337,7 +328,6 @@ class AvailableReactionsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'W\x19\x07\x9f',
         ))
@@ -370,7 +360,6 @@ class BotApp(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf5\xadP\xeb',
             struct.pack('<I', (0 if self.inactive is None or self.inactive is False else 1) | (0 if self.request_write_access is None or self.request_write_access is False else 2) | (0 if self.has_settings is None or self.has_settings is False else 4)),
@@ -415,7 +404,6 @@ class BotCallbackAnswer(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa4^X6',
             struct.pack('<I', (0 if self.alert is None or self.alert is False else 2) | (0 if self.has_url is None or self.has_url is False else 8) | (0 if self.native_ui is None or self.native_ui is False else 16) | (0 if self.message is None or self.message is False else 1) | (0 if self.url is None or self.url is False else 4)),
@@ -462,7 +450,6 @@ class BotPreparedInlineMessage(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x11\x05\xcf\x8e',
             self.serialize_bytes(self.id),
@@ -507,7 +494,6 @@ class BotResults(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf6\xf2!\xe0',
             struct.pack('<I', (0 if self.gallery is None or self.gallery is False else 1) | (0 if self.next_offset is None or self.next_offset is False else 2) | (0 if self.switch_pm is None or self.switch_pm is False else 4) | (0 if self.switch_webview is None or self.switch_webview is False else 8)),
@@ -585,7 +571,6 @@ class ChannelMessages(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'N\xbav\xc7',
             struct.pack('<I', (0 if self.inexact is None or self.inexact is False else 2) | (0 if self.offset_id_offset is None or self.offset_id_offset is False else 4)),
@@ -655,7 +640,6 @@ class ChatAdminsWithInvites(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd7r\x9b\xb6',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.admins)),b''.join(x._bytes() for x in self.admins),
@@ -700,7 +684,6 @@ class ChatFull(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9c\xd1\xd7\xe5',
             self.full_chat._bytes(),
@@ -747,7 +730,6 @@ class ChatInviteImporters(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\n\xb0\xb6\x81',
             struct.pack('<i', self.count),
@@ -790,7 +772,6 @@ class ChatInviteJoinResultOk(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa7cVD',
             self.updates._bytes(),
@@ -823,7 +804,6 @@ class ChatInviteJoinResultWebView(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd3)\xcaa',
             struct.pack('<q', self.bot_id),
@@ -861,7 +841,6 @@ class Chats(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd5\x9f\xffd',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.chats)),b''.join(x._bytes() for x in self.chats),
@@ -897,7 +876,6 @@ class ChatsSlice(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'D\x11\xd8\x9c',
             struct.pack('<i', self.count),
@@ -933,7 +911,6 @@ class CheckedHistoryImportPeer(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x17\xe7M\xa2',
             self.serialize_bytes(self.confirm_text),
@@ -964,7 +941,6 @@ class ComposedMessageWithAI(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfa\xad\xd7\x90',
             struct.pack('<I', (0 if self.diff_text is None or self.diff_text is False else 1)),
@@ -1001,7 +977,6 @@ class ComposedRichMessageWithAI(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc87EL',
             self.result._bytes(),
@@ -1036,7 +1011,6 @@ class DhConfig(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xdd\x1e",',
             struct.pack('<i', self.g),
@@ -1071,7 +1045,6 @@ class DhConfigNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'5F\xe2\xc0',
             self.serialize_bytes(self.random),
@@ -1102,7 +1075,6 @@ class DialogFilters(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x197\xd9*',
             struct.pack('<I', (0 if self.tags_enabled is None or self.tags_enabled is False else 1)),
@@ -1146,7 +1118,6 @@ class Dialogs(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'@l\xba\x15',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.dialogs)),b''.join(x._bytes() for x in self.dialogs),
@@ -1201,7 +1172,6 @@ class DialogsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x96\xe5\xe3\xf0',
             struct.pack('<i', self.count),
@@ -1238,7 +1208,6 @@ class DialogsSlice(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf3\x94\xe0q',
             struct.pack('<i', self.count),
@@ -1307,7 +1276,6 @@ class DiscussionMessage(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x82\x174\xa6',
             struct.pack('<I', (0 if self.max_id is None or self.max_id is False else 1) | (0 if self.read_inbox_max_id is None or self.read_inbox_max_id is False else 2) | (0 if self.read_outbox_max_id is None or self.read_outbox_max_id is False else 4)),
@@ -1383,7 +1351,6 @@ class EmojiGameDiceInfo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'#`\xe5D',
             struct.pack('<I', (0 if self.plays_left is None or self.plays_left is False else 1)),
@@ -1435,7 +1402,6 @@ class EmojiGameOutcome(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'G\xd6*\xda',
             self.serialize_bytes(self.seed),
@@ -1461,7 +1427,6 @@ class EmojiGameUnavailable(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'5S\xe6Y',
         ))
@@ -1490,7 +1455,6 @@ class EmojiGroups(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'K\xb9\x1f\x88',
             struct.pack('<i', self.hash),
@@ -1519,7 +1483,6 @@ class EmojiGroupsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x87\xad\xb4o',
         ))
@@ -1548,7 +1511,6 @@ class ExportedChatInvite(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'P\xbeq\x18',
             self.invite._bytes(),
@@ -1588,7 +1550,6 @@ class ExportedChatInviteReplaced(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xef\x00&"',
             self.invite._bytes(),
@@ -1630,7 +1591,6 @@ class ExportedChatInvites(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xcc-\xc6\xbd',
             struct.pack('<i', self.count),
@@ -1677,7 +1637,6 @@ class FavedStickers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x97\x10\xb5,',
             struct.pack('<q', self.hash),
@@ -1713,7 +1672,6 @@ class FavedStickersNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd3\xa6\x8f\x9e',
         ))
@@ -1748,7 +1706,6 @@ class FeaturedStickers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x06)8\xbe',
             struct.pack('<I', (0 if self.premium is None or self.premium is False else 1)),
@@ -1797,7 +1754,6 @@ class FeaturedStickersNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'f\x0c\xdc\xc6',
             struct.pack('<i', self.count),
@@ -1838,7 +1794,6 @@ class ForumTopics(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd3\x17v6',
             struct.pack('<I', (0 if self.order_by_create_date is None or self.order_by_create_date is False else 1)),
@@ -1903,7 +1858,6 @@ class FoundStickerSets(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd2\x9d\xf0\x8a',
             struct.pack('<q', self.hash),
@@ -1932,7 +1886,6 @@ class FoundStickerSetsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b']\xb6T\r',
         ))
@@ -1963,7 +1916,6 @@ class FoundStickers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x90\xe2\xc9\x82',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -2007,7 +1959,6 @@ class FoundStickersNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'4\xc5\x10`',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -2044,7 +1995,6 @@ class HighScores(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x99\xfd;\x9a',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.scores)),b''.join(x._bytes() for x in self.scores),
@@ -2085,7 +2035,6 @@ class HistoryImport(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x0b\xafb\x16',
             struct.pack('<q', self.id),
@@ -2118,7 +2067,6 @@ class HistoryImportParsed(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb9\xb7\x0f^',
             struct.pack('<I', (0 if self.pm is None or self.pm is False else 1) | (0 if self.group is None or self.group is False else 2) | (0 if self.title is None or self.title is False else 4)),
@@ -2159,7 +2107,6 @@ class InactiveChats(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b"\xc5\xfe'\xa9",
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.dates)),b''.join(struct.pack('<i', x) for x in self.dates),
@@ -2209,7 +2156,6 @@ class InvitedUsers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa6\xef]\x7f',
             self.updates._bytes(),
@@ -2245,7 +2191,6 @@ class MessageEditData(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe6\xdd\xb5&',
             struct.pack('<I', (0 if self.caption is None or self.caption is False else 1)),
@@ -2284,7 +2229,6 @@ class MessageReactionsList(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'-I\xbd1',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -2346,7 +2290,6 @@ class MessageViews(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'C\xf5\xc4\xb6',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.views)),b''.join(x._bytes() for x in self.views),
@@ -2400,7 +2343,6 @@ class Messages(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xea\xe7s\x1d',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.messages)),b''.join(x._bytes() for x in self.messages),
@@ -2455,7 +2397,6 @@ class MessagesNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'!_St',
             struct.pack('<i', self.count),
@@ -2500,7 +2441,6 @@ class MessagesSlice(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x16g _',
             struct.pack('<I', (0 if self.inexact is None or self.inexact is False else 2) | (0 if self.next_rate is None or self.next_rate is False else 1) | (0 if self.offset_id_offset is None or self.offset_id_offset is False else 4) | (0 if self.search_flood is None or self.search_flood is False else 8)),
@@ -2578,7 +2518,6 @@ class MyStickers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9db\xff\xfa',
             struct.pack('<i', self.count),
@@ -2622,7 +2561,6 @@ class PeerDialogs(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'T\xc3q3',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.dialogs)),b''.join(x._bytes() for x in self.dialogs),
@@ -2683,7 +2621,6 @@ class PeerSettings(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'M\xb9\x80h',
             self.settings._bytes(),
@@ -2734,7 +2671,6 @@ class PreparedInlineMessage(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8dpW\xff',
             struct.pack('<q', self.query_id),
@@ -2787,7 +2723,6 @@ class QuickReplies(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x95f\x8d\xc6',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.quick_replies)),b''.join(x._bytes() for x in self.quick_replies),
@@ -2835,7 +2770,6 @@ class QuickRepliesNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'[\xeb\x91_',
         ))
@@ -2864,7 +2798,6 @@ class Reactions(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x16\xf7\xfd\xea',
             struct.pack('<q', self.hash),
@@ -2893,7 +2826,6 @@ class ReactionsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xdf\xdbo\xb0',
         ))
@@ -2926,7 +2858,6 @@ class RecentStickers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'V|\xd3\x88',
             struct.pack('<q', self.hash),
@@ -2969,7 +2900,6 @@ class RecentStickersNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x90\xf8\x17\x0b',
         ))
@@ -3002,7 +2932,6 @@ class SavedDialogs(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'!\xe2:\xf8',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.dialogs)),b''.join(x._bytes() for x in self.dialogs),
@@ -3057,7 +2986,6 @@ class SavedDialogsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe8o\x1f\xc0',
             struct.pack('<i', self.count),
@@ -3094,7 +3022,6 @@ class SavedDialogsSlice(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd9\x9d\xbaD',
             struct.pack('<i', self.count),
@@ -3153,7 +3080,6 @@ class SavedGifs(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\r*\xa0\x84',
             struct.pack('<q', self.hash),
@@ -3182,7 +3108,6 @@ class SavedGifsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa2\\\x02\xe8',
         ))
@@ -3211,7 +3136,6 @@ class SavedReactionTags(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\n\x95Y2',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.tags)),b''.join(x._bytes() for x in self.tags),
@@ -3240,7 +3164,6 @@ class SavedReactionTagsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xefY\x9b\x88',
         ))
@@ -3271,7 +3194,6 @@ class SearchCounter(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xff\xebD\xe8',
             struct.pack('<I', (0 if self.inexact is None or self.inexact is False else 2)),
@@ -3322,7 +3244,6 @@ class SearchResultsCalendar(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'<\xe2~\x14',
             struct.pack('<I', (0 if self.inexact is None or self.inexact is False else 1) | (0 if self.offset_id_offset is None or self.offset_id_offset is False else 2)),
@@ -3394,7 +3315,6 @@ class SearchResultsPositions(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xaf+\xb2S',
             struct.pack('<i', self.count),
@@ -3432,7 +3352,6 @@ class SentEncryptedFile(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'2\xff\x93\x94',
             self.serialize_datetime(self.date),
@@ -3463,7 +3382,6 @@ class SentEncryptedMessage(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'5\x89\x0fV',
             self.serialize_datetime(self.date),
@@ -3502,7 +3420,6 @@ class SponsoredMessages(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'me\xda\xff',
             struct.pack('<I', (0 if self.posts_between is None or self.posts_between is False else 1) | (0 if self.start_delay is None or self.start_delay is False else 2) | (0 if self.between_delay is None or self.between_delay is False else 4)),
@@ -3561,7 +3478,6 @@ class SponsoredMessagesEmpty(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x0fI9\x18',
         ))
@@ -3594,7 +3510,6 @@ class StickerSet(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x16?\x15n',
             self.set._bytes(),
@@ -3644,7 +3559,6 @@ class StickerSetInstallResultArchive(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa8\x10\xe45',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.sets)),b''.join(x._bytes() for x in self.sets),
@@ -3671,7 +3585,6 @@ class StickerSetInstallResultSuccess(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'(\x16d8',
         ))
@@ -3691,7 +3604,6 @@ class StickerSetNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xeb$\xf9\xd3',
         ))
@@ -3720,7 +3632,6 @@ class Stickers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'~\xec\xa60',
             struct.pack('<q', self.hash),
@@ -3749,7 +3660,6 @@ class StickersNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'"\x9at\xf1',
         ))
@@ -3784,7 +3694,6 @@ class TranscribedAudio(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.trial_remains_num or self.trial_remains_num is not None) and (self.trial_remains_until_date or self.trial_remains_until_date is not None)) or ((self.trial_remains_num is None or self.trial_remains_num is False) and (self.trial_remains_until_date is None or self.trial_remains_until_date is False)), 'trial_remains_num, trial_remains_until_date parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'W\xd9\xb9\xcf',
@@ -3830,7 +3739,6 @@ class TranslateResult(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf82\xdb3',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.result)),b''.join(x._bytes() for x in self.result),
@@ -3864,7 +3772,6 @@ class TranslatedRichMessage(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8f\x99\x03B',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.result)),b''.join(x._bytes() for x in self.result),
@@ -3906,7 +3813,6 @@ class VotesList(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'NH\x99H',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -3968,7 +3874,6 @@ class WebPage(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbd\x12^\xfd',
             self.webpage._bytes(),
@@ -4015,7 +3920,6 @@ class WebPagePreview(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xac\x88\x9a\x8c',
             self.media._bytes(),

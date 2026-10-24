@@ -27,7 +27,6 @@ class CheckSearchPostsFloodRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x15qV"',
             struct.pack('<I', (0 if self.query is None or self.query is False else 1)),
@@ -67,7 +66,6 @@ class CheckUsernameRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b',\xbd\xe6\x10',
             self.channel._bytes(),
@@ -101,7 +99,6 @@ class ConvertToGigagroupRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'i\x0c)\x0b',
             self.channel._bytes(),
@@ -146,7 +143,6 @@ class CreateChannelRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.geo_point or self.geo_point is not None) and (self.address or self.address is not None)) or ((self.geo_point is None or self.geo_point is False) and (self.address is None or self.address is False)), 'geo_point, address parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\x07g\x00\x91',
@@ -203,7 +199,6 @@ class DeactivateAllUsernamesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd3]$\n',
             self.channel._bytes(),
@@ -235,7 +230,6 @@ class DeleteChannelRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe3\x1f\x11\xc0',
             self.channel._bytes(),
@@ -271,7 +265,6 @@ class DeleteHistoryRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'G\x96\xaa\x9b',
             struct.pack('<I', (0 if self.for_everyone is None or self.for_everyone is False else 1)),
@@ -311,7 +304,6 @@ class DeleteMessagesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'N\xfd\xc1\x84',
             self.channel._bytes(),
@@ -353,7 +345,6 @@ class DeleteParticipantHistoryRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xdbDu6',
             self.channel._bytes(),
@@ -394,7 +385,6 @@ class EditAdminRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'h\xad\x98\x9a',
             struct.pack('<I', (0 if self.rank is None or self.rank is False else 1)),
@@ -443,7 +433,6 @@ class EditBannedRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x81\xcd\xe6\x96',
             self.channel._bytes(),
@@ -483,7 +472,6 @@ class EditLocationRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'm?\xe6X',
             self.channel._bytes(),
@@ -522,7 +510,6 @@ class EditPhotoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc9W.\xf1',
             self.channel._bytes(),
@@ -558,7 +545,6 @@ class EditTitleRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd0\xecmV',
             self.channel._bytes(),
@@ -598,7 +584,6 @@ class ExportMessageLinkRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xeb\xad?\xe6',
             struct.pack('<I', (0 if self.grouped is None or self.grouped is False else 1) | (0 if self.thread is None or self.thread is False else 2)),
@@ -655,7 +640,6 @@ class GetAdminLogRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x80\xf4\xdd3',
             struct.pack('<I', (0 if self.events_filter is None or self.events_filter is False else 1) | (0 if self.admins is None or self.admins is False else 2)),
@@ -716,7 +700,6 @@ class GetAdminedPublicChannelsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xaf6\xb0\xf8',
             struct.pack('<I', (0 if self.by_location is None or self.by_location is False else 1) | (0 if self.check_limit is None or self.check_limit is False else 2) | (0 if self.for_personal is None or self.for_personal is False else 4) | (0 if self.for_community_peer is None or self.for_community_peer is False else 8)),
@@ -754,7 +737,6 @@ class GetChannelRecommendationsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'B\x17\xa7%',
             struct.pack('<I', (0 if self.channel is None or self.channel is False else 1)),
@@ -796,7 +778,6 @@ class GetChannelsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbbk\x7f\n',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.id)),b''.join(x._bytes() for x in self.id),
@@ -833,7 +814,6 @@ class GetFullChannelRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\tjs\x08',
             self.channel._bytes(),
@@ -855,7 +835,6 @@ class GetGroupsForDiscussionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'x\xd3\xda\xf5',
         ))
@@ -875,7 +854,6 @@ class GetInactiveChannelsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xee1\xe8\x11',
         ))
@@ -902,7 +880,6 @@ class GetLeftChannelsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc0\xecA\x83',
             struct.pack('<i', self.offset),
@@ -936,7 +913,6 @@ class GetMessageAuthorRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe6\xa0\xe2\xec',
             self.channel._bytes(),
@@ -977,7 +953,6 @@ class GetMessagesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'#\x9a\x8c\xad',
             self.channel._bytes(),
@@ -1019,7 +994,6 @@ class GetParticipantRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc6l\xab\xa0',
             self.channel._bytes(),
@@ -1061,7 +1035,6 @@ class GetParticipantsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd0\xd9\xcew',
             self.channel._bytes(),
@@ -1105,7 +1078,6 @@ class GetSendAsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'?\xa4\x85\xe7',
             struct.pack('<I', (0 if self.for_paid_reactions is None or self.for_paid_reactions is False else 1) | (0 if self.for_live_stories is None or self.for_live_stories is False else 2)),
@@ -1149,7 +1121,6 @@ class InviteToChannelRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'T=\xe3\xc9',
             self.channel._bytes(),
@@ -1188,7 +1159,6 @@ class JoinChannelRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'"\x1ej\x7f',
             self.channel._bytes(),
@@ -1220,7 +1190,6 @@ class LeaveChannelRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x95\xaa6\xf8',
             self.channel._bytes(),
@@ -1254,7 +1223,6 @@ class ReadHistoryRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'7I\x10\xcc',
             self.channel._bytes(),
@@ -1290,7 +1258,6 @@ class ReadMessageContentsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'8\xdc\xb5\xea',
             self.channel._bytes(),
@@ -1331,7 +1298,6 @@ class ReorderUsernamesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1d\xed\\\xb4',
             self.channel._bytes(),
@@ -1372,7 +1338,6 @@ class ReportAntiSpamFalsePositiveRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x93\xa6P\xa8',
             self.channel._bytes(),
@@ -1411,7 +1376,6 @@ class ReportSpamRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x15\x83J\xf4',
             self.channel._bytes(),
@@ -1454,7 +1418,6 @@ class RestrictSponsoredMessagesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x19\x15\xe9\x9a',
             self.channel._bytes(),
@@ -1500,7 +1463,6 @@ class SearchPostsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'M\xf2\xc4\xf2',
             struct.pack('<I', (0 if self.hashtag is None or self.hashtag is False else 1) | (0 if self.query is None or self.query is False else 2) | (0 if self.allow_paid_stars is None or self.allow_paid_stars is False else 4)),
@@ -1558,7 +1520,6 @@ class SetBoostsToUnblockRestrictionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xee\x9c9\xad',
             self.channel._bytes(),
@@ -1595,7 +1556,6 @@ class SetDiscussionGroupRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb2+X@',
             self.broadcast._bytes(),
@@ -1631,7 +1591,6 @@ class SetEmojiStickersRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb70\xd9<',
             self.channel._bytes(),
@@ -1667,7 +1626,6 @@ class SetMainProfileTabRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb1\xfc\x835',
             self.channel._bytes(),
@@ -1703,7 +1661,6 @@ class SetStickersRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf9\xa4\x8c\xea',
             self.channel._bytes(),
@@ -1739,7 +1696,6 @@ class ToggleAntiSpamRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xeb\xe4\xf3h',
             self.channel._bytes(),
@@ -1775,7 +1731,6 @@ class ToggleAutotranslationRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa1\xc0\x7f\x16',
             self.channel._bytes(),
@@ -1813,7 +1768,6 @@ class ToggleForumRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'4W\xf7?',
             self.channel._bytes(),
@@ -1857,7 +1811,6 @@ class ToggleJoinRequestRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x18&\xcc\x0e',
             struct.pack('<I', (0 if self.apply_to_invites is None or self.apply_to_invites is False else 2) | (0 if self.guard_bot is None or self.guard_bot is False else 1)),
@@ -1902,7 +1855,6 @@ class ToggleJoinToSendRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x80\x95\xcb\xe4',
             self.channel._bytes(),
@@ -1938,7 +1890,6 @@ class ToggleParticipantsHiddenRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Txnj',
             self.channel._bytes(),
@@ -1974,7 +1925,6 @@ class TogglePreHistoryHiddenRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'L\xb9\xbb\xea',
             self.channel._bytes(),
@@ -2012,7 +1962,6 @@ class ToggleSignaturesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9cT\x8dA',
             struct.pack('<I', (0 if self.signatures_enabled is None or self.signatures_enabled is False else 1) | (0 if self.profiles_enabled is None or self.profiles_enabled is False else 2)),
@@ -2051,7 +2000,6 @@ class ToggleSlowModeRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf0\x9e\xd4\xed',
             self.channel._bytes(),
@@ -2089,7 +2037,6 @@ class ToggleUsernameRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x05A\xf2P',
             self.channel._bytes(),
@@ -2127,7 +2074,6 @@ class ToggleViewForumAsMessagesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x15\xbb8\x97',
             self.channel._bytes(),
@@ -2167,7 +2113,6 @@ class UpdateColorRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'q6\xaa\xd8',
             struct.pack('<I', (0 if self.for_profile is None or self.for_profile is False else 2) | (0 if self.color is None or self.color is False else 4) | (0 if self.background_emoji_id is None or self.background_emoji_id is False else 1)),
@@ -2215,7 +2160,6 @@ class UpdateEmojiStatusRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa8\xe6\xd3\xf0',
             self.channel._bytes(),
@@ -2253,7 +2197,6 @@ class UpdatePaidMessagesPriceRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'{2\x12K',
             struct.pack('<I', (0 if self.broadcast_messages_allowed is None or self.broadcast_messages_allowed is False else 1)),
@@ -2293,7 +2236,6 @@ class UpdateUsernameRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xde\xb3\x145',
             self.channel._bytes(),

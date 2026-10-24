@@ -32,7 +32,6 @@ class GetBroadcastStatsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1aDB\xab',
             struct.pack('<I', (0 if self.dark is None or self.dark is False else 1)),
@@ -70,7 +69,6 @@ class GetMegagroupStatsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x07\x86\xdf\xdc',
             struct.pack('<I', (0 if self.dark is None or self.dark is False else 1)),
@@ -112,7 +110,6 @@ class GetMessagePublicForwardsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'D\x01\x15_',
             self.channel._bytes(),
@@ -154,7 +151,6 @@ class GetMessageStatsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf5\xa3\xe0\xb6',
             struct.pack('<I', (0 if self.dark is None or self.dark is False else 1)),
@@ -196,7 +192,6 @@ class GetPollStatsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'h\xfa}\xc2',
             struct.pack('<I', (0 if self.dark is None or self.dark is False else 1)),
@@ -240,7 +235,6 @@ class GetStoryPublicForwardsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf6~C\xa6',
             self.peer._bytes(),
@@ -282,7 +276,6 @@ class GetStoryStatsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'@\xefO7',
             struct.pack('<I', (0 if self.dark is None or self.dark is False else 1)),
@@ -319,7 +312,6 @@ class LoadAsyncGraphRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa0_\x1db',
             struct.pack('<I', (0 if self.x is None or self.x is False else 1)),

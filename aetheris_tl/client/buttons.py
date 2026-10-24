@@ -6,6 +6,35 @@ from ..tl import types, custom
 
 class ButtonMethods:
     @staticmethod
+    def _layer230_button(button):
+        """Convert pre-layer-230 inline buttons to the current TL shape.
+
+        Telegram moved inline buttons from ``KeyboardButton*`` constructors to
+        ``KeyboardInlineButton(text, InlineButtonType*)``.  Keep accepting the
+        public/old constructors, but never put their obsolete wire IDs on the
+        network.
+        """
+        if isinstance(button, types.KeyboardInlineButton):
+            return button
+        style = getattr(button, "style", None)
+        text = getattr(button, "text", None)
+        if isinstance(button, types.KeyboardButtonCallback):
+            return types.KeyboardInlineButton(text, types.InlineButtonTypeCallback(button.data, getattr(button, "requires_password", None)), style)
+        if isinstance(button, types.KeyboardButtonUrl):
+            return types.KeyboardInlineButton(text, types.InlineButtonTypeUrl(button.url), style)
+        if isinstance(button, types.KeyboardButtonSwitchInline):
+            return types.KeyboardInlineButton(text, types.InlineButtonTypeSwitchInline(button.query, button.same_peer, getattr(button, "peer_types", None)), style)
+        if isinstance(button, types.KeyboardButtonCopy):
+            return types.KeyboardInlineButton(text, types.InlineButtonTypeCopy(button.copy_text), style)
+        if isinstance(button, types.KeyboardButtonGame):
+            return types.KeyboardInlineButton(text, types.InlineButtonTypeGame(), style)
+        if isinstance(button, types.KeyboardButtonBuy):
+            return types.KeyboardInlineButton(text, types.InlineButtonTypeBuy(), style)
+        if isinstance(button, types.KeyboardButtonWebView):
+            return types.KeyboardInlineButton(text, types.InlineButtonTypeWebView(button.url), style)
+        return button
+
+    @staticmethod
     def build_reply_markup(
         buttons: "typing.Optional[hints.MarkupLike]",
     ) -> "typing.Optional[types.TypeReplyMarkup]":
@@ -81,7 +110,12 @@ class ButtonMethods:
                 is_inline |= inline
                 is_normal |= not inline
 
+                if inline:
+                    button = ButtonMethods._layer230_button(button)
+
                 if button.SUBCLASS_OF_ID == 0xBAD74A3:  # crc32(b'KeyboardButton')
+                    current.append(button)
+                elif isinstance(button, types.KeyboardInlineButton):
                     current.append(button)
 
             if current:
@@ -90,7 +124,9 @@ class ButtonMethods:
         if is_inline and is_normal:
             raise ValueError("You cannot mix inline with normal buttons")
         elif is_inline:
-            return types.ReplyInlineMarkup(rows)
+            return types.ReplyInlineMarkup(
+                rows=[types.KeyboardInlineButtonRow(row.buttons) for row in rows]
+            )
         return types.ReplyKeyboardMarkup(
             rows=rows,
             resize=resize,

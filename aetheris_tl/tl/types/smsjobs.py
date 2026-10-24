@@ -25,7 +25,6 @@ class EligibleToJoin(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xcfD\x8b\xdc',
             self.serialize_bytes(self.terms_url),
@@ -70,7 +69,6 @@ class Status(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x91\x91\xee*',
             struct.pack('<I', (0 if self.allow_international is None or self.allow_international is False else 1) | (0 if self.last_gift_slug is None or self.last_gift_slug is False else 2)),

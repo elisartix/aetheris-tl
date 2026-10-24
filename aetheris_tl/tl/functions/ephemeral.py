@@ -30,7 +30,6 @@ class DeleteAllWelcomeMessagesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'!\x97Os',
             self.peer._bytes(),
@@ -68,7 +67,6 @@ class DeleteMessageRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x97\xe7\xf6\x92',
             struct.pack('<I', (0 if self.peer is None or self.peer is False else 1)),
@@ -112,7 +110,6 @@ class DeleteWelcomeMessageRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe1\xa9\x82\xe8',
             self.peer._bytes(),
@@ -169,7 +166,6 @@ class EditMessageRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'[r\x9c\xcf',
             struct.pack('<I', (0 if self.invert_media is None or self.invert_media is False else 32) | (0 if self.welcome is None or self.welcome is False else 64) | (0 if self.peer is None or self.peer is False else 128) | (0 if self.message is None or self.message is False else 1) | (0 if self.media is None or self.media is False else 8) | (0 if self.entities is None or self.entities is False else 2) | (0 if self.reply_markup is None or self.reply_markup is False else 4) | (0 if self.rich_message is None or self.rich_message is False else 16)),
@@ -247,7 +243,6 @@ class GetCallbackAnswerRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc8d\xa4?',
             struct.pack('<I', (0 if self.data is None or self.data is False else 2)),
@@ -291,7 +286,6 @@ class GetWelcomeMessagesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8d\xc1\x9a\xdb',
             self.peer._bytes(),
@@ -331,7 +325,6 @@ class ReportMessageRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbf\xf2\x04\x87',
             self.peer._bytes(),
@@ -400,7 +393,6 @@ class SendMessageRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'5_\x8d\xba',
             struct.pack('<I', (0 if self.invert_media is None or self.invert_media is False else 64) | (0 if self.welcome is None or self.welcome is False else 128) | (0 if self.anchor is None or self.anchor is False else 512) | (0 if self.noforwards is None or self.noforwards is False else 1024) | (0 if self.peer is None or self.peer is False else 256) | (0 if self.query_id is None or self.query_id is False else 1) | (0 if self.entities is None or self.entities is False else 2) | (0 if self.media is None or self.media is False else 4) | (0 if self.reply_markup is None or self.reply_markup is False else 8) | (0 if self.rich_message is None or self.rich_message is False else 16) | (0 if self.reply_to is None or self.reply_to is False else 32)),

@@ -28,7 +28,6 @@ class AccessSettings(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x93\xbf\x1f\xdd',
             struct.pack('<I', (0 if self.restricted is None or self.restricted is False else 1) | (0 if self.add_users is None or self.add_users is False else 2)),
@@ -73,7 +72,6 @@ class BotInfo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb0u\xa7\xe8',
             self.serialize_bytes(self.name),
@@ -106,7 +104,6 @@ class ExportedBotToken(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'!\xb6`<',
             self.serialize_bytes(self.token),
@@ -137,7 +134,6 @@ class PopularAppBots(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b';\xb1\x91\x19',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -181,7 +177,6 @@ class PreviewInfo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'd\x1d\xa7\x0c',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.media)),b''.join(x._bytes() for x in self.media),
@@ -222,7 +217,6 @@ class RequestedButton(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd7\xbc;\xf1',
             self.serialize_bytes(self.webapp_req_id),

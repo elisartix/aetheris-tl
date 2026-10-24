@@ -5,7 +5,7 @@ import os
 import struct
 from datetime import datetime
 if TYPE_CHECKING:
-    from ...tl.types import TypeBankCardOpenUrl, TypeChat, TypeConnectedBotStarRef, TypeDataJSON, TypeInvoice, TypePaymentFormMethod, TypePaymentRequestedInfo, TypePaymentSavedCredentials, TypePeer, TypeSavedStarGift, TypeShippingOption, TypeStarGift, TypeStarGiftActiveAuctionState, TypeStarGiftAttribute, TypeStarGiftAttributeCounter, TypeStarGiftAuctionAcquiredGift, TypeStarGiftAuctionState, TypeStarGiftAuctionUserState, TypeStarGiftCollection, TypeStarGiftUpgradePrice, TypeStarRefProgram, TypeStarsAmount, TypeStarsRevenueStatus, TypeStarsSubscription, TypeStarsTransaction, TypeStatsGraph, TypeTextWithEntities, TypeUpdates, TypeUser, TypeWebDocument
+    from ...tl.types import TypeBankCardOpenUrl, TypeChat, TypeConnectedBotStarRef, TypeCurrencyRate, TypeDataJSON, TypeInvoice, TypePaymentFormMethod, TypePaymentRequestedInfo, TypePaymentSavedCredentials, TypePeer, TypeSavedStarGift, TypeShippingOption, TypeStarGift, TypeStarGiftActiveAuctionState, TypeStarGiftAttribute, TypeStarGiftAttributeCounter, TypeStarGiftAuctionAcquiredGift, TypeStarGiftAuctionState, TypeStarGiftAuctionUserState, TypeStarGiftCollection, TypeStarGiftUpgradePrice, TypeStarRefProgram, TypeStarsAmount, TypeStarsRevenueStatus, TypeStarsSubscription, TypeStarsTransaction, TypeStatsGraph, TypeTextWithEntities, TypeUpdates, TypeUser, TypeWebDocument
 
 
 
@@ -28,7 +28,6 @@ class BankCardData(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b's\xe5$>',
             self.serialize_bytes(self.title),
@@ -64,7 +63,6 @@ class CheckCanSendGiftResultFail(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b't\x82\xe5\xd5',
             self.reason._bytes(),
@@ -86,7 +84,6 @@ class CheckCanSendGiftResultOk(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xad\xa7O7',
         ))
@@ -129,7 +126,6 @@ class CheckedGiftCode(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8f?\x98\xeb',
             struct.pack('<I', (0 if self.via_giveaway is None or self.via_giveaway is False else 4) | (0 if self.from_id is None or self.from_id is False else 16) | (0 if self.giveaway_msg_id is None or self.giveaway_msg_id is False else 8) | (0 if self.to_id is None or self.to_id is False else 1) | (0 if self.used_date is None or self.used_date is False else 2)),
@@ -202,7 +198,6 @@ class ConnectedStarRefBots(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1d\xea\xd5\x98',
             struct.pack('<i', self.count),
@@ -228,6 +223,39 @@ class ConnectedStarRefBots(TLObject):
         return cls(count=_count, connected_bots=_connected_bots, users=_users)
 
 
+class CurrencyRates(TLObject):
+    CONSTRUCTOR_ID = 0xbbcce4c2
+    SUBCLASS_OF_ID = 0x11d1c3c1
+
+    def __init__(self, rates: List['TypeCurrencyRate']):
+        """
+        Constructor for payments.CurrencyRates: Instance of CurrencyRates.
+        """
+        self.rates = rates
+
+    def to_dict(self):
+        return {
+            '_': 'CurrencyRates',
+            'rates': [] if self.rates is None else [x.to_dict() if isinstance(x, TLObject) else x for x in self.rates]
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'\xc2\xe4\xcc\xbb',
+            b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.rates)),b''.join(x._bytes() for x in self.rates),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        reader.read_int()
+        _rates = []
+        for _ in range(reader.read_int()):
+            _x = reader.tgread_object()
+            _rates.append(_x)
+
+        return cls(rates=_rates)
+
+
 class ExportedInvoice(TLObject):
     CONSTRUCTOR_ID = 0xaed0cbd9
     SUBCLASS_OF_ID = 0x36105432
@@ -245,7 +273,6 @@ class ExportedInvoice(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd9\xcb\xd0\xae',
             self.serialize_bytes(self.url),
@@ -284,7 +311,6 @@ class GiveawayInfo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa0\xdagC',
             struct.pack('<I', (0 if self.participating is None or self.participating is False else 1) | (0 if self.preparing_results is None or self.preparing_results is False else 8) | (0 if self.joined_too_early_date is None or self.joined_too_early_date is False else 2) | (0 if self.admin_disallowed_chat_id is None or self.admin_disallowed_chat_id is False else 4) | (0 if self.disallowed_country is None or self.disallowed_country is False else 16)),
@@ -347,7 +373,6 @@ class GiveawayInfoResults(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'o\xe6u\xe1',
             struct.pack('<I', (0 if self.winner is None or self.winner is False else 1) | (0 if self.refunded is None or self.refunded is False else 2) | (0 if self.gift_code_slug is None or self.gift_code_slug is False else 8) | (0 if self.stars_prize is None or self.stars_prize is False else 16) | (0 if self.activated_count is None or self.activated_count is False else 4)),
@@ -430,7 +455,6 @@ class PaymentForm(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.native_provider or self.native_provider is not None) and (self.native_params or self.native_params is not None)) or ((self.native_provider is None or self.native_provider is False) and (self.native_params is None or self.native_params is False)), 'native_provider, native_params parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'Q\x87\x05\xa0',
@@ -526,7 +550,6 @@ class PaymentFormStarGift(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe1\xcf%\xb4',
             struct.pack('<q', self.form_id),
@@ -569,7 +592,6 @@ class PaymentFormStars(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\\\xb1\xf6{',
             struct.pack('<I', (0 if self.photo is None or self.photo is False else 32)),
@@ -647,7 +669,6 @@ class PaymentReceipt(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x03\xfe\xc4p',
             struct.pack('<I', (0 if self.photo is None or self.photo is False else 4) | (0 if self.info is None or self.info is False else 1) | (0 if self.shipping is None or self.shipping is False else 2) | (0 if self.tip_amount is None or self.tip_amount is False else 8)),
@@ -740,7 +761,6 @@ class PaymentReceiptStars(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b':\xf8\xbb\xda',
             struct.pack('<I', (0 if self.photo is None or self.photo is False else 4)),
@@ -798,7 +818,6 @@ class PaymentResult(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\r\x81_N',
             self.updates._bytes(),
@@ -827,7 +846,6 @@ class PaymentVerificationNeeded(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'9\x11A\xd8',
             self.serialize_bytes(self.url),
@@ -870,7 +888,6 @@ class ResaleStarGifts(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.attributes or self.attributes is not None) and (self.attributes_hash or self.attributes_hash is not None)) or ((self.attributes is None or self.attributes is False) and (self.attributes_hash is None or self.attributes_hash is False)), 'attributes, attributes_hash parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xdf\x12z\x94',
@@ -956,7 +973,6 @@ class SavedInfo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'<\xe4\x8f\xfb',
             struct.pack('<I', (0 if self.has_saved_credentials is None or self.has_saved_credentials is False else 2) | (0 if self.saved_info is None or self.saved_info is False else 1)),
@@ -1002,7 +1018,6 @@ class SavedStarGifts(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb1\x89\xf3\x95',
             struct.pack('<I', (0 if self.chat_notifications_enabled is None else 2) | (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -1069,7 +1084,6 @@ class StarGiftActiveAuctions(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbc\xab\xf6\xae',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.auctions)),b''.join(x._bytes() for x in self.auctions),
@@ -1110,7 +1124,6 @@ class StarGiftActiveAuctionsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd0\xda3\xdb',
         ))
@@ -1141,7 +1154,6 @@ class StarGiftAuctionAcquiredGifts(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf0\xd1[}',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.gifts)),b''.join(x._bytes() for x in self.gifts),
@@ -1199,7 +1211,6 @@ class StarGiftAuctionState(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xec\xf49k',
             self.gift._bytes(),
@@ -1248,7 +1259,6 @@ class StarGiftCollections(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf32)\x8a',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.collections)),b''.join(x._bytes() for x in self.collections),
@@ -1275,7 +1285,6 @@ class StarGiftCollectionsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x17O\xba\xa0',
         ))
@@ -1302,7 +1311,6 @@ class StarGiftUpgradeAttributes(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'o\xe3\xc6F',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.attributes)),b''.join(x._bytes() for x in self.attributes),
@@ -1340,7 +1348,6 @@ class StarGiftUpgradePreview(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xed\xdf\xe1=',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.sample_attributes)),b''.join(x._bytes() for x in self.sample_attributes),
@@ -1388,7 +1395,6 @@ class StarGiftWithdrawalUrl(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9c:\xaa\x84',
             self.serialize_bytes(self.url),
@@ -1423,7 +1429,6 @@ class StarGifts(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x95)\xd8.',
             struct.pack('<i', self.hash),
@@ -1466,7 +1471,6 @@ class StarGiftsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'h\xa3\x88\xa3',
         ))
@@ -1493,7 +1497,6 @@ class StarsRevenueAdsAccountUrl(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'!\x7fN9',
             self.serialize_bytes(self.url),
@@ -1528,7 +1531,6 @@ class StarsRevenueStats(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'vs l',
             struct.pack('<I', (0 if self.top_hours_graph is None or self.top_hours_graph is False else 1)),
@@ -1569,7 +1571,6 @@ class StarsRevenueWithdrawalUrl(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb7\x80\xab\x1d',
             self.serialize_bytes(self.url),
@@ -1612,7 +1613,6 @@ class StarsStatus(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xed\xe8\x9cl',
             struct.pack('<I', (0 if self.subscriptions is None or self.subscriptions is False else 2) | (0 if self.subscriptions_next_offset is None or self.subscriptions_next_offset is False else 4) | (0 if self.subscriptions_missing_balance is None or self.subscriptions_missing_balance is False else 16) | (0 if self.history is None or self.history is False else 8) | (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -1699,7 +1699,6 @@ class SuggestedStarRefBots(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Y\xd8\xd5\xb4',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -1754,7 +1753,6 @@ class UniqueStarGift(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe8VlA',
             self.gift._bytes(),
@@ -1823,7 +1821,6 @@ class UniqueStarGiftValueInfo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.last_sale_date or self.last_sale_date is not None) and (self.last_sale_price or self.last_sale_price is not None)) or ((self.last_sale_date is None or self.last_sale_date is False) and (self.last_sale_price is None or self.last_sale_price is False)), 'last_sale_date, last_sale_price parameters must all be False-y (like None) or all me True-y'
         assert ((self.fragment_listed_count or self.fragment_listed_count is not None) and (self.fragment_listed_url or self.fragment_listed_url is not None)) or ((self.fragment_listed_count is None or self.fragment_listed_count is False) and (self.fragment_listed_url is None or self.fragment_listed_url is False)), 'fragment_listed_count, fragment_listed_url parameters must all be False-y (like None) or all me True-y'
         return b''.join((
@@ -1904,7 +1901,6 @@ class ValidatedRequestedInfo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x83\x18E\xd1',
             struct.pack('<I', (0 if self.id is None or self.id is False else 1) | (0 if self.shipping_options is None or self.shipping_options is False else 2)),

@@ -27,7 +27,6 @@ class AcceptTermsOfServiceRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9a\xf7r\xee',
             self.id._bytes(),
@@ -61,7 +60,6 @@ class DismissSuggestionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa1\xba\r\xf5',
             self.peer._bytes(),
@@ -99,7 +97,6 @@ class EditUserInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'p\x1b\xb9f',
             self.user_id._bytes(),
@@ -137,7 +134,6 @@ class GetAppConfigRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'T\xf8\xe3a',
             struct.pack('<i', self.hash),
@@ -166,7 +162,6 @@ class GetAppUpdateRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'}Z-R',
             self.serialize_bytes(self.source),
@@ -188,7 +183,6 @@ class GetCdnConfigRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'B\x93\x02R',
         ))
@@ -208,7 +202,6 @@ class GetConfigRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'k\x18\xf9\xc4',
         ))
@@ -237,7 +230,6 @@ class GetCountriesListRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa8\x87Ws',
             self.serialize_bytes(self.lang_code),
@@ -268,7 +260,6 @@ class GetDeepLinkInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'_\xc7\xed?',
             self.serialize_bytes(self.path),
@@ -290,7 +281,6 @@ class GetInviteTextRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'C#9M',
         ))
@@ -310,7 +300,6 @@ class GetNearestDcRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'&0\xb3\x1f',
         ))
@@ -337,7 +326,6 @@ class GetPassportConfigRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x08\xada\xc6',
             struct.pack('<i', self.hash),
@@ -366,7 +354,6 @@ class GetPeerColorsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'/\xf4\x80\xda',
             struct.pack('<i', self.hash),
@@ -395,7 +382,6 @@ class GetPeerProfileColorsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfd\xa9\xcf\xab',
             struct.pack('<i', self.hash),
@@ -417,7 +403,6 @@ class GetPremiumPromoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd4\x93\x1b\xb8',
         ))
@@ -437,7 +422,6 @@ class GetPromoDataRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'!t\x97\xc0',
         ))
@@ -464,7 +448,6 @@ class GetRecentMeUrlsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x14\xf1\xc0=',
             self.serialize_bytes(self.referer),
@@ -486,7 +469,6 @@ class GetSupportRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xcd\x08\xdf\x9c',
         ))
@@ -506,7 +488,6 @@ class GetSupportNameRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b',\xe7`\xd3',
         ))
@@ -526,7 +507,6 @@ class GetTermsOfServiceUpdateRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd1\x1f\xa5,',
         ))
@@ -553,7 +533,6 @@ class GetTimezonesListRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'@\x02\xb3I',
             struct.pack('<i', self.hash),
@@ -585,7 +564,6 @@ class GetUserInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd3\x08\x8a\x03',
             self.user_id._bytes(),
@@ -617,7 +595,6 @@ class HidePromoDataRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x95\x1c%\x1e',
             self.peer._bytes(),
@@ -646,7 +623,6 @@ class SaveAppLogRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'H\xf7\x02o',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.events)),b''.join(x._bytes() for x in self.events),
@@ -682,7 +658,6 @@ class SetBotUpdatesStatusRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xcd\xcf"\xec',
             struct.pack('<i', self.pending_updates_count),

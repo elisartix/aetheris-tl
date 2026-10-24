@@ -29,7 +29,6 @@ class AddStickerToSetRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbe\xfeS\x86',
             self.stickerset._bytes(),
@@ -69,7 +68,6 @@ class ChangeStickerRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbc~S\xf5',
             struct.pack('<I', (0 if self.emoji is None or self.emoji is False else 1) | (0 if self.mask_coords is None or self.mask_coords is False else 2) | (0 if self.keywords is None or self.keywords is False else 4)),
@@ -121,7 +119,6 @@ class ChangeStickerPositionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xca\xd4\xb6\xff',
             self.sticker._bytes(),
@@ -152,7 +149,6 @@ class CheckShortNameRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'96K(',
             self.serialize_bytes(self.short_name),
@@ -202,7 +198,6 @@ class CreateStickerSetRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'g\xab!\x90',
             struct.pack('<I', (0 if self.masks is None or self.masks is False else 1) | (0 if self.emojis is None or self.emojis is False else 32) | (0 if self.text_color is None or self.text_color is False else 64) | (0 if self.thumb is None or self.thumb is False else 4) | (0 if self.software is None or self.software is False else 8)),
@@ -258,7 +253,6 @@ class DeleteStickerSetRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x94Cp\x87',
             self.stickerset._bytes(),
@@ -290,7 +284,6 @@ class RemoveStickerFromSetRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Q\x0fv\xf7',
             self.sticker._bytes(),
@@ -321,7 +314,6 @@ class RenameStickerSetRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x00\x1cK\x12',
             self.stickerset._bytes(),
@@ -357,7 +349,6 @@ class ReplaceStickerRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9aE\x96F',
             self.sticker._bytes(),
@@ -396,7 +387,6 @@ class SetStickerSetThumbRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x92Sj\xa7',
             struct.pack('<I', (0 if self.thumb is None or self.thumb is False else 1) | (0 if self.thumb_document_id is None or self.thumb_document_id is False else 2)),
@@ -438,7 +428,6 @@ class SuggestShortNameRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x03\xc5\xafM',
             self.serialize_bytes(self.title),

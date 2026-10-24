@@ -36,7 +36,6 @@ class AuthorizationForm(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd8\x1c.\xad',
             struct.pack('<I', (0 if self.privacy_policy_url is None or self.privacy_policy_url is False else 1)),
@@ -101,7 +100,6 @@ class Authorizations(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa0\x8e\xffK',
             struct.pack('<i', self.authorization_ttl_days),
@@ -141,7 +139,6 @@ class AutoDownloadSettings(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'&\xcf\xcac',
             self.low._bytes(),
@@ -184,7 +181,6 @@ class AutoSaveSettings(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9d\x06>L',
             self.users_settings._bytes(),
@@ -242,7 +238,6 @@ class BusinessChatLinks(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd1\xa2C\xec',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.links)),b''.join(x._bytes() for x in self.links),
@@ -298,7 +293,6 @@ class ChatThemes(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b's\x81\t\xbe',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -349,7 +343,6 @@ class ChatThemesNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc4\xe1\x11\xe0',
         ))
@@ -378,7 +371,6 @@ class ConnectedBots(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'{\xf8\xd7\x17',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.connected_bots)),b''.join(x._bytes() for x in self.connected_bots),
@@ -421,7 +413,6 @@ class ContentSettings(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'!\x82\xe2W',
             struct.pack('<I', (0 if self.sensitive_enabled is None or self.sensitive_enabled is False else 1) | (0 if self.sensitive_can_change is None or self.sensitive_can_change is False else 2)),
@@ -453,7 +444,6 @@ class EmailVerified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1b\xcd\x96+',
             self.serialize_bytes(self.email),
@@ -484,7 +474,6 @@ class EmailVerifiedLogin(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'a\r\xbb\xe1',
             self.serialize_bytes(self.email),
@@ -517,7 +506,6 @@ class EmojiStatuses(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd1g\xc4\x90',
             struct.pack('<q', self.hash),
@@ -546,7 +534,6 @@ class EmojiStatusesNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'E\xe6\x8c\xd0',
         ))
@@ -573,7 +560,6 @@ class PaidMessagesRevenue(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x08\x97\x10\x1e',
             struct.pack('<q', self.stars_amount),
@@ -602,7 +588,6 @@ class PasskeyRegistrationOptions(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe1\\k\xe1',
             self.options._bytes(),
@@ -631,7 +616,6 @@ class Passkeys(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1c\xaa\xe0\xf8',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.passkeys)),b''.join(x._bytes() for x in self.passkeys),
@@ -689,7 +673,6 @@ class Password(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.has_password or self.has_password is not None) and (self.current_algo or self.current_algo is not None) and (self.srp_B or self.srp_B is not None) and (self.srp_id or self.srp_id is not None)) or ((self.has_password is None or self.has_password is False) and (self.current_algo is None or self.current_algo is False) and (self.srp_B is None or self.srp_B is False) and (self.srp_id is None or self.srp_id is False)), 'has_password, current_algo, srp_B, srp_id parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xfbP{\x95',
@@ -772,7 +755,6 @@ class PasswordInputSettings(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.new_algo or self.new_algo is not None) and (self.new_password_hash or self.new_password_hash is not None) and (self.hint or self.hint is not None)) or ((self.new_algo is None or self.new_algo is False) and (self.new_password_hash is None or self.new_password_hash is False) and (self.hint is None or self.hint is False)), 'new_algo, new_password_hash, hint parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b"\xc9'7\xc2",
@@ -830,7 +812,6 @@ class PasswordSettings(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe53\\\x9a',
             struct.pack('<I', (0 if self.email is None or self.email is False else 1) | (0 if self.secure_settings is None or self.secure_settings is False else 2)),
@@ -874,7 +855,6 @@ class PrivacyRules(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'EN\xa0P',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.rules)),b''.join(x._bytes() for x in self.rules),
@@ -922,7 +902,6 @@ class ResetPasswordFailedWait(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'a\x98w\xe3',
             self.serialize_datetime(self.retry_date),
@@ -944,7 +923,6 @@ class ResetPasswordOk(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'>\xd6&\xe9',
         ))
@@ -971,7 +949,6 @@ class ResetPasswordRequestedWait(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'}\xfc\xef\xe9',
             self.serialize_datetime(self.until_date),
@@ -1008,7 +985,6 @@ class ResolvedBusinessChatLinks(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'!\xaf#\x9a',
             struct.pack('<I', (0 if self.entities is None or self.entities is False else 1)),
@@ -1066,7 +1042,6 @@ class SavedMusicIds(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'6f\x8d\x99',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.ids)),b''.join(struct.pack('<q', x) for x in self.ids),
@@ -1093,7 +1068,6 @@ class SavedMusicIdsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'n\x1d\xc8O',
         ))
@@ -1113,7 +1087,6 @@ class SavedRingtone(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'm?&\xb7',
         ))
@@ -1140,7 +1113,6 @@ class SavedRingtoneConverted(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb7~0\x1f',
             self.document._bytes(),
@@ -1171,7 +1143,6 @@ class SavedRingtones(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc5,\xe9\xc1',
             struct.pack('<q', self.hash),
@@ -1200,7 +1171,6 @@ class SavedRingtonesNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb1\xe8\xf6\xfb',
         ))
@@ -1229,7 +1199,6 @@ class SentEmailCode(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'O\x85\x1f\x81',
             self.serialize_bytes(self.email_pattern),
@@ -1260,7 +1229,6 @@ class Takeout(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x01E\xbaM',
             struct.pack('<q', self.id),
@@ -1291,7 +1259,6 @@ class Themes(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'm\x8c=\x9a',
             struct.pack('<q', self.hash),
@@ -1320,7 +1287,6 @@ class ThemesNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'"\xb6\x1e\xf4',
         ))
@@ -1349,7 +1315,6 @@ class TmpPassword(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'4\xfdd\xdb',
             self.serialize_bytes(self.tmp_password),
@@ -1382,7 +1347,6 @@ class WallPapers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8c\x85\xc3\xcd',
             struct.pack('<q', self.hash),
@@ -1411,7 +1375,6 @@ class WallPapersNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x83\x91\x19\x1c',
         ))
@@ -1440,7 +1403,6 @@ class WebAuthorizations(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfc\xc9V\xed',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.authorizations)),b''.join(x._bytes() for x in self.authorizations),
@@ -1489,7 +1451,6 @@ class WebBrowserSettings(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb3\x8c\xeby',
             struct.pack('<I', (0 if self.open_external_browser is None or self.open_external_browser is False else 1) | (0 if self.display_close_button is None or self.display_close_button is False else 2)),
@@ -1530,7 +1491,6 @@ class WebBrowserSettingsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'N\x8f\x1c\xc3',
         ))

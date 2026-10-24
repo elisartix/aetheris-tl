@@ -26,7 +26,6 @@ class FinishJobRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'$\xbf\x1eO',
             struct.pack('<I', (0 if self.error is None or self.error is False else 1)),
@@ -63,7 +62,6 @@ class GetSmsJobRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'/\x90\x8dw',
             self.serialize_bytes(self.job_id),
@@ -85,7 +83,6 @@ class GetStatusRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe8\x98\xa6\x10',
         ))
@@ -105,7 +102,6 @@ class IsEligibleToJoinRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd09\xdc\x0e',
         ))
@@ -125,7 +121,6 @@ class JoinRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'-\xceN\xa7',
         ))
@@ -145,7 +140,6 @@ class LeaveRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b's\xad\x98\x98',
         ))
@@ -172,7 +166,6 @@ class UpdateSettingsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbf\xa0?\t',
             struct.pack('<I', (0 if self.allow_international is None or self.allow_international is False else 1)),

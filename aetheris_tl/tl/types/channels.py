@@ -30,7 +30,6 @@ class AdminLogResults(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'M\xf7\x8a\xed',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.events)),b''.join(x._bytes() for x in self.events),
@@ -82,7 +81,6 @@ class ChannelParticipant(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x17\x03\xb8\xdf',
             self.participant._bytes(),
@@ -131,7 +129,6 @@ class ChannelParticipants(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xaf\xfe\xb0\x9a',
             struct.pack('<i', self.count),
@@ -174,7 +171,6 @@ class ChannelParticipantsNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe9?\x17\xf0',
         ))
@@ -205,7 +201,6 @@ class SendAsPeers(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc6\xb0\x96\xf4',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.peers)),b''.join(x._bytes() for x in self.peers),
@@ -246,7 +241,6 @@ class SponsoredMessageReportResultAdsHidden(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'/\xcf;>',
         ))
@@ -275,7 +269,6 @@ class SponsoredMessageReportResultChooseOption(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'B\x9eo\x84',
             self.serialize_bytes(self.title),
@@ -304,7 +297,6 @@ class SponsoredMessageReportResultReported(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'I\x88y\xad',
         ))

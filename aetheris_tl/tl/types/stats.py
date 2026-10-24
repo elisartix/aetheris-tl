@@ -68,7 +68,6 @@ class BroadcastStats(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfc\xa5l9',
             self.period._bytes(),
@@ -176,7 +175,6 @@ class MegagroupStats(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x16\xf9\x7f\xef',
             self.period._bytes(),
@@ -259,7 +257,6 @@ class MessageStats(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x14\x1c\xe9\x7f',
             self.views_graph._bytes(),
@@ -290,7 +287,6 @@ class PollStats(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xed\xbe\x99)',
             self.votes_graph._bytes(),
@@ -327,7 +323,6 @@ class PublicForwards(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b' ~\x03\x93',
             struct.pack('<I', (0 if self.next_offset is None or self.next_offset is False else 1)),
@@ -387,7 +382,6 @@ class StoryStats(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'|\x06\xcdP',
             self.views_graph._bytes(),

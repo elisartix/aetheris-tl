@@ -36,7 +36,6 @@ class ChatlistInvite(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'/\xce\x0e\xf1',
             struct.pack('<I', (0 if self.title_noanimate is None or self.title_noanimate is False else 2) | (0 if self.emoticon is None or self.emoticon is False else 1)),
@@ -103,7 +102,6 @@ class ChatlistInviteAlready(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Y\xf6\x87\xfa',
             struct.pack('<i', self.filter_id),
@@ -164,7 +162,6 @@ class ChatlistUpdates(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8d\x87\xbd\x93',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.missing_peers)),b''.join(x._bytes() for x in self.missing_peers),
@@ -214,7 +211,6 @@ class ExportedChatlistInvite(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa6\xe3\xe6\x10',
             self.filter._bytes(),
@@ -249,7 +245,6 @@ class ExportedInvites(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc7m\xab\x10',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.invites)),b''.join(x._bytes() for x in self.invites),

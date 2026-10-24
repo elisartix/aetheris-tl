@@ -27,7 +27,6 @@ class CheckChatlistInviteRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xff\x0f\xc1A',
             self.serialize_bytes(self.slug),
@@ -58,7 +57,6 @@ class DeleteExportedInviteRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'^\\\x9cq',
             self.chatlist._bytes(),
@@ -103,7 +101,6 @@ class EditExportedInviteRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'=\xb6=e',
             struct.pack('<I', (0 if self.title is None or self.title is False else 2) | (0 if self.peers is None or self.peers is False else 4)),
@@ -163,7 +160,6 @@ class ExportChatlistInviteRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8eGr\x84',
             self.chatlist._bytes(),
@@ -201,7 +197,6 @@ class GetChatlistUpdatesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'!\x95A\x89',
             self.chatlist._bytes(),
@@ -230,7 +225,6 @@ class GetExportedInvitesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x83\xda\x03\xce',
             self.chatlist._bytes(),
@@ -259,7 +253,6 @@ class GetLeaveChatlistSuggestionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x14\xd7\xbc\xfd',
             self.chatlist._bytes(),
@@ -288,7 +281,6 @@ class HideChatlistUpdatesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfb\x86\xe4f',
             self.chatlist._bytes(),
@@ -326,7 +318,6 @@ class JoinChatlistInviteRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9a\xe3\xb1\xa6',
             self.serialize_bytes(self.slug),
@@ -371,7 +362,6 @@ class JoinChatlistUpdatesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf5\xf8\x89\xe0',
             self.chatlist._bytes(),
@@ -416,7 +406,6 @@ class LeaveChatlistRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b':\xe1\xfat',
             self.chatlist._bytes(),

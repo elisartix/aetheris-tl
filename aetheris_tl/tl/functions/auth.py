@@ -28,7 +28,6 @@ class AcceptLoginTokenRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'M\xad\x94\xe8',
             self.serialize_bytes(self.token),
@@ -63,7 +62,6 @@ class BindTempAuthKeyRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x05*\xd4\xcd',
             struct.pack('<q', self.perm_auth_key_id),
@@ -100,7 +98,6 @@ class CancelCodeRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'x\x05\x04\x1f',
             self.serialize_bytes(self.phone_number),
@@ -112,6 +109,34 @@ class CancelCodeRequest(TLRequest):
         _phone_number = reader.tgread_string()
         _phone_code_hash = reader.tgread_string()
         return cls(phone_number=_phone_number, phone_code_hash=_phone_code_hash)
+
+
+class CancelWebTokenAuthorizationRequest(TLRequest):
+    CONSTRUCTOR_ID = 0x490dada1
+    SUBCLASS_OF_ID = 0xf5b399ac
+
+    def __init__(self, web_auth_token: str):
+        """
+        :returns Bool: This type has no constructors.
+        """
+        self.web_auth_token = web_auth_token
+
+    def to_dict(self):
+        return {
+            '_': 'CancelWebTokenAuthorizationRequest',
+            'web_auth_token': self.web_auth_token
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'\xa1\xad\rI',
+            self.serialize_bytes(self.web_auth_token),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _web_auth_token = reader.tgread_string()
+        return cls(web_auth_token=_web_auth_token)
 
 
 class CheckPaidAuthRequest(TLRequest):
@@ -135,7 +160,6 @@ class CheckPaidAuthRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9c\x9f\xe5V',
             self.serialize_bytes(self.phone_number),
@@ -168,7 +192,6 @@ class CheckPasswordRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x16M\x8b\xd1',
             self.password._bytes(),
@@ -197,7 +220,6 @@ class CheckRecoveryPasswordRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'y\xbf6\r',
             self.serialize_bytes(self.code),
@@ -226,7 +248,6 @@ class DropTempAuthKeysRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x88\xa1H\x8e',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.except_auth_keys)),b''.join(struct.pack('<q', x) for x in self.except_auth_keys),
@@ -260,7 +281,6 @@ class ExportAuthorizationRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xcd\xff\xbf\xe5',
             struct.pack('<i', self.dc_id),
@@ -293,7 +313,6 @@ class ExportLoginTokenRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfe\x85\xe0\xb7',
             struct.pack('<i', self.api_id),
@@ -331,7 +350,6 @@ class FinishFirebasePnvLoginRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'L\t\x85,',
             self.serialize_bytes(self.google_token),
@@ -364,7 +382,6 @@ class FinishPasskeyLoginRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.from_dc_id or self.from_dc_id is not None) and (self.from_auth_key_id or self.from_auth_key_id is not None)) or ((self.from_dc_id is None or self.from_dc_id is False) and (self.from_auth_key_id is None or self.from_auth_key_id is False)), 'from_dc_id, from_auth_key_id parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\x07\xadW\x98',
@@ -411,7 +428,6 @@ class FirebasePnvSignUpRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Vk?x',
             struct.pack('<I', (0 if self.no_joined_notifications is None or self.no_joined_notifications is False else 1)),
@@ -448,7 +464,6 @@ class ImportAuthorizationRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xad}z\xa5',
             struct.pack('<q', self.id),
@@ -485,7 +500,6 @@ class ImportBotAuthorizationRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b',\xff\xa3g',
             struct.pack('<i', self.flags),
@@ -520,7 +534,6 @@ class ImportLoginTokenRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe4\\\xac\x95',
             self.serialize_bytes(self.token),
@@ -553,7 +566,6 @@ class ImportWebTokenAuthorizationRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa9s\xb8-',
             struct.pack('<i', self.api_id),
@@ -570,36 +582,50 @@ class ImportWebTokenAuthorizationRequest(TLRequest):
 
 
 class InitFirebasePnvLoginRequest(TLRequest):
-    CONSTRUCTOR_ID = 0x777df37a
+    CONSTRUCTOR_ID = 0x644f15c0
     SUBCLASS_OF_ID = 0xfa6422a7
 
-    def __init__(self, api_id: int, api_hash: str):
+    def __init__(self, api_id: int, api_hash: str, except_ids: Optional[List[int]]=None):
         """
         :returns auth.FirebasePnvIntent: Instance of FirebasePnvIntent.
         """
         self.api_id = api_id
         self.api_hash = api_hash
+        self.except_ids = except_ids
 
     def to_dict(self):
         return {
             '_': 'InitFirebasePnvLoginRequest',
             'api_id': self.api_id,
-            'api_hash': self.api_hash
+            'api_hash': self.api_hash,
+            'except_ids': [] if self.except_ids is None else self.except_ids[:]
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
-            b'z\xf3}w',
+            b'\xc0\x15Od',
+            struct.pack('<I', (0 if self.except_ids is None or self.except_ids is False else 1)),
+            b'' if self.except_ids is None or self.except_ids is False else b''.join((b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.except_ids)),b''.join(struct.pack('<q', x) for x in self.except_ids))),
             struct.pack('<i', self.api_id),
             self.serialize_bytes(self.api_hash),
         ))
 
     @classmethod
     def from_reader(cls, reader):
+        flags = reader.read_int()
+
+        if flags & 1:
+            reader.read_int()
+            _except_ids = []
+            for _ in range(reader.read_int()):
+                _x = reader.read_long()
+                _except_ids.append(_x)
+
+        else:
+            _except_ids = None
         _api_id = reader.read_int()
         _api_hash = reader.tgread_string()
-        return cls(api_id=_api_id, api_hash=_api_hash)
+        return cls(api_id=_api_id, api_hash=_api_hash, except_ids=_except_ids)
 
 
 class InitPasskeyLoginRequest(TLRequest):
@@ -621,7 +647,6 @@ class InitPasskeyLoginRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb7\xd0\x8aQ',
             struct.pack('<i', self.api_id),
@@ -645,7 +670,6 @@ class LogOutRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x19\xbar>',
         ))
@@ -674,7 +698,6 @@ class RecoverPasswordRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'pl\t7',
             struct.pack('<I', (0 if self.new_settings is None or self.new_settings is False else 1)),
@@ -715,7 +738,6 @@ class ReportMissingCodeRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf6\xef\x9d\xcb',
             self.serialize_bytes(self.phone_number),
@@ -756,7 +778,6 @@ class RequestFirebaseSmsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1e&9\x8e',
             struct.pack('<I', (0 if self.safety_net_token is None or self.safety_net_token is False else 1) | (0 if self.play_integrity_token is None or self.play_integrity_token is False else 4) | (0 if self.ios_push_secret is None or self.ios_push_secret is False else 2)),
@@ -798,7 +819,6 @@ class RequestPasswordRecoveryRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'f\xbc\x97\xd8',
         ))
@@ -829,7 +849,6 @@ class ResendCodeRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'#u\xe4\xca',
             struct.pack('<I', (0 if self.reason is None or self.reason is False else 1)),
@@ -861,7 +880,6 @@ class ResetAuthorizationsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1a\r\xab\x9f',
         ))
@@ -890,7 +908,6 @@ class ResetLoginEmailRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x93\x01\x96~',
             self.serialize_bytes(self.phone_number),
@@ -927,7 +944,6 @@ class SendCodeRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'O$w\xa6',
             self.serialize_bytes(self.phone_number),
@@ -968,7 +984,6 @@ class SignInRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Q\xa9R\x8d',
             struct.pack('<I', (0 if self.phone_code is None or self.phone_code is False else 1) | (0 if self.email_verification is None or self.email_verification is False else 2)),
@@ -1020,7 +1035,6 @@ class SignUpRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x17\xb7\xc7\xaa',
             struct.pack('<I', (0 if self.no_joined_notifications is None or self.no_joined_notifications is False else 1)),

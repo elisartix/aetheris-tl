@@ -36,7 +36,6 @@ class Authorization(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.setup_password_required or self.setup_password_required is not None) and (self.otherwise_relogin_days or self.otherwise_relogin_days is not None)) or ((self.setup_password_required is None or self.setup_password_required is False) and (self.otherwise_relogin_days is None or self.otherwise_relogin_days is False)), 'setup_password_required, otherwise_relogin_days parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'\xd4\xc0\xa2.',
@@ -85,7 +84,6 @@ class AuthorizationSignUpRequired(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9a~tD',
             struct.pack('<I', (0 if self.terms_of_service is None or self.terms_of_service is False else 1)),
@@ -113,7 +111,6 @@ class CodeTypeCall(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe3\xd3\x1ct',
         ))
@@ -133,7 +130,6 @@ class CodeTypeFlashCall(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfb\xcel"',
         ))
@@ -153,7 +149,6 @@ class CodeTypeFragmentSms(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8c\x99\xed\x06',
         ))
@@ -173,7 +168,6 @@ class CodeTypeMissedCall(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xee\xd6\x1a\xd6',
         ))
@@ -193,7 +187,6 @@ class CodeTypeSms(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8c\x15\xa3r',
         ))
@@ -222,7 +215,6 @@ class ExportedAuthorization(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb8\xe24\xb4',
             struct.pack('<q', self.id),
@@ -255,7 +247,6 @@ class FirebasePnvIntent(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x0c\xc0Z\xdf',
             self.serialize_bytes(self.nonce),
@@ -286,7 +277,6 @@ class LoggedOut(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'_\x83\xa2\xc3',
             struct.pack('<I', (0 if self.future_auth_token is None or self.future_auth_token is False else 1)),
@@ -323,7 +313,6 @@ class LoginToken(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x80\x19\x9fb',
             self.serialize_datetime(self.expires),
@@ -356,7 +345,6 @@ class LoginTokenMigrateTo(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x16\x99\x8e\x06',
             struct.pack('<i', self.dc_id),
@@ -387,7 +375,6 @@ class LoginTokenSuccess(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'^\\\r9',
             self.authorization._bytes(),
@@ -416,7 +403,6 @@ class PasskeyLoginOptions(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x89w\x03\xe2',
             self.options._bytes(),
@@ -445,7 +431,6 @@ class PasswordRecovery(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa5Hy\x13',
             self.serialize_bytes(self.email_pattern),
@@ -480,7 +465,6 @@ class SentCode(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x02%\x00^',
             struct.pack('<I', (0 if self.next_type is None or self.next_type is False else 2) | (0 if self.timeout is None or self.timeout is False else 4)),
@@ -536,7 +520,6 @@ class SentCodePaymentRequired(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbf~\x82\xf8',
             self.serialize_bytes(self.store_product),
@@ -577,7 +560,6 @@ class SentCodeSuccess(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'D\xfe\x90#',
             self.authorization._bytes(),
@@ -606,7 +588,6 @@ class SentCodeTypeApp(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x86Y\xbb=',
             struct.pack('<i', self.length),
@@ -635,7 +616,6 @@ class SentCodeTypeCall(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa7\xe5SS',
             struct.pack('<i', self.length),
@@ -674,7 +654,6 @@ class SentCodeTypeEmailCode(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x9b\xf5P\xf4',
             struct.pack('<I', (0 if self.apple_signin_allowed is None or self.apple_signin_allowed is False else 1) | (0 if self.google_signin_allowed is None or self.google_signin_allowed is False else 2) | (0 if self.reset_available_period is None or self.reset_available_period is False else 8) | (0 if self.reset_pending_date is None or self.reset_pending_date is False else 16)),
@@ -730,7 +709,6 @@ class SentCodeTypeFirebaseSms(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.play_integrity_project_id or self.play_integrity_project_id is not None) and (self.play_integrity_nonce or self.play_integrity_nonce is not None)) or ((self.play_integrity_project_id is None or self.play_integrity_project_id is False) and (self.play_integrity_nonce is None or self.play_integrity_nonce is False)), 'play_integrity_project_id, play_integrity_nonce parameters must all be False-y (like None) or all me True-y'
         assert ((self.receipt or self.receipt is not None) and (self.push_timeout or self.push_timeout is not None)) or ((self.receipt is None or self.receipt is False) and (self.push_timeout is None or self.push_timeout is False)), 'receipt, push_timeout parameters must all be False-y (like None) or all me True-y'
         return b''.join((
@@ -789,7 +767,6 @@ class SentCodeTypeFlashCall(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd9\xc6\x03\xab',
             self.serialize_bytes(self.pattern),
@@ -820,7 +797,6 @@ class SentCodeTypeFragmentSms(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'9\\V\xd9',
             self.serialize_bytes(self.url),
@@ -853,7 +829,6 @@ class SentCodeTypeMissedCall(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x84d\x00\x82',
             self.serialize_bytes(self.prefix),
@@ -886,7 +861,6 @@ class SentCodeTypeSetUpEmailRequired(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xea\x1dI\xa5',
             struct.pack('<I', (0 if self.apple_signin_allowed is None or self.apple_signin_allowed is False else 1) | (0 if self.google_signin_allowed is None or self.google_signin_allowed is False else 2)),
@@ -918,7 +892,6 @@ class SentCodeTypeSms(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa2\xbb\x00\xc0',
             struct.pack('<i', self.length),
@@ -947,7 +920,6 @@ class SentCodeTypeSmsPhrase(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xaf\x94w\xb3',
             struct.pack('<I', (0 if self.beginning is None or self.beginning is False else 1)),
@@ -982,7 +954,6 @@ class SentCodeTypeSmsWord(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x81\xac\x16\xa4',
             struct.pack('<I', (0 if self.beginning is None or self.beginning is False else 1)),

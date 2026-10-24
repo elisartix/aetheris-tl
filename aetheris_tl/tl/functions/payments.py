@@ -27,7 +27,6 @@ class ApplyGiftCodeRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Th\xe2\xf6',
             self.serialize_bytes(self.slug),
@@ -58,7 +57,6 @@ class AssignAppStoreTransactionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'}t\xed\x80',
             self.serialize_bytes(self.receipt),
@@ -91,7 +89,6 @@ class AssignPlayMarketTransactionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd3P\xfd\xdf',
             self.receipt._bytes(),
@@ -129,7 +126,6 @@ class BotCancelStarsSubscriptionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'"\x06\xfam',
             struct.pack('<I', (0 if self.restore is None or self.restore is False else 1)),
@@ -164,7 +160,6 @@ class CanPurchaseStoreRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa7^\xdcO',
             self.purpose._bytes(),
@@ -200,7 +195,6 @@ class ChangeStarsSubscriptionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'x\x08w\xc7',
             struct.pack('<I', (0 if self.canceled is None else 1)),
@@ -239,7 +233,6 @@ class CheckCanSendGiftRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc9\xed\xc4\xc0',
             struct.pack('<q', self.gift_id),
@@ -268,7 +261,6 @@ class CheckGiftCodeRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc1\xb4Q\x8e',
             self.serialize_bytes(self.slug),
@@ -299,7 +291,6 @@ class ClearSavedInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc1p=\xd8',
             struct.pack('<I', (0 if self.credentials is None or self.credentials is False else 1) | (0 if self.info is None or self.info is False else 2)),
@@ -337,7 +328,6 @@ class ConnectStarRefBotRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8a4\xd5~',
             self.peer._bytes(),
@@ -368,7 +358,6 @@ class ConvertStarGiftRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'k\x07\xbft',
             self.stargift._bytes(),
@@ -397,7 +386,6 @@ class CraftStarGiftRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Oh\xf9\xb0',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.stargift)),b''.join(x._bytes() for x in self.stargift),
@@ -412,6 +400,101 @@ class CraftStarGiftRequest(TLRequest):
             _stargift.append(_x)
 
         return cls(stargift=_stargift)
+
+
+class CreateOnrampSessionRequest(TLRequest):
+    CONSTRUCTOR_ID = 0xa2197cf6
+    SUBCLASS_OF_ID = 0x4f68fd23
+
+    def __init__(self, provider: str, crypto_currency: str, address: str, payment_method: Optional[str]=None, base_currency: Optional[str]=None, base_amount: Optional[str]=None, memo: Optional[str]=None, theme: Optional[str]=None, success_return_url: Optional[str]=None, fail_return_url: Optional[str]=None, crypto_amount: Optional[str]=None):
+        """
+        :returns OnrampSession: Instance of OnrampSession.
+        """
+        self.provider = provider
+        self.crypto_currency = crypto_currency
+        self.address = address
+        self.payment_method = payment_method
+        self.base_currency = base_currency
+        self.base_amount = base_amount
+        self.memo = memo
+        self.theme = theme
+        self.success_return_url = success_return_url
+        self.fail_return_url = fail_return_url
+        self.crypto_amount = crypto_amount
+
+    def to_dict(self):
+        return {
+            '_': 'CreateOnrampSessionRequest',
+            'provider': self.provider,
+            'crypto_currency': self.crypto_currency,
+            'address': self.address,
+            'payment_method': self.payment_method,
+            'base_currency': self.base_currency,
+            'base_amount': self.base_amount,
+            'memo': self.memo,
+            'theme': self.theme,
+            'success_return_url': self.success_return_url,
+            'fail_return_url': self.fail_return_url,
+            'crypto_amount': self.crypto_amount
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'\xf6|\x19\xa2',
+            struct.pack('<I', (0 if self.payment_method is None or self.payment_method is False else 1) | (0 if self.base_currency is None or self.base_currency is False else 2) | (0 if self.base_amount is None or self.base_amount is False else 4) | (0 if self.memo is None or self.memo is False else 8) | (0 if self.theme is None or self.theme is False else 16) | (0 if self.success_return_url is None or self.success_return_url is False else 32) | (0 if self.fail_return_url is None or self.fail_return_url is False else 64) | (0 if self.crypto_amount is None or self.crypto_amount is False else 128)),
+            self.serialize_bytes(self.provider),
+            self.serialize_bytes(self.crypto_currency),
+            self.serialize_bytes(self.address),
+            b'' if self.payment_method is None or self.payment_method is False else (self.serialize_bytes(self.payment_method)),
+            b'' if self.base_currency is None or self.base_currency is False else (self.serialize_bytes(self.base_currency)),
+            b'' if self.base_amount is None or self.base_amount is False else (self.serialize_bytes(self.base_amount)),
+            b'' if self.memo is None or self.memo is False else (self.serialize_bytes(self.memo)),
+            b'' if self.theme is None or self.theme is False else (self.serialize_bytes(self.theme)),
+            b'' if self.success_return_url is None or self.success_return_url is False else (self.serialize_bytes(self.success_return_url)),
+            b'' if self.fail_return_url is None or self.fail_return_url is False else (self.serialize_bytes(self.fail_return_url)),
+            b'' if self.crypto_amount is None or self.crypto_amount is False else (self.serialize_bytes(self.crypto_amount)),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        flags = reader.read_int()
+
+        _provider = reader.tgread_string()
+        _crypto_currency = reader.tgread_string()
+        _address = reader.tgread_string()
+        if flags & 1:
+            _payment_method = reader.tgread_string()
+        else:
+            _payment_method = None
+        if flags & 2:
+            _base_currency = reader.tgread_string()
+        else:
+            _base_currency = None
+        if flags & 4:
+            _base_amount = reader.tgread_string()
+        else:
+            _base_amount = None
+        if flags & 8:
+            _memo = reader.tgread_string()
+        else:
+            _memo = None
+        if flags & 16:
+            _theme = reader.tgread_string()
+        else:
+            _theme = None
+        if flags & 32:
+            _success_return_url = reader.tgread_string()
+        else:
+            _success_return_url = None
+        if flags & 64:
+            _fail_return_url = reader.tgread_string()
+        else:
+            _fail_return_url = None
+        if flags & 128:
+            _crypto_amount = reader.tgread_string()
+        else:
+            _crypto_amount = None
+        return cls(provider=_provider, crypto_currency=_crypto_currency, address=_address, payment_method=_payment_method, base_currency=_base_currency, base_amount=_base_amount, memo=_memo, theme=_theme, success_return_url=_success_return_url, fail_return_url=_fail_return_url, crypto_amount=_crypto_amount)
 
 
 class CreateStarGiftCollectionRequest(TLRequest):
@@ -438,7 +521,6 @@ class CreateStarGiftCollectionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x87\x0eJ\x1f',
             self.peer._bytes(),
@@ -481,7 +563,6 @@ class DeleteStarGiftCollectionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe8HV\xad',
             self.peer._bytes(),
@@ -519,7 +600,6 @@ class EditConnectedStarRefBotRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa3\xa4\xfc\xe4',
             struct.pack('<I', (0 if self.revoked is None or self.revoked is False else 1)),
@@ -557,7 +637,6 @@ class ExportInvoiceRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'e\xb0\x91\x0f',
             self.invoice_media._bytes(),
@@ -591,7 +670,6 @@ class FulfillStarsSubscriptionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb3\xeb[\xcc',
             self.peer._bytes(),
@@ -622,7 +700,6 @@ class GetBankCardDataRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'y\xd7y.',
             self.serialize_bytes(self.number),
@@ -657,7 +734,6 @@ class GetConnectedStarRefBotRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf0\x98\xd9\xb7',
             self.peer._bytes(),
@@ -697,7 +773,6 @@ class GetConnectedStarRefBotsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         assert ((self.offset_date or self.offset_date is not None) and (self.offset_link or self.offset_link is not None)) or ((self.offset_date is None or self.offset_date is False) and (self.offset_link is None or self.offset_link is False)), 'offset_date, offset_link parameters must all be False-y (like None) or all me True-y'
         return b''.join((
             b'S\xa5iX',
@@ -746,7 +821,6 @@ class GetCraftStarGiftsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x00\xdd\x05\xfd',
             struct.pack('<q', self.gift_id),
@@ -760,6 +834,25 @@ class GetCraftStarGiftsRequest(TLRequest):
         _offset = reader.tgread_string()
         _limit = reader.read_int()
         return cls(gift_id=_gift_id, offset=_offset, limit=_limit)
+
+
+class GetCurrencyRatesRequest(TLRequest):
+    CONSTRUCTOR_ID = 0xd35983e8
+    SUBCLASS_OF_ID = 0x11d1c3c1
+
+    def to_dict(self):
+        return {
+            '_': 'GetCurrencyRatesRequest'
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'\xe8\x83Y\xd3',
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        return cls()
 
 
 class GetGiveawayInfoRequest(TLRequest):
@@ -784,7 +877,6 @@ class GetGiveawayInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'%\x94#\xf4',
             self.peer._bytes(),
@@ -796,6 +888,220 @@ class GetGiveawayInfoRequest(TLRequest):
         _peer = reader.tgread_object()
         _msg_id = reader.read_int()
         return cls(peer=_peer, msg_id=_msg_id)
+
+
+class GetOnrampAvailabilityRequest(TLRequest):
+    CONSTRUCTOR_ID = 0x2ec29951
+    SUBCLASS_OF_ID = 0x67ab8072
+
+    def __init__(self, provider: str, crypto_currency: str, base_currency: Optional[str]=None):
+        """
+        :returns OnrampAvailability: Instance of OnrampAvailability.
+        """
+        self.provider = provider
+        self.crypto_currency = crypto_currency
+        self.base_currency = base_currency
+
+    def to_dict(self):
+        return {
+            '_': 'GetOnrampAvailabilityRequest',
+            'provider': self.provider,
+            'crypto_currency': self.crypto_currency,
+            'base_currency': self.base_currency
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'Q\x99\xc2.',
+            struct.pack('<I', (0 if self.base_currency is None or self.base_currency is False else 1)),
+            self.serialize_bytes(self.provider),
+            self.serialize_bytes(self.crypto_currency),
+            b'' if self.base_currency is None or self.base_currency is False else (self.serialize_bytes(self.base_currency)),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        flags = reader.read_int()
+
+        _provider = reader.tgread_string()
+        _crypto_currency = reader.tgread_string()
+        if flags & 1:
+            _base_currency = reader.tgread_string()
+        else:
+            _base_currency = None
+        return cls(provider=_provider, crypto_currency=_crypto_currency, base_currency=_base_currency)
+
+
+class GetOnrampBaseCurrenciesRequest(TLRequest):
+    CONSTRUCTOR_ID = 0x1c8bedf3
+    SUBCLASS_OF_ID = 0x1d97512
+
+    def __init__(self, provider: str, crypto_currency: str):
+        """
+        :returns Vector<string>: This type has no constructors.
+        """
+        self.provider = provider
+        self.crypto_currency = crypto_currency
+
+    def to_dict(self):
+        return {
+            '_': 'GetOnrampBaseCurrenciesRequest',
+            'provider': self.provider,
+            'crypto_currency': self.crypto_currency
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'\xf3\xed\x8b\x1c',
+            self.serialize_bytes(self.provider),
+            self.serialize_bytes(self.crypto_currency),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        _provider = reader.tgread_string()
+        _crypto_currency = reader.tgread_string()
+        return cls(provider=_provider, crypto_currency=_crypto_currency)
+
+
+class GetOnrampLimitsRequest(TLRequest):
+    CONSTRUCTOR_ID = 0x80e851fd
+    SUBCLASS_OF_ID = 0xc50f6afd
+
+    def __init__(self, provider: str, crypto_currency: str, base_currency: str, payment_method: Optional[str]=None):
+        """
+        :returns OnrampLimits: Instance of OnrampLimits.
+        """
+        self.provider = provider
+        self.crypto_currency = crypto_currency
+        self.base_currency = base_currency
+        self.payment_method = payment_method
+
+    def to_dict(self):
+        return {
+            '_': 'GetOnrampLimitsRequest',
+            'provider': self.provider,
+            'crypto_currency': self.crypto_currency,
+            'base_currency': self.base_currency,
+            'payment_method': self.payment_method
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'\xfdQ\xe8\x80',
+            struct.pack('<I', (0 if self.payment_method is None or self.payment_method is False else 1)),
+            self.serialize_bytes(self.provider),
+            self.serialize_bytes(self.crypto_currency),
+            self.serialize_bytes(self.base_currency),
+            b'' if self.payment_method is None or self.payment_method is False else (self.serialize_bytes(self.payment_method)),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        flags = reader.read_int()
+
+        _provider = reader.tgread_string()
+        _crypto_currency = reader.tgread_string()
+        _base_currency = reader.tgread_string()
+        if flags & 1:
+            _payment_method = reader.tgread_string()
+        else:
+            _payment_method = None
+        return cls(provider=_provider, crypto_currency=_crypto_currency, base_currency=_base_currency, payment_method=_payment_method)
+
+
+class GetOnrampProvidersRequest(TLRequest):
+    CONSTRUCTOR_ID = 0x3f3e00dc
+    SUBCLASS_OF_ID = 0xf69a33c2
+
+    def __init__(self, crypto_currency: Optional[str]=None):
+        """
+        :returns Vector<OnrampProviderInfo>: This type has no constructors.
+        """
+        self.crypto_currency = crypto_currency
+
+    def to_dict(self):
+        return {
+            '_': 'GetOnrampProvidersRequest',
+            'crypto_currency': self.crypto_currency
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'\xdc\x00>?',
+            struct.pack('<I', (0 if self.crypto_currency is None or self.crypto_currency is False else 1)),
+            b'' if self.crypto_currency is None or self.crypto_currency is False else (self.serialize_bytes(self.crypto_currency)),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        flags = reader.read_int()
+
+        if flags & 1:
+            _crypto_currency = reader.tgread_string()
+        else:
+            _crypto_currency = None
+        return cls(crypto_currency=_crypto_currency)
+
+
+class GetOnrampQuoteRequest(TLRequest):
+    CONSTRUCTOR_ID = 0xe06645fa
+    SUBCLASS_OF_ID = 0xaedc1079
+
+    def __init__(self, provider: str, crypto_currency: str, base_currency: str, base_amount: Optional[str]=None, crypto_amount: Optional[str]=None, payment_method: Optional[str]=None):
+        """
+        :returns OnrampQuote: Instance of OnrampQuote.
+        """
+        self.provider = provider
+        self.crypto_currency = crypto_currency
+        self.base_currency = base_currency
+        self.base_amount = base_amount
+        self.crypto_amount = crypto_amount
+        self.payment_method = payment_method
+
+    def to_dict(self):
+        return {
+            '_': 'GetOnrampQuoteRequest',
+            'provider': self.provider,
+            'crypto_currency': self.crypto_currency,
+            'base_currency': self.base_currency,
+            'base_amount': self.base_amount,
+            'crypto_amount': self.crypto_amount,
+            'payment_method': self.payment_method
+        }
+
+    def _bytes(self):
+        return b''.join((
+            b'\xfaEf\xe0',
+            struct.pack('<I', (0 if self.base_amount is None or self.base_amount is False else 1) | (0 if self.crypto_amount is None or self.crypto_amount is False else 2) | (0 if self.payment_method is None or self.payment_method is False else 4)),
+            self.serialize_bytes(self.provider),
+            self.serialize_bytes(self.crypto_currency),
+            self.serialize_bytes(self.base_currency),
+            b'' if self.base_amount is None or self.base_amount is False else (self.serialize_bytes(self.base_amount)),
+            b'' if self.crypto_amount is None or self.crypto_amount is False else (self.serialize_bytes(self.crypto_amount)),
+            b'' if self.payment_method is None or self.payment_method is False else (self.serialize_bytes(self.payment_method)),
+        ))
+
+    @classmethod
+    def from_reader(cls, reader):
+        flags = reader.read_int()
+
+        _provider = reader.tgread_string()
+        _crypto_currency = reader.tgread_string()
+        _base_currency = reader.tgread_string()
+        if flags & 1:
+            _base_amount = reader.tgread_string()
+        else:
+            _base_amount = None
+        if flags & 2:
+            _crypto_amount = reader.tgread_string()
+        else:
+            _crypto_amount = None
+        if flags & 4:
+            _payment_method = reader.tgread_string()
+        else:
+            _payment_method = None
+        return cls(provider=_provider, crypto_currency=_crypto_currency, base_currency=_base_currency, base_amount=_base_amount, crypto_amount=_crypto_amount, payment_method=_payment_method)
 
 
 class GetPaymentFormRequest(TLRequest):
@@ -817,7 +1123,6 @@ class GetPaymentFormRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbb\x8d\x147',
             struct.pack('<I', (0 if self.theme_params is None or self.theme_params is False else 1)),
@@ -859,7 +1164,6 @@ class GetPaymentReceiptRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xcc\xd1x$',
             self.peer._bytes(),
@@ -894,7 +1198,6 @@ class GetPremiumGiftCodeOptionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b"T\xbaW'",
             struct.pack('<I', (0 if self.boost_peer is None or self.boost_peer is False else 1)),
@@ -945,7 +1248,6 @@ class GetResaleStarGiftsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'6\xa2_z',
             struct.pack('<I', (0 if self.sort_by_price is None or self.sort_by_price is False else 2) | (0 if self.sort_by_num is None or self.sort_by_num is False else 4) | (0 if self.for_craft is None or self.for_craft is False else 16) | (0 if self.stars_only is None or self.stars_only is False else 32) | (0 if self.attributes_hash is None or self.attributes_hash is False else 1) | (0 if self.attributes is None or self.attributes is False else 8)),
@@ -993,7 +1295,6 @@ class GetSavedInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'K\x82}"',
         ))
@@ -1020,7 +1321,6 @@ class GetSavedStarGiftRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x06\xa1U\xb4',
             b'\x15\xc4\xb5\x1c',struct.pack('<i', len(self.stargift)),b''.join(x._bytes() for x in self.stargift),
@@ -1081,7 +1381,6 @@ class GetSavedStarGiftsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'i\xe5\x19\xa3',
             struct.pack('<I', (0 if self.exclude_unsaved is None or self.exclude_unsaved is False else 1) | (0 if self.exclude_saved is None or self.exclude_saved is False else 2) | (0 if self.exclude_unlimited is None or self.exclude_unlimited is False else 4) | (0 if self.exclude_unique is None or self.exclude_unique is False else 16) | (0 if self.sort_by_value is None or self.sort_by_value is False else 32) | (0 if self.exclude_upgradable is None or self.exclude_upgradable is False else 128) | (0 if self.exclude_unupgradable is None or self.exclude_unupgradable is False else 256) | (0 if self.peer_color_available is None or self.peer_color_available is False else 512) | (0 if self.exclude_hosted is None or self.exclude_hosted is False else 1024) | (0 if self.collection_id is None or self.collection_id is False else 64)),
@@ -1131,7 +1430,6 @@ class GetStarGiftActiveAuctionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'MQ\xd0\xa5',
             struct.pack('<q', self.hash),
@@ -1160,7 +1458,6 @@ class GetStarGiftAuctionAcquiredGiftsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xec\xcb\xa2k',
             struct.pack('<q', self.gift_id),
@@ -1191,7 +1488,6 @@ class GetStarGiftAuctionStateRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd6\xf4\x9f\\',
             self.auction._bytes(),
@@ -1227,7 +1523,6 @@ class GetStarGiftCollectionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xdd\x91\x1b\x98',
             self.peer._bytes(),
@@ -1258,7 +1553,6 @@ class GetStarGiftUpgradeAttributesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'X\x8b\x03m',
             struct.pack('<q', self.gift_id),
@@ -1287,7 +1581,6 @@ class GetStarGiftUpgradePreviewRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb1\xbc\x9a\x9c',
             struct.pack('<q', self.gift_id),
@@ -1318,7 +1611,6 @@ class GetStarGiftWithdrawalUrlRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa8\x93n\xd0',
             self.stargift._bytes(),
@@ -1349,7 +1641,6 @@ class GetStarGiftsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x905V\xc4',
             struct.pack('<i', self.hash),
@@ -1382,7 +1673,6 @@ class GetStarsGiftOptionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc8k\xc9\xd3',
             struct.pack('<I', (0 if self.user_id is None or self.user_id is False else 1)),
@@ -1410,7 +1700,6 @@ class GetStarsGiveawayOptionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'>\xfd\x1e\xbd',
         ))
@@ -1440,7 +1729,6 @@ class GetStarsRevenueAdsAccountUrlRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc5\xef\xd7\xd1',
             self.peer._bytes(),
@@ -1476,7 +1764,6 @@ class GetStarsRevenueStatsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd6\xfa\x1f\xd9',
             struct.pack('<I', (0 if self.dark is None or self.dark is False else 1) | (0 if self.ton is None or self.ton is False else 2)),
@@ -1519,7 +1806,6 @@ class GetStarsRevenueWithdrawalUrlRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x92\xdc3$',
             struct.pack('<I', (0 if self.ton is None or self.ton is False else 1) | (0 if self.amount is None or self.amount is False else 2)),
@@ -1564,7 +1850,6 @@ class GetStarsStatusRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbf\xb3\xa9N',
             struct.pack('<I', (0 if self.ton is None or self.ton is False else 1)),
@@ -1604,7 +1889,6 @@ class GetStarsSubscriptionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xc5\x12%\x03',
             struct.pack('<I', (0 if self.missing_balance is None or self.missing_balance is False else 1)),
@@ -1632,7 +1916,6 @@ class GetStarsTopupOptionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xd3\xc7\x0e\xc0',
         ))
@@ -1676,7 +1959,6 @@ class GetStarsTransactionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'WE\xdai',
             struct.pack('<I', (0 if self.inbound is None or self.inbound is False else 1) | (0 if self.outbound is None or self.outbound is False else 2) | (0 if self.ascending is None or self.ascending is False else 4) | (0 if self.ton is None or self.ton is False else 16) | (0 if self.subscription_id is None or self.subscription_id is False else 8)),
@@ -1728,7 +2010,6 @@ class GetStarsTransactionsByIDRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb8\x16\xca-',
             struct.pack('<I', (0 if self.ton is None or self.ton is False else 1)),
@@ -1779,7 +2060,6 @@ class GetSuggestedStarRefBotsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf7Hk\r',
             struct.pack('<I', (0 if self.order_by_revenue is None or self.order_by_revenue is False else 1) | (0 if self.order_by_date is None or self.order_by_date is False else 2)),
@@ -1817,7 +2097,6 @@ class GetUniqueStarGiftRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'rM\x97\xa1',
             self.serialize_bytes(self.slug),
@@ -1846,7 +2125,6 @@ class GetUniqueStarGiftValueInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'k\xafeC',
             self.serialize_bytes(self.slug),
@@ -1882,7 +2160,6 @@ class LaunchPrepaidGiveawayRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b' \x8f\xf5_',
             self.peer._bytes(),
@@ -1920,7 +2197,6 @@ class RefundStarsChargeRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'J\x8f\xae%',
             self.user_id._bytes(),
@@ -1956,7 +2232,6 @@ class ReorderStarGiftCollectionsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xcc\xf4*\xc3',
             self.peer._bytes(),
@@ -1994,7 +2269,6 @@ class ResolveStarGiftOfferRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x1cx\xce\xe9',
             struct.pack('<I', (0 if self.decline is None or self.decline is False else 1)),
@@ -2029,7 +2303,6 @@ class SaveStarGiftRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'|i**',
             struct.pack('<I', (0 if self.unsave is None or self.unsave is False else 1)),
@@ -2072,7 +2345,6 @@ class SendPaymentFormRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'/R\x03-',
             struct.pack('<I', (0 if self.requested_info_id is None or self.requested_info_id is False else 1) | (0 if self.shipping_option_id is None or self.shipping_option_id is False else 2) | (0 if self.tip_amount is None or self.tip_amount is False else 4)),
@@ -2136,7 +2408,6 @@ class SendStarGiftOfferRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'Ak\xb8\x8f',
             struct.pack('<I', (0 if self.allow_paid_stars is None or self.allow_paid_stars is False else 1)),
@@ -2183,7 +2454,6 @@ class SendStarsFormRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x14\xc9\x98y',
             struct.pack('<q', self.form_id),
@@ -2219,7 +2489,6 @@ class ToggleChatStarGiftNotificationsRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xa1\xef\xea`',
             struct.pack('<I', (0 if self.enabled is None or self.enabled is False else 1)),
@@ -2257,7 +2526,6 @@ class ToggleStarGiftsPinnedToTopRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xb0\xe7\x13\x15',
             self.peer._bytes(),
@@ -2298,7 +2566,6 @@ class TransferStarGiftRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'j\x17\x18\x7f',
             self.stargift._bytes(),
@@ -2342,7 +2609,6 @@ class UpdateStarGiftCollectionRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xe7\xbe\xddO',
             struct.pack('<I', (0 if self.title is None or self.title is False else 1) | (0 if self.delete_stargift is None or self.delete_stargift is False else 2) | (0 if self.add_stargift is None or self.add_stargift is False else 4) | (0 if self.order is None or self.order is False else 8)),
@@ -2413,7 +2679,6 @@ class UpdateStarGiftPriceRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xcbl\xbe\xed',
             self.stargift._bytes(),
@@ -2446,7 +2711,6 @@ class UpgradeStarGiftRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xf5\xe4\xd6\xae',
             struct.pack('<I', (0 if self.keep_original_details is None or self.keep_original_details is False else 1)),
@@ -2483,7 +2747,6 @@ class ValidateRequestedInfoRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'+\xf1\xc8\xb6',
             struct.pack('<I', (0 if self.save is None or self.save is False else 1)),

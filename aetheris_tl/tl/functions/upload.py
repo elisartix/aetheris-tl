@@ -31,7 +31,6 @@ class GetCdnFileRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xdai_9',
             self.serialize_bytes(self.file_token),
@@ -66,7 +65,6 @@ class GetCdnFileHashesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'1?\xdc\x91',
             self.serialize_bytes(self.file_token),
@@ -105,7 +103,6 @@ class GetFileRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xbe5S\xbe',
             struct.pack('<I', (0 if self.precise is None or self.precise is False else 1) | (0 if self.cdn_supported is None or self.cdn_supported is False else 2)),
@@ -145,7 +142,6 @@ class GetFileHashesRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'*\x98V\x91',
             self.location._bytes(),
@@ -180,7 +176,6 @@ class GetWebFileRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x8d\x81\xe6$',
             self.location._bytes(),
@@ -215,7 +210,6 @@ class ReuploadCdnFileRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b"\xa8T'\x9b",
             self.serialize_bytes(self.file_token),
@@ -252,7 +246,6 @@ class SaveBigFilePartRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'=g{\xde',
             struct.pack('<q', self.file_id),
@@ -291,7 +284,6 @@ class SaveFilePartRequest(TLRequest):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'!\xa6\x04\xb3',
             struct.pack('<q', self.file_id),

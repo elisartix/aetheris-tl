@@ -30,7 +30,6 @@ class Tones(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\xfe\x0e\x9dl',
             struct.pack('<q', self.hash),
@@ -66,7 +65,6 @@ class TonesNotModified(TLObject):
         }
 
     def _bytes(self):
-        self._assert_no_forbidden_constructors()
         return b''.join((
             b'\x03a\xf4\xc1',
         ))
